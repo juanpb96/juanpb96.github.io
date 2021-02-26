@@ -2,11 +2,95 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Juan Bonilla | Desarrollador Front-end</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="./fontawesome/all.min.css">
+    <script src="./fontawesome/all.min.js" async></script>
 </head>
 <body>
-    <h1>¡Hola! Soy Juan.</h1>
+    <header>
+        <nav>
+            <div id="logo">
+                <a href="./index.html">JB</a>
+            </div>
+            <ul>
+                <li><a href="#proyects">Proyectos</a></li>
+                <li><a href="#skills">Habilidades</a></li>
+                <li><a href="#contact">Contactame</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="banner">
+            <h1>Hola, soy Juan.</h1>
+            <h2>Desarrollador Front-end junior</h2>
+            <p>Me interesa el mundo del desarrollo front-end, quiero participar en proyectos ambiciosos, ayudar a la gente y ¡aprender cada vez más!</p>
+            <a class="btn-contact" href="#contact">Contáctame</a>
+        </section>
+
+        <section id="proyects">
+            <h2 class="section-subtitle">Mis Proyectos</h2>
+            <p>Aquí encontraras mis proyectos más recientes.</p>
+            <div class="proyect"></div>
+            <div class="proyect"></div>
+            <div class="proyect"></div>
+        </section>
+
+        <section id="skills">
+            <h2 class="section-subtitle">Mis Habilidades</h2>
+            <div class="skill html">
+                <img src="./images/html5-with-wordmark-color.svg" alt="Logo de lenguaje de marcado de hiper texto o HTML versión 5.">
+                <i class="fab fa-html5"></i>
+                <p>HTML 5</p>
+            </div>
+            <div class="skill css">
+                <img src="" alt="Logo de hojas de estilo en cascada o  CSS versión 3.">
+                <i class="fab fa-css3"></i>
+                <p>CSS 3</p>
+            </div>
+            <div class="skill js">
+                <img src="" alt="Logo del lenguaje de programación JavaScript.">
+                <i class="fab fa-js"></i>
+                <p>JavaScript</p>
+            </div>
+        </section>
+
+        <section id="contact">
+            <h2 class="section-subtitle">Contáctame</h2>
+            <div class="motivate">
+                <p>Estoy interesado en participar en nuevos retos.</p>
+                <p><strong>¿Tienes un proyecto en mente?</strong> No dudes en comunicarte conmigo.</p>
+            </div>
+            <div class="social-media">
+                <div class="btn btn-gmail">
+                    <a href="mailto:juanpb.96@gmail.com">
+                        <i class="fas fa-envelope"></i>
+                        <span>JUANPB.96@GMAIL.COM</span>
+                    </a>
+                </div>
+                <div class="btn btn-linkedin">
+                    <a href="https://www.linkedin.com/in/juan-pablo-bonilla-6b8730115/">
+                        <i class="fab fa-linkedin"></i>
+                        <span>Linked In</span>
+                    </a>
+                </div>
+                <div class="btn btn-github">
+                    <a href="https://github.com/juanpb96">
+                        <i class="fab fa-github"></i>
+                        <span>GitHub</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>   
+
+        <div id="copy">
+            <p><span id="year"></span>Juan Bonilla</p>
+        </div>
+    </footer>
 </body>
 </html>
