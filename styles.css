@@ -37,6 +37,8 @@
 
 /* Universal styles*/
 * {
+    margin: 0;
+    padding: 0;
     box-sizing: border-box;
 }
 
@@ -62,20 +64,25 @@ h1 {
     font-weight: 800;
     font-size: 54px;
     text-align: center;
+    padding: 30px 0;
 }
 
 h2 {
     font-weight: 500;
+    font-size: 30px;
     text-align: center;
+    padding: 25px 0;
 }
 
 p {
     font-family: 'Titillium Web';
+    font-size: 18px;
 }
 
 /*Header*/
 header {
     width: 100%;
+    padding: 10px;
 }
 
 nav {
@@ -122,13 +129,19 @@ nav ul li > a:hover {
 }
 
 /* Main */
-main {
-    width: 80%;
-    margin: auto;
+section {
+    padding: 100px 0;
 }
 
 #banner {
-    padding: 100px 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#banner p {
+    width: 50%;
 }
 
 #banner .btn-contact {
@@ -153,12 +166,119 @@ main {
     padding: 18px 55px;
 }
 
+#proyects, #skills {
+    color: #163D57;
+    background-color: #EBF4FA;
+}
+
+#proyects {
+    height: 100vh;
+    background-image: url('images/under-construction.svg');
+    background-repeat: no-repeat;
+    background-position-x: 45%;
+    background-position-y: bottom;
+    background-size: 35%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#skills {
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.skills {
+    width: 80%;
+    margin: auto;
+    padding: 20px 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.skill {
+    width: 33%;
+    text-align: center;
+}
+
+.skill .fa-html5,
+.skill .fa-css3,
+.skill .fa-js {
+    display: inline-block;
+    font-size: 85px;
+    margin-bottom: 20px;
+}
+
+.skill .fa-html5 {
+    color: #fc490b;
+}
+
+.skill .fa-css3 {
+    color: #2965f1;
+}
+
+.skill .fa-js {
+    color: #e6c700;
+}
+
+#contact .container {
+    width: 70%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    padding: 50px 0;
+}
+
+.motivate, .social-media {
+    width: 40%;
+}
+
+.btn p {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.btn .fa-linkedin,
+.btn .fa-github {
+    font-size: 18px;
+    margin-right: 2px;
+}
+
+.btn a {
+    display: inline-block;
+    width: 150px;
+    margin-bottom: 5px;
+    padding: 10px 0 10px 30px;
+    border: 1px solid #164249;
+    color: inherit;
+    transition: background-color 0.2s ease-in;
+}
+
+.btn a:hover {
+    background-color: transparent;
+}
+
+.btn-linkedin a {
+    background-color: #0077b5;
+}
+
+.btn-github a {
+    background-color: #4f4f4f;
+}
+
+
+
 /* Footer */
 footer {
-    height: 60px;
+    background-color: #16336E;
 }
 
 #copy {
-    display: flex;
-    justify-content: center;
+    padding: 35px 0;
+    text-align: center;
 }
