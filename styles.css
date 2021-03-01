@@ -42,6 +42,10 @@
     box-sizing: border-box;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     background-color: #163D57;
     color: #EBF4FA;
@@ -312,6 +316,14 @@ section {
     }
 }
 
+#contact {
+    background-image: url('images/working-from-anywhere.svg');
+    background-repeat: no-repeat;
+    background-position-x: right;
+    background-position-y: bottom;
+    background-size: 50%;
+}
+
 #contact .container {
     width: 70%;
     margin: 0 auto;
@@ -374,6 +386,10 @@ section {
 }
 
 @media only screen and (max-width: 750px) {
+    #contact {
+        background-size: 70%;
+    }
+
     #contact .container {
         flex-direction: column;
     }
@@ -391,6 +407,13 @@ section {
         flex-direction: row;
         justify-content: space-evenly;
         flex-wrap: wrap;
+    }
+}
+
+@media only screen and (max-width: 430px) {
+    #contact {
+        background-size: 80%;
+        background-position-x: 20%;
     }
 }
 
