@@ -76,7 +76,7 @@ h2 {
 
 p {
     font-family: 'Titillium Web';
-    font-size: 18px;
+    font-size: 20px;
 }
 
 /*Header*/
@@ -128,6 +128,26 @@ nav ul li > a:hover {
     transition: color 0.3s ease-in;
 }
 
+@media only screen and (max-width: 540px) {
+    #logo {
+        width: 100%;
+        text-align: center;
+    }
+
+    nav {
+        flex-direction: column;
+    }
+
+    nav ul {
+        justify-content: space-between;
+    }
+
+    nav ul li {
+        margin-top: 15px;
+        margin-right: 0;
+    }
+}
+
 /* Main */
 section {
     padding: 100px 0;
@@ -166,6 +186,27 @@ section {
     padding: 18px 55px;
 }
 
+@media only screen and (max-width: 700px) {
+    #banner p {
+        width: 80%;
+    }
+}
+
+@media only screen and (max-width: 435px) {
+    h1 {
+        width: 70%;
+        padding: 15px 0;
+    }
+
+    #banner h2 {
+        width: 60%;
+    }
+
+    #banner p {
+        padding-top: 10px;
+    }
+}
+
 #proyects, #skills {
     color: #163D57;
     background-color: #EBF4FA;
@@ -182,6 +223,30 @@ section {
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
+}
+
+@media only screen and (max-width: 800px) {
+    #proyects {
+        background-size: 50%;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    #proyects {
+        background-position-x: 35%;
+        background-size: 70%;
+    }
+}
+
+@media only screen and (max-width: 460px) {
+    #proyects {
+        background-position-x: center;
+        background-size: 80%;
+    }
+
+    #proyects p {
+        width: 70%;
+    }
 }
 
 #skills {
@@ -208,7 +273,7 @@ section {
 .skill .fa-css3,
 .skill .fa-js {
     display: inline-block;
-    font-size: 85px;
+    font-size: 100px;
     margin-bottom: 20px;
 }
 
@@ -224,18 +289,45 @@ section {
     color: #e6c700;
 }
 
+@media only screen and (max-width: 500px) {
+    #skills {
+        height: auto;
+        padding-bottom: 50px;
+    }
+
+    .skills {
+        flex-direction: column;
+        justify-content: unset;
+        align-items: center;
+    }
+
+    .skill {
+        margin-bottom: 50px;
+    }
+
+    .skill .fa-html5,
+    .skill .fa-css3,
+    .skill .fa-js {
+        margin-bottom: 10px;
+    }
+}
+
 #contact .container {
     width: 70%;
     margin: 0 auto;
     display: flex;
     flex-direction: row;
-    flex-wrap: nowrap;
-    justify-content: space-between;
     padding: 50px 0;
 }
 
 .motivate, .social-media {
-    width: 40%;
+    width: 50%;
+}
+
+.social-media {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .btn p {
@@ -271,7 +363,36 @@ section {
     background-color: #4f4f4f;
 }
 
+@media only screen and (max-width: 1000px) {
+    .container {
+        width: 80%;
+    }
 
+    .social-media {
+        align-items: flex-end;
+    }
+}
+
+@media only screen and (max-width: 750px) {
+    #contact .container {
+        flex-direction: column;
+    }
+
+    .motivate, .social-media {
+        width: 100%;
+    }
+
+    .motivate {
+        margin: 0 auto 40px;
+        text-align: center;
+    }
+
+    .social-media {
+        flex-direction: row;
+        justify-content: space-evenly;
+        flex-wrap: wrap;
+    }
+}
 
 /* Footer */
 footer {
