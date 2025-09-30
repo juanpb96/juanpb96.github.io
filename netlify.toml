@@ -1,0 +1,8 @@
+[[edge_functions]]
+  path = "/FEM_weather-app"
+  function = "geolocation"
+
+[[redirects]]
+  from = "/*"
+  to = "https://juanpb96.github.io/:splat"
+  status = 200
