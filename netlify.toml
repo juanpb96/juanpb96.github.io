@@ -1,8 +1,14 @@
 [[edge_functions]]
   path = "/FEM_weather-app"
-  function = "geolocation"
+  function = "rewrite"
+
+[[redirects]]
+  from = "/FEM_weather-app/_next/*"
+  to = "https://juanbonilla-fem-weather-app.netlify.app/FEM_weather-app/_next/:splat"
+  status = 200
 
 [[redirects]]
   from = "/*"
   to = "https://juanpb96.github.io/:splat"
   status = 200
+
