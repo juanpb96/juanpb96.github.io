@@ -1,0 +1,58 @@
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;1,300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap');
+@import 'tailwindcss';
+
+:root {
+  --bg: #0a0b0d;
+  --surface: #111316;
+  --surface-raised: #16191f;
+  --border: rgba(255, 255, 255, 0.07);
+  --border-strong: rgba(255, 255, 255, 0.13);
+  --text-primary: #eef0f4;
+  --text-secondary: #8b909a;
+  --text-tertiary: #4a4f5a;
+  --accent: #4d9cf8;
+  --accent-dim: rgba(77, 156, 248, 0.18);
+  --accent-glow: rgba(77, 156, 248, 0.10);
+  --font-display: 'Instrument Sans', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* Hide scrollbar while keeping functionality */
+::-webkit-scrollbar { width: 0; }
+* { scrollbar-width: none; }
+
+/* Architectural grid texture */
+.grid-texture {
+  background-image:
+    linear-gradient(var(--border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border) 1px, transparent 1px);
+  background-size: 64px 64px;
+}
+
+/* Section transitions — continuous canvas feel */
+section {
+  position: relative;
+}
