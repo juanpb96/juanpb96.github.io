@@ -1,0 +1,94 @@
+import { useState, useEffect } from 'react'
+import { t } from '../../tokens'
+
+export function Nav() {
+  const [scrolled, setScrolled] = useState(false)
+  useEffect(() => {
+    const handler = () => setScrolled(window.scrollY > 40)
+    window.addEventListener('scroll', handler)
+    return () => window.removeEventListener('scroll', handler)
+  }, [])
+
+  return (
+    <nav
+      style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0,
+        zIndex: 100,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        padding: '0 48px',
+        height: '64px',
+        backdropFilter: 'blur(20px)',
+        WebkitBackdropFilter: 'blur(20px)',
+        backgroundColor: scrolled ? 'rgba(10,11,13,0.85)' : 'transparent',
+        borderBottom: scrolled ? `1px solid ${t.border}` : '1px solid transparent',
+        transition: 'background-color 0.3s ease, border-color 0.3s ease',
+      }}
+    >
+      {/* Monogram */}
+      <div
+        style={{
+          fontFamily: t.fontDisplay,
+          fontWeight: 700,
+          fontSize: '18px',
+          letterSpacing: '-0.02em',
+          color: t.textPrimary,
+        }}
+      >
+        JB
+      </div>
+
+      {/* Links */}
+      <div style={{ display: 'flex', gap: '32px' }}>
+        {['Projects', 'Experience', 'Contact'].map((label) => (
+          <a
+            key={label}
+            href={`#${label.toLowerCase()}`}
+            style={{
+              color: t.textSecondary,
+              textDecoration: 'none',
+              fontSize: '14px',
+              fontWeight: 500,
+              letterSpacing: '0.01em',
+              transition: 'color 0.2s',
+            }}
+            onMouseEnter={(e) => ((e.target as HTMLElement).style.color = t.textPrimary)}
+            onMouseLeave={(e) => ((e.target as HTMLElement).style.color = t.textSecondary)}
+          >
+            {label}
+          </a>
+        ))}
+      </div>
+
+      {/* Available badge */}
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: '8px',
+          padding: '6px 14px',
+          borderRadius: '999px',
+          border: `1px solid ${t.borderStrong}`,
+          backgroundColor: t.surface,
+          fontSize: '13px',
+          color: t.textSecondary,
+        }}
+      >
+        <span
+          style={{
+            width: '6px',
+            height: '6px',
+            borderRadius: '50%',
+            backgroundColor: '#34d399',
+            boxShadow: '0 0 6px rgba(52,211,153,0.6)',
+          }}
+        />
+        Available for work
+      </div>
+    </nav>
+  )
+}
