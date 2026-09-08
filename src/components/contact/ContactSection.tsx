@@ -1,4 +1,4 @@
-import { t } from '../../tokens'
+import { tokens } from '../../tokens'
 import { ContactCard } from './ContactCard'
 import { Sparkle } from './Sparkle'
 
@@ -7,7 +7,7 @@ export function ContactSection() {
     <section
       id="contact"
       style={{
-        padding: '120px 48px 80px',
+        padding: `${tokens.spacing[120]}px ${tokens.container.paddingDesktop}px ${tokens.spacing[80]}px`,
         position: 'relative',
         overflow: 'hidden',
       }}
@@ -36,7 +36,7 @@ export function ContactSection() {
         style={{
           display: 'grid',
           gridTemplateColumns: '1fr 1fr',
-          gap: '80px',
+          gap: `${tokens.spacing[80]}px`,
           alignItems: 'center',
           position: 'relative',
           zIndex: 1,
@@ -46,25 +46,25 @@ export function ContactSection() {
         <div>
           <div
             style={{
-              fontFamily: t.fontMono,
+              fontFamily: tokens.fonts.mono,
               fontSize: '11px',
               letterSpacing: '0.14em',
-              color: t.textTertiary,
+              color: tokens.colors.textTertiary,
               textTransform: 'uppercase',
-              marginBottom: '24px',
+              marginBottom: `${tokens.spacing[24]}px`,
             }}
           >
             Get in Touch
           </div>
           <h2
             style={{
-              fontFamily: t.fontDisplay,
+              fontFamily: tokens.fonts.display,
               fontWeight: 700,
               fontSize: 'clamp(36px, 4.5vw, 64px)',
               letterSpacing: '-0.03em',
               lineHeight: 1.05,
-              color: t.textPrimary,
-              margin: '0 0 24px 0',
+              color: tokens.colors.textPrimary,
+              margin: `0 0 ${tokens.spacing[24]}px 0`,
             }}
           >
             Let's create something exceptional.
@@ -72,7 +72,7 @@ export function ContactSection() {
           <p
             style={{
               fontSize: '15px',
-              color: t.textSecondary,
+              color: tokens.colors.textSecondary,
               lineHeight: 1.7,
               marginBottom: '40px',
               maxWidth: '420px',
@@ -86,18 +86,18 @@ export function ContactSection() {
               display: 'inline-flex',
               alignItems: 'center',
               gap: '10px',
-              padding: '14px 32px',
+              padding: `14px ${tokens.spacing[32]}px`,
               borderRadius: '12px',
-              backgroundColor: t.textPrimary,
-              color: t.bg,
+              backgroundColor: tokens.colors.textPrimary,
+              color: tokens.colors.bg,
               textDecoration: 'none',
-              fontFamily: t.fontDisplay,
+              fontFamily: tokens.fonts.display,
               fontWeight: 600,
               fontSize: '15px',
               transition: 'background-color 0.2s',
             }}
             onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.backgroundColor = '#c8d4e8')}
-            onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.backgroundColor = t.textPrimary)}
+            onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.backgroundColor = tokens.colors.textPrimary)}
           >
             Send an Email →
           </a>
@@ -111,10 +111,10 @@ export function ContactSection() {
               position: 'absolute',
               top: '-40px',
               right: '-20px',
-              width: '80px',
-              height: '80px',
-              borderRadius: '20px',
-              border: `1px solid ${t.borderStrong}`,
+              width: `${tokens.spacing[80]}px`,
+              height: `${tokens.spacing[80]}px`,
+              borderRadius: `${tokens.radius.lg}px`,
+              border: `1px solid ${tokens.colors.borderStrong}`,
               backgroundColor: 'rgba(77,156,248,0.05)',
               backdropFilter: 'blur(8px)',
               transform: 'rotate(15deg)',

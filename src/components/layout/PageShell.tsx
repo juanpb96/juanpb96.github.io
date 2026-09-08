@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react'
-import { t } from '../../tokens'
+import { tokens } from '../../tokens'
 
 interface PageShellProps {
   children: ReactNode
@@ -7,7 +7,7 @@ interface PageShellProps {
 
 export function PageShell({ children }: PageShellProps) {
   return (
-    <div style={{ backgroundColor: t.bg, minHeight: '100vh' }}>
+    <div style={{ backgroundColor: tokens.colors.bg, minHeight: '100vh' }}>
       {children}
     </div>
   )

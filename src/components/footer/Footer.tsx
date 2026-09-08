@@ -1,22 +1,22 @@
-import { t } from '../../tokens'
+import { tokens } from '../../tokens'
 
 export function Footer() {
   return (
     <footer
       style={{
-        padding: '24px 48px',
-        borderTop: `1px solid ${t.border}`,
+        padding: `${tokens.spacing[24]}px ${tokens.container.paddingDesktop}px`,
+        borderTop: `1px solid ${tokens.colors.border}`,
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
         fontSize: '13px',
-        color: t.textTertiary,
+        color: tokens.colors.textTertiary,
       }}
     >
       <span>© 2026 Juan Bo</span>
       <span>
         Designed & Developed by{' '}
-        <span style={{ color: t.textSecondary }}>Juan Bo</span>
+        <span style={{ color: tokens.colors.textSecondary }}>Juan Bo</span>
         {' '}❤{' '}
         React · TypeScript · Next.js
       </span>

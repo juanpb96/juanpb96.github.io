@@ -1,4 +1,4 @@
-import { t } from '../../tokens'
+import { tokens } from '../../tokens'
 
 export function AccessibilityPanel() {
   return (
@@ -6,12 +6,12 @@ export function AccessibilityPanel() {
       style={{
         position: 'absolute',
         bottom: '40px',
-        right: '120px',
+        right: `${tokens.spacing[120]}px`,
         width: '240px',
-        borderRadius: '16px',
+        borderRadius: `${tokens.radius.md}px`,
         backgroundColor: '#ffffff',
         boxShadow: '0 24px 64px rgba(0,0,0,0.5)',
-        padding: '20px',
+        padding: `${tokens.spacing[20]}px`,
         zIndex: 5,
       }}
     >
@@ -23,7 +23,7 @@ export function AccessibilityPanel() {
           marginBottom: '14px',
         }}
       >
-        <span style={{ fontSize: '13px', fontWeight: 600, color: '#0a0b0d', fontFamily: t.fontDisplay }}>Accessibility Inspector</span>
+        <span style={{ fontSize: '13px', fontWeight: 600, color: '#0a0b0d', fontFamily: tokens.fonts.display }}>Accessibility Inspector</span>
         <span style={{ fontSize: '16px', color: '#9ca3af', cursor: 'pointer' }}>×</span>
       </div>
       {['WCAG AA', 'Keyboard Navigation', 'ARIA Labels', 'Color Contrast'].map((item) => (

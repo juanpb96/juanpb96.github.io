@@ -1,4 +1,4 @@
-import { t } from '../../tokens'
+import { tokens } from '../../tokens'
 import { ProjectCard } from './ProjectCard'
 
 export function ProjectsSection() {
@@ -6,7 +6,7 @@ export function ProjectsSection() {
     <section
       id="projects"
       style={{
-        padding: '120px 48px',
+        padding: `${tokens.spacing[120]}px ${tokens.container.paddingDesktop}px`,
         position: 'relative',
         overflow: 'hidden',
       }}
@@ -19,26 +19,26 @@ export function ProjectsSection() {
 
       <div style={{ position: 'relative', zIndex: 1 }}>
         {/* Section header */}
-        <div style={{ marginBottom: '64px' }}>
+        <div style={{ marginBottom: `${tokens.spacing[64]}px` }}>
           <div
             style={{
-              fontFamily: t.fontMono,
+              fontFamily: tokens.fonts.mono,
               fontSize: '11px',
               letterSpacing: '0.14em',
-              color: t.textTertiary,
+              color: tokens.colors.textTertiary,
               textTransform: 'uppercase',
-              marginBottom: '16px',
+              marginBottom: `${tokens.spacing[16]}px`,
             }}
           >
             Architectural Grid Exhibition · 3
           </div>
           <h2
             style={{
-              fontFamily: t.fontDisplay,
+              fontFamily: tokens.fonts.display,
               fontWeight: 700,
               fontSize: 'clamp(40px, 5vw, 72px)',
               letterSpacing: '-0.03em',
-              color: t.textPrimary,
+              color: tokens.colors.textPrimary,
               margin: 0,
             }}
           >
@@ -52,7 +52,7 @@ export function ProjectsSection() {
             display: 'grid',
             gridTemplateColumns: '1fr 1fr',
             gridTemplateRows: 'auto auto',
-            gap: '24px',
+            gap: `${tokens.spacing[24]}px`,
           }}
         >
           {/* Large feature project */}

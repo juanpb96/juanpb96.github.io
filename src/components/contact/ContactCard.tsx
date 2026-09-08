@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { t } from '../../tokens'
+import { tokens } from '../../tokens'
 
 interface ContactCardProps {
   icon: string
@@ -26,17 +26,17 @@ export function ContactCard({
       style={{
         display: 'flex',
         alignItems: 'center',
-        gap: '16px',
-        padding: '20px 24px',
-        borderRadius: '16px',
-        border: `1px solid ${hovered ? 'rgba(77,156,248,0.3)' : t.borderStrong}`,
+        gap: `${tokens.spacing[16]}px`,
+        padding: `${tokens.spacing[20]}px ${tokens.spacing[24]}px`,
+        borderRadius: `${tokens.radius.md}px`,
+        border: `1px solid ${hovered ? 'rgba(77,156,248,0.3)' : tokens.colors.borderStrong}`,
         backgroundColor: hovered ? 'rgba(77,156,248,0.06)' : 'rgba(255,255,255,0.04)',
         backdropFilter: 'blur(16px)',
         WebkitBackdropFilter: 'blur(16px)',
         textDecoration: 'none',
         cursor: 'pointer',
         transition: 'all 0.25s ease',
-        boxShadow: hovered ? `0 8px 32px rgba(77,156,248,0.1)` : 'none',
+        boxShadow: hovered ? `0 8px 32px ${tokens.colors.accentGlow}` : 'none',
       }}
     >
       {/* Icon */}
@@ -45,8 +45,8 @@ export function ContactCard({
           width: '44px',
           height: '44px',
           borderRadius: '12px',
-          backgroundColor: t.surfaceRaised,
-          border: `1px solid ${t.borderStrong}`,
+          backgroundColor: tokens.colors.surfaceRaised,
+          border: `1px solid ${tokens.colors.borderStrong}`,
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
@@ -57,10 +57,10 @@ export function ContactCard({
         {icon}
       </div>
       <div style={{ flex: 1 }}>
-        <div style={{ fontFamily: t.fontDisplay, fontWeight: 600, fontSize: '15px', color: t.textPrimary, marginBottom: '2px' }}>{title}</div>
-        <div style={{ fontSize: '13px', color: t.textSecondary }}>{subtitle}</div>
+        <div style={{ fontFamily: tokens.fonts.display, fontWeight: 600, fontSize: '15px', color: tokens.colors.textPrimary, marginBottom: '2px' }}>{title}</div>
+        <div style={{ fontSize: '13px', color: tokens.colors.textSecondary }}>{subtitle}</div>
       </div>
-      <span style={{ color: hovered ? t.accent : t.textTertiary, fontSize: '18px', transition: 'color 0.2s' }}>→</span>
+      <span style={{ color: hovered ? tokens.colors.accent : tokens.colors.textTertiary, fontSize: '18px', transition: 'color 0.2s' }}>→</span>
     </a>
   )
 }

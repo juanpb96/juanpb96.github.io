@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import type { Experience } from '../../data/experiences'
-import { t } from '../../tokens'
+import { tokens } from '../../tokens'
 
 interface ExperienceCardProps {
   exp: Experience
@@ -16,12 +16,12 @@ export function ExperienceCard({ exp, index }: ExperienceCardProps) {
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       style={{
-        borderRadius: '20px',
-        border: `1px solid ${active ? 'rgba(77,156,248,0.3)' : t.border}`,
-        backgroundColor: active ? '#111620' : t.surface,
-        padding: '28px 32px',
+        borderRadius: `${tokens.radius.lg}px`,
+        border: `1px solid ${active ? 'rgba(77,156,248,0.3)' : tokens.colors.border}`,
+        backgroundColor: active ? '#111620' : tokens.colors.surface,
+        padding: `28px ${tokens.spacing[32]}px`,
         transition: 'all 0.3s ease',
-        boxShadow: active ? `0 0 40px rgba(77,156,248,0.08), inset 0 1px 0 rgba(77,156,248,0.1)` : 'none',
+        boxShadow: active ? `0 0 40px rgba(77,156,248,0.08), inset 0 1px 0 ${tokens.colors.accentGlow}` : 'none',
         position: 'relative',
       }}
     >
@@ -34,15 +34,15 @@ export function ExperienceCard({ exp, index }: ExperienceCardProps) {
               width: '36px',
               height: '36px',
               borderRadius: '10px',
-              backgroundColor: t.surfaceRaised,
-              border: `1px solid ${t.borderStrong}`,
+              backgroundColor: tokens.colors.surfaceRaised,
+              border: `1px solid ${tokens.colors.borderStrong}`,
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              fontFamily: t.fontDisplay,
+              fontFamily: tokens.fonts.display,
               fontWeight: 700,
               fontSize: '14px',
-              color: active ? t.accent : t.textSecondary,
+              color: active ? tokens.colors.accent : tokens.colors.textSecondary,
               flexShrink: 0,
             }}
           >
@@ -51,25 +51,25 @@ export function ExperienceCard({ exp, index }: ExperienceCardProps) {
           <div>
             <div
               style={{
-                fontFamily: t.fontDisplay,
+                fontFamily: tokens.fonts.display,
                 fontWeight: 600,
                 fontSize: '16px',
-                color: t.textPrimary,
+                color: tokens.colors.textPrimary,
                 marginBottom: '2px',
               }}
             >
               {exp.role}
             </div>
-            <div style={{ fontSize: '13px', color: t.textSecondary }}>
-              {exp.company} · <span style={{ fontFamily: t.fontMono, fontSize: '12px' }}>{exp.period}</span>
+            <div style={{ fontSize: '13px', color: tokens.colors.textSecondary }}>
+              {exp.company} · <span style={{ fontFamily: tokens.fonts.mono, fontSize: '12px' }}>{exp.period}</span>
             </div>
           </div>
         </div>
         <span
           style={{
             fontSize: '12px',
-            color: t.textTertiary,
-            fontFamily: t.fontMono,
+            color: tokens.colors.textTertiary,
+            fontFamily: tokens.fonts.mono,
             whiteSpace: 'nowrap',
           }}
         >
@@ -78,14 +78,14 @@ export function ExperienceCard({ exp, index }: ExperienceCardProps) {
       </div>
 
       {/* Description + achievements */}
-      <p style={{ fontSize: '14px', color: t.textSecondary, lineHeight: 1.7, marginBottom: '16px', margin: '0 0 16px 0' }}>
+      <p style={{ fontSize: '14px', color: tokens.colors.textSecondary, lineHeight: 1.7, marginBottom: '16px', margin: '0 0 16px 0' }}>
         {exp.description}
       </p>
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '6px', marginBottom: '20px' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '6px', marginBottom: `${tokens.spacing[20]}px` }}>
         {exp.achievements.map((a) => (
-          <div key={a} style={{ fontSize: '13px', color: t.textSecondary, display: 'flex', gap: '8px', alignItems: 'flex-start' }}>
-            <span style={{ color: active ? t.accent : t.textTertiary, marginTop: '2px', flexShrink: 0 }}>·</span>
+          <div key={a} style={{ fontSize: '13px', color: tokens.colors.textSecondary, display: 'flex', gap: `${tokens.spacing[8]}px`, alignItems: 'flex-start' }}>
+            <span style={{ color: active ? tokens.colors.accent : tokens.colors.textTertiary, marginTop: '2px', flexShrink: 0 }}>·</span>
             {a}
           </div>
         ))}
@@ -100,11 +100,11 @@ export function ExperienceCard({ exp, index }: ExperienceCardProps) {
               style={{
                 padding: '3px 10px',
                 borderRadius: '999px',
-                border: `1px solid ${active ? 'rgba(77,156,248,0.25)' : t.border}`,
+                border: `1px solid ${active ? 'rgba(77,156,248,0.25)' : tokens.colors.border}`,
                 backgroundColor: active ? 'rgba(77,156,248,0.08)' : 'rgba(255,255,255,0.03)',
                 fontSize: '11px',
-                color: active ? t.accent : t.textSecondary,
-                fontFamily: t.fontMono,
+                color: active ? tokens.colors.accent : tokens.colors.textSecondary,
+                fontFamily: tokens.fonts.mono,
                 transition: 'all 0.3s',
               }}
             >
@@ -115,7 +115,7 @@ export function ExperienceCard({ exp, index }: ExperienceCardProps) {
         {exp.active && (
           <a
             href="#projects"
-            style={{ color: t.accent, fontSize: '13px', fontWeight: 500, textDecoration: 'none', whiteSpace: 'nowrap' }}
+            style={{ color: tokens.colors.accent, fontSize: '13px', fontWeight: 500, textDecoration: 'none', whiteSpace: 'nowrap' }}
           >
             View Projects →
           </a>

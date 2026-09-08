@@ -1,4 +1,4 @@
-import { t } from '../../tokens'
+import { tokens } from '../../tokens'
 
 interface LayerStackMockupProps {
   label: string
@@ -6,7 +6,7 @@ interface LayerStackMockupProps {
 
 export function LayerStackMockup({ label }: LayerStackMockupProps) {
   return (
-    <div style={{ position: 'relative', height: '120px', marginBottom: '8px' }}>
+    <div style={{ position: 'relative', height: `${tokens.spacing[120]}px`, marginBottom: `${tokens.spacing[8]}px` }}>
       {[3, 2, 1, 0].map((i) => (
         <div
           key={i}
@@ -23,10 +23,10 @@ export function LayerStackMockup({ label }: LayerStackMockupProps) {
             alignItems: 'center',
             justifyContent: 'center',
             fontSize: '11px',
-            fontFamily: t.fontDisplay,
+            fontFamily: tokens.fonts.display,
             fontWeight: 700,
             letterSpacing: '-0.01em',
-            color: i === 0 ? t.textPrimary : t.textTertiary,
+            color: i === 0 ? tokens.colors.textPrimary : tokens.colors.textTertiary,
           }}
         >
           {i === 0 ? label : ''}

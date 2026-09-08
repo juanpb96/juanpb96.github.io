@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { t } from '../../tokens'
+import { tokens } from '../../tokens'
 
 export function Nav() {
   const [scrolled, setScrolled] = useState(false)
@@ -20,44 +20,44 @@ export function Nav() {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
-        padding: '0 48px',
-        height: '64px',
+        padding: `0 ${tokens.container.paddingDesktop}px`,
+        height: `${tokens.spacing[64]}px`,
         backdropFilter: 'blur(20px)',
         WebkitBackdropFilter: 'blur(20px)',
         backgroundColor: scrolled ? 'rgba(10,11,13,0.85)' : 'transparent',
-        borderBottom: scrolled ? `1px solid ${t.border}` : '1px solid transparent',
+        borderBottom: scrolled ? `1px solid ${tokens.colors.border}` : '1px solid transparent',
         transition: 'background-color 0.3s ease, border-color 0.3s ease',
       }}
     >
       {/* Monogram */}
       <div
         style={{
-          fontFamily: t.fontDisplay,
+          fontFamily: tokens.fonts.display,
           fontWeight: 700,
           fontSize: '18px',
           letterSpacing: '-0.02em',
-          color: t.textPrimary,
+          color: tokens.colors.textPrimary,
         }}
       >
         JB
       </div>
 
       {/* Links */}
-      <div style={{ display: 'flex', gap: '32px' }}>
+      <div style={{ display: 'flex', gap: `${tokens.spacing[32]}px` }}>
         {['Projects', 'Experience', 'Contact'].map((label) => (
           <a
             key={label}
             href={`#${label.toLowerCase()}`}
             style={{
-              color: t.textSecondary,
+              color: tokens.colors.textSecondary,
               textDecoration: 'none',
               fontSize: '14px',
               fontWeight: 500,
               letterSpacing: '0.01em',
               transition: 'color 0.2s',
             }}
-            onMouseEnter={(e) => ((e.target as HTMLElement).style.color = t.textPrimary)}
-            onMouseLeave={(e) => ((e.target as HTMLElement).style.color = t.textSecondary)}
+            onMouseEnter={(e) => ((e.target as HTMLElement).style.color = tokens.colors.textPrimary)}
+            onMouseLeave={(e) => ((e.target as HTMLElement).style.color = tokens.colors.textSecondary)}
           >
             {label}
           </a>
@@ -69,13 +69,13 @@ export function Nav() {
         style={{
           display: 'flex',
           alignItems: 'center',
-          gap: '8px',
+          gap: `${tokens.spacing[8]}px`,
           padding: '6px 14px',
           borderRadius: '999px',
-          border: `1px solid ${t.borderStrong}`,
-          backgroundColor: t.surface,
+          border: `1px solid ${tokens.colors.borderStrong}`,
+          backgroundColor: tokens.colors.surface,
           fontSize: '13px',
-          color: t.textSecondary,
+          color: tokens.colors.textSecondary,
         }}
       >
         <span

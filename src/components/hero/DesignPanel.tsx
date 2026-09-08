@@ -1,4 +1,4 @@
-import { t } from '../../tokens'
+import { tokens } from '../../tokens'
 
 export function DesignPanel() {
   return (
@@ -10,37 +10,37 @@ export function DesignPanel() {
         width: '200px',
         borderRadius: '14px',
         backgroundColor: '#1a1d24',
-        border: `1px solid ${t.borderStrong}`,
+        border: `1px solid ${tokens.colors.borderStrong}`,
         boxShadow: '0 16px 48px rgba(0,0,0,0.5)',
-        padding: '16px',
+        padding: `${tokens.spacing[16]}px`,
         zIndex: 4,
         fontSize: '11px',
-        fontFamily: t.fontMono,
+        fontFamily: tokens.fonts.mono,
       }}
     >
-      <div style={{ color: t.textTertiary, marginBottom: '12px', fontSize: '10px', letterSpacing: '0.08em', textTransform: 'uppercase' }}>Auto Layout</div>
+      <div style={{ color: tokens.colors.textTertiary, marginBottom: '12px', fontSize: '10px', letterSpacing: '0.08em', textTransform: 'uppercase' }}>Auto Layout</div>
       {[['W', '100%'], ['H', 'auto'], ['Gap', '8px'], ['Pad', '16px']].map(([label, val]) => (
         <div key={label} style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '6px' }}>
-          <span style={{ color: t.textTertiary }}>{label}</span>
-          <span style={{ color: t.textPrimary }}>{val}</span>
+          <span style={{ color: tokens.colors.textTertiary }}>{label}</span>
+          <span style={{ color: tokens.colors.textPrimary }}>{val}</span>
         </div>
       ))}
-      <div style={{ marginTop: '12px', color: t.textTertiary, fontSize: '10px', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: '8px' }}>Properties</div>
+      <div style={{ marginTop: '12px', color: tokens.colors.textTertiary, fontSize: '10px', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: `${tokens.spacing[8]}px` }}>Properties</div>
       {['Component', 'Accessible', 'ARIA Label', 'Focusable'].map((prop) => (
         <div
           key={prop}
           style={{
-            padding: '4px 8px',
+            padding: `${tokens.spacing[4]}px ${tokens.spacing[8]}px`,
             borderRadius: '6px',
-            backgroundColor: prop === 'Component' ? t.accentDim : 'transparent',
-            color: prop === 'Component' ? t.accent : t.textSecondary,
-            marginBottom: '4px',
+            backgroundColor: prop === 'Component' ? tokens.colors.accentDim : 'transparent',
+            color: prop === 'Component' ? tokens.colors.accent : tokens.colors.textSecondary,
+            marginBottom: `${tokens.spacing[4]}px`,
             display: 'flex',
             alignItems: 'center',
             gap: '6px',
           }}
         >
-          <span style={{ width: '4px', height: '4px', borderRadius: '50%', backgroundColor: prop === 'Component' ? t.accent : t.textTertiary, flexShrink: 0 }} />
+          <span style={{ width: `${tokens.spacing[4]}px`, height: `${tokens.spacing[4]}px`, borderRadius: '50%', backgroundColor: prop === 'Component' ? tokens.colors.accent : tokens.colors.textTertiary, flexShrink: 0 }} />
           {prop}
         </div>
       ))}
