@@ -24,18 +24,6 @@ export function ExperienceSection() {
       <div style={{ display: 'grid', gridTemplateColumns: '340px 1fr', gap: `${tokens.spacing[80]}px`, alignItems: 'start' }}>
         {/* Left: sticky label */}
         <div style={{ position: 'sticky', top: '96px' }}>
-          <div
-            style={{
-              fontFamily: tokens.fonts.mono,
-              fontSize: '11px',
-              letterSpacing: '0.14em',
-              color: tokens.colors.textTertiary,
-              textTransform: 'uppercase',
-              marginBottom: `${tokens.spacing[20]}px`,
-            }}
-          >
-            Professional Journey
-          </div>
           <h2
             style={{
               fontFamily: tokens.fonts.display,

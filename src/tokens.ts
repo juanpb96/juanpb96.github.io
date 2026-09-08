@@ -12,6 +12,7 @@ const colors = {
   accent: '#4d9cf8',
   accentDim: 'rgba(77,156,248,0.18)',
   accentGlow: 'rgba(77,156,248,0.10)',
+  accentBorder: 'rgba(77,156,248,0.3)',
 } as const;
 
 const fonts = {
@@ -86,8 +87,10 @@ const spacing = {
 } as const;
 
 const radius = {
+  sm: 10,
   md: 16,
   lg: 20,
+  full: 999,
 } as const;
 
 const container = {

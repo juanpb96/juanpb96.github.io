@@ -51,9 +51,11 @@ export function Nav() {
             style={{
               color: tokens.colors.textSecondary,
               textDecoration: 'none',
-              fontSize: '14px',
-              fontWeight: 500,
-              letterSpacing: '0.01em',
+              fontFamily: tokens.typography.navigation.font,
+              fontSize: `${tokens.typography.navigation.size}px`,
+              fontWeight: tokens.typography.navigation.weight,
+              lineHeight: tokens.typography.navigation.lineHeight,
+              letterSpacing: tokens.typography.navigation.letterSpacing,
               transition: 'color 0.2s',
             }}
             onMouseEnter={(e) => ((e.target as HTMLElement).style.color = tokens.colors.textPrimary)}

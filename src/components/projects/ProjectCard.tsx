@@ -68,7 +68,7 @@ export function ProjectCard({
               key={tag}
               style={{
                 padding: `${tokens.spacing[4]}px 10px`,
-                borderRadius: '999px',
+                borderRadius: `${tokens.radius.full}px`,
                 border: `1px solid ${tokens.colors.border}`,
                 backgroundColor: 'rgba(255,255,255,0.03)',
                 fontSize: '11px',

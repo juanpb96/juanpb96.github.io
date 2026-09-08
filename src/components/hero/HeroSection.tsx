@@ -117,7 +117,7 @@ export function HeroSection() {
               alignItems: 'center',
               gap: '8px',
               padding: '13px 28px',
-              borderRadius: '12px',
+              borderRadius: `${tokens.radius.sm}px`,
               border: `1px solid ${tokens.colors.borderStrong}`,
               backgroundColor: 'transparent',
               color: tokens.colors.textPrimary,

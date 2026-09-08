@@ -20,18 +20,6 @@ export function ProjectsSection() {
       <div style={{ position: 'relative', zIndex: 1 }}>
         {/* Section header */}
         <div style={{ marginBottom: `${tokens.spacing[64]}px` }}>
-          <div
-            style={{
-              fontFamily: tokens.fonts.mono,
-              fontSize: '11px',
-              letterSpacing: '0.14em',
-              color: tokens.colors.textTertiary,
-              textTransform: 'uppercase',
-              marginBottom: `${tokens.spacing[16]}px`,
-            }}
-          >
-            Architectural Grid Exhibition · 3
-          </div>
           <h2
             style={{
               fontFamily: tokens.fonts.display,

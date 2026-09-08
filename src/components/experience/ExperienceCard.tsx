@@ -17,8 +17,8 @@ export function ExperienceCard({ exp, index }: ExperienceCardProps) {
       onMouseLeave={() => setHovered(false)}
       style={{
         borderRadius: `${tokens.radius.lg}px`,
-        border: `1px solid ${active ? 'rgba(77,156,248,0.3)' : tokens.colors.border}`,
-        backgroundColor: active ? '#111620' : tokens.colors.surface,
+        border: `1px solid ${active ? tokens.colors.accentBorder : tokens.colors.border}`,
+        backgroundColor: active ? tokens.colors.accentGlow : tokens.colors.surface,
         padding: `28px ${tokens.spacing[32]}px`,
         transition: 'all 0.3s ease',
         boxShadow: active ? `0 0 40px rgba(77,156,248,0.08), inset 0 1px 0 ${tokens.colors.accentGlow}` : 'none',
@@ -99,8 +99,8 @@ export function ExperienceCard({ exp, index }: ExperienceCardProps) {
               key={tag}
               style={{
                 padding: '3px 10px',
-                borderRadius: '999px',
-                border: `1px solid ${active ? 'rgba(77,156,248,0.25)' : tokens.colors.border}`,
+                borderRadius: `${tokens.radius.full}px`,
+                border: `1px solid ${active ? tokens.colors.accentBorder : tokens.colors.border}`,
                 backgroundColor: active ? 'rgba(77,156,248,0.08)' : 'rgba(255,255,255,0.03)',
                 fontSize: '11px',
                 color: active ? tokens.colors.accent : tokens.colors.textSecondary,
