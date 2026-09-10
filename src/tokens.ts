@@ -99,6 +99,11 @@ const container = {
   maxWidth: 1500,
 } as const;
 
+const zIndex = {
+  overlay: 90,
+  nav: 100,
+} as const;
+
 export const tokens = {
   colors,
   fonts,
@@ -106,4 +111,5 @@ export const tokens = {
   spacing,
   radius,
   container,
+  zIndex,
 } as const;

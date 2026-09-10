@@ -61,4 +61,68 @@ body {
 /* Section transitions — continuous canvas feel */
 section {
   position: relative;
+  /* offset for the fixed nav height */
+  scroll-margin-top: 64px;
+}
+
+/* Nav — logo, hamburger, overlay links */
+.nav-logo,
+.nav-overlay-link {
+  color: var(--text-primary);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+/* Expands the clickable area to a 44×44px minimum tap target (Apple HIG)
+   without affecting layout or the element's visual size/position. */
+.nav-tap-target {
+  position: relative;
+}
+
+.nav-tap-target::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 44px;
+  height: 44px;
+  transform: translate(-50%, -50%);
+}
+
+.nav-hamburger-line {
+  background-color: var(--text-primary);
+  transition: background-color 0.2s;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .nav-logo:hover,
+  .nav-overlay-link:hover {
+    color: var(--accent);
+  }
+
+  .nav-hamburger:hover .nav-hamburger-line {
+    background-color: var(--accent);
+  }
+}
+
+.nav-overlay-link:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
+/* Mobile nav overlay */
+@keyframes nav-overlay-curtain {
+  from { clip-path: inset(0 0 100% 0); }
+  to { clip-path: inset(0 0 0% 0); }
+}
+
+@keyframes nav-overlay-fade-out {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+@keyframes nav-link-in {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
 }

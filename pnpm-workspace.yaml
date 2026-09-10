@@ -1,0 +1,5 @@
+packages:
+  - "."
+
+overrides:
+  "@types/react-dom>@types/react": 19.0.0
