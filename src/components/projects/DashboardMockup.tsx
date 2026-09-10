@@ -3,6 +3,7 @@ import { tokens } from '../../tokens'
 export function DashboardMockup() {
   return (
     <div
+      className="hidden md:block"
       style={{
         backgroundColor: '#0d1117',
         borderRadius: '10px',

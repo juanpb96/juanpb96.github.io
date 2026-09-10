@@ -25,6 +25,7 @@ const typography = {
   heroTitle: {
     font: fonts.display,
     size: 88,
+    sizeMobile: 56,
     weight: 700,
     lineHeight: 1.05,
     letterSpacing: '-0.03em',
@@ -32,6 +33,7 @@ const typography = {
   sectionTitle: {
     font: fonts.display,
     size: 64,
+    sizeMobile: 40,
     weight: 700,
     lineHeight: 1.05,
     letterSpacing: '-0.03em',
@@ -95,7 +97,6 @@ const radius = {
 
 const container = {
   maxWidth: 1500,
-  paddingDesktop: 48,
 } as const;
 
 export const tokens = {

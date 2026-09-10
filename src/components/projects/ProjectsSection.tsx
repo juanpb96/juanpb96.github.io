@@ -5,8 +5,10 @@ export function ProjectsSection() {
   return (
     <section
       id="projects"
+      className="px-container-mobile md:px-container-desktop"
       style={{
-        padding: `${tokens.spacing[120]}px ${tokens.container.paddingDesktop}px`,
+        paddingTop: 'clamp(64px, 10vw, 120px)',
+        paddingBottom: 'clamp(64px, 10vw, 120px)',
         position: 'relative',
         overflow: 'hidden',
       }}
@@ -19,12 +21,12 @@ export function ProjectsSection() {
 
       <div style={{ position: 'relative', zIndex: 1 }}>
         {/* Section header */}
-        <div style={{ marginBottom: `${tokens.spacing[64]}px` }}>
+        <div style={{ marginBottom: 'clamp(32px, 6vw, 64px)' }}>
           <h2
             style={{
               fontFamily: tokens.fonts.display,
               fontWeight: 700,
-              fontSize: 'clamp(40px, 5vw, 72px)',
+              fontSize: `clamp(${tokens.typography.sectionTitle.sizeMobile}px, 5vw, ${tokens.typography.sectionTitle.size}px)`,
               letterSpacing: '-0.03em',
               color: tokens.colors.textPrimary,
               margin: 0,
@@ -36,15 +38,14 @@ export function ProjectsSection() {
 
         {/* Asymmetric grid */}
         <div
+          className="grid grid-cols-1 md:grid-cols-2"
           style={{
-            display: 'grid',
-            gridTemplateColumns: '1fr 1fr',
             gridTemplateRows: 'auto auto',
             gap: `${tokens.spacing[24]}px`,
           }}
         >
           {/* Large feature project */}
-          <div style={{ gridRow: '1 / 3' }}>
+          <div className="row-span-1 md:row-span-2">
             <ProjectCard
               number="01"
               title="Space Tourism Dashboard"

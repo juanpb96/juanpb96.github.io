@@ -6,7 +6,7 @@ interface LayerStackMockupProps {
 
 export function LayerStackMockup({ label }: LayerStackMockupProps) {
   return (
-    <div style={{ position: 'relative', height: `${tokens.spacing[120]}px`, marginBottom: `${tokens.spacing[8]}px` }}>
+    <div className="hidden md:block" style={{ position: 'relative', height: `${tokens.spacing[120]}px`, marginBottom: `${tokens.spacing[8]}px` }}>
       {[3, 2, 1, 0].map((i) => (
         <div
           key={i}

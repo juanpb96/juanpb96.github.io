@@ -6,29 +6,31 @@ export function ExperienceSection() {
   return (
     <section
       id="experience"
-      style={{ padding: `${tokens.spacing[120]}px ${tokens.container.paddingDesktop}px`, position: 'relative' }}
+      className="px-container-mobile md:px-container-desktop"
+      style={{ paddingTop: 'clamp(64px, 10vw, 120px)', paddingBottom: 'clamp(64px, 10vw, 120px)', position: 'relative' }}
     >
       {/* Vertical separator line */}
       <div
+        className="hidden md:block"
         style={{
           position: 'absolute',
           left: 'calc(48px + 340px)',
-          top: `${tokens.spacing[120]}px`,
-          bottom: `${tokens.spacing[120]}px`,
+          top: 'clamp(64px, 10vw, 120px)',
+          bottom: 'clamp(64px, 10vw, 120px)',
           width: '1px',
           backgroundColor: tokens.colors.border,
           pointerEvents: 'none',
         }}
       />
 
-      <div style={{ display: 'grid', gridTemplateColumns: '340px 1fr', gap: `${tokens.spacing[80]}px`, alignItems: 'start' }}>
+      <div className="grid grid-cols-1 md:grid-cols-[340px_1fr]" style={{ gap: 'clamp(48px, 8vw, 80px)', alignItems: 'start' }}>
         {/* Left: sticky label */}
-        <div style={{ position: 'sticky', top: '96px' }}>
+        <div className="md:sticky md:top-24">
           <h2
             style={{
               fontFamily: tokens.fonts.display,
               fontWeight: 700,
-              fontSize: 'clamp(40px, 4vw, 64px)',
+              fontSize: `clamp(${tokens.typography.sectionTitle.sizeMobile}px, 5vw, ${tokens.typography.sectionTitle.size}px)`,
               letterSpacing: '-0.03em',
               color: tokens.colors.textPrimary,
               margin: `0 0 ${tokens.spacing[20]}px 0`,

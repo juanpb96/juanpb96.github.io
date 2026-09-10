@@ -7,13 +7,11 @@ export function HeroSection() {
   return (
     <section
       id="hero"
+      className="grid grid-cols-1 md:grid-cols-2 px-container-mobile md:px-container-desktop"
       style={{
         minHeight: '100vh',
-        display: 'grid',
-        gridTemplateColumns: '1fr 1fr',
         alignItems: 'center',
-        padding: `0 ${tokens.container.paddingDesktop}px`,
-        paddingTop: `${tokens.spacing[64]}px`,
+        paddingTop: 'clamp(32px, 6vw, 64px)',
         position: 'relative',
         overflow: 'hidden',
       }}
@@ -63,7 +61,7 @@ export function HeroSection() {
           style={{
             fontFamily: tokens.fonts.display,
             fontWeight: 700,
-            fontSize: 'clamp(56px, 6vw, 88px)',
+            fontSize: `clamp(${tokens.typography.heroTitle.sizeMobile}px, 6vw, ${tokens.typography.heroTitle.size}px)`,
             lineHeight: 1.02,
             letterSpacing: '-0.03em',
             color: tokens.colors.textPrimary,
@@ -159,7 +157,7 @@ export function HeroSection() {
       </div>
 
       {/* Right: Floating Panels */}
-      <div style={{ position: 'relative', height: '520px', zIndex: 2 }}>
+      <div className="hidden mdlg:block" style={{ position: 'relative', height: '520px', zIndex: 2 }}>
         <CodePanel />
         <DesignPanel />
         <AccessibilityPanel />

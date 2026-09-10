@@ -6,8 +6,10 @@ export function ContactSection() {
   return (
     <section
       id="contact"
+      className="px-container-mobile md:px-container-desktop"
       style={{
-        padding: `${tokens.spacing[120]}px ${tokens.container.paddingDesktop}px ${tokens.spacing[80]}px`,
+        paddingTop: 'clamp(64px, 10vw, 120px)',
+        paddingBottom: 'clamp(48px, 8vw, 80px)',
         position: 'relative',
         overflow: 'hidden',
       }}
@@ -33,10 +35,9 @@ export function ContactSection() {
       />
 
       <div
+        className="grid grid-cols-1 md:grid-cols-2"
         style={{
-          display: 'grid',
-          gridTemplateColumns: '1fr 1fr',
-          gap: `${tokens.spacing[80]}px`,
+          gap: 'clamp(48px, 8vw, 80px)',
           alignItems: 'center',
           position: 'relative',
           zIndex: 1,
@@ -48,7 +49,7 @@ export function ContactSection() {
             style={{
               fontFamily: tokens.fonts.display,
               fontWeight: 700,
-              fontSize: 'clamp(36px, 4.5vw, 64px)',
+              fontSize: `clamp(${tokens.typography.sectionTitle.sizeMobile}px, 5vw, ${tokens.typography.sectionTitle.size}px)`,
               letterSpacing: '-0.03em',
               lineHeight: 1.05,
               color: tokens.colors.textPrimary,

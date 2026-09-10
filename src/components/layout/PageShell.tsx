@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react'
 import { tokens } from '../../tokens'
+import { ContentContainer } from './ContentContainer'
 
 interface PageShellProps {
   children: ReactNode
@@ -8,7 +9,7 @@ interface PageShellProps {
 export function PageShell({ children }: PageShellProps) {
   return (
     <div style={{ backgroundColor: tokens.colors.bg, minHeight: '100vh' }}>
-      {children}
+      <ContentContainer>{children}</ContentContainer>
     </div>
   )
 }

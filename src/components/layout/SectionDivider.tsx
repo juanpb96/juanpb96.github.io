@@ -1,5 +1,5 @@
 import { tokens } from '../../tokens'
 
 export function SectionDivider() {
-  return <div style={{ height: '1px', backgroundColor: tokens.colors.border, margin: `0 ${tokens.container.paddingDesktop}px` }} />
+  return <div className="mx-container-mobile md:mx-container-desktop" style={{ height: '1px', backgroundColor: tokens.colors.border }} />
 }

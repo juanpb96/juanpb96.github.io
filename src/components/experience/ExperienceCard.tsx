@@ -82,7 +82,7 @@ export function ExperienceCard({ exp, index }: ExperienceCardProps) {
         {exp.description}
       </p>
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '6px', marginBottom: `${tokens.spacing[20]}px` }}>
+      <div className="grid grid-cols-1 mdlg:grid-cols-2" style={{ gap: '6px', marginBottom: `${tokens.spacing[20]}px` }}>
         {exp.achievements.map((a) => (
           <div key={a} style={{ fontSize: '13px', color: tokens.colors.textSecondary, display: 'flex', gap: `${tokens.spacing[8]}px`, alignItems: 'flex-start' }}>
             <span style={{ color: active ? tokens.colors.accent : tokens.colors.textTertiary, marginTop: '2px', flexShrink: 0 }}>·</span>
