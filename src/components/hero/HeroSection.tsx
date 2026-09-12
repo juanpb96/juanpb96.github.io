@@ -38,25 +38,6 @@ export function HeroSection() {
 
       {/* Left: Text */}
       <div style={{ position: 'relative', zIndex: 2, maxWidth: '560px' }}>
-        <div
-          style={{
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: '8px',
-            padding: '6px 14px',
-            borderRadius: '999px',
-            border: `1px solid ${tokens.colors.borderStrong}`,
-            backgroundColor: tokens.colors.surface,
-            fontSize: '12px',
-            color: tokens.colors.textSecondary,
-            fontFamily: tokens.fonts.mono,
-            marginBottom: `${tokens.spacing[32]}px`,
-            letterSpacing: '0.06em',
-          }}
-        >
-          <span style={{ color: tokens.colors.accent }}>◆</span> Design Exploration · 1440px
-        </div>
-
         <h1
           style={{
             fontFamily: tokens.fonts.display,
@@ -68,7 +49,7 @@ export function HeroSection() {
             margin: '0 0 8px 0',
           }}
         >
-          Juan Bo
+          Juan Bonilla
         </h1>
         <h2
           style={{
@@ -92,7 +73,7 @@ export function HeroSection() {
             letterSpacing: '0.02em',
           }}
         >
-          React · TypeScript · Accessible Interfaces
+          React · TypeScript · Intentional Accessibility
         </p>
 
         <p
@@ -104,12 +85,13 @@ export function HeroSection() {
             marginBottom: '40px',
           }}
         >
-          I build web interfaces where design, code, and accessibility meet in perfect balance.
+          I build interfaces with genuine attention to accessibility. Minimalist at heart,
+          adaptable to each project's vision.
         </p>
 
         <div style={{ display: 'flex', gap: `${tokens.spacing[16]}px`, alignItems: 'center' }}>
           <a
-            href="#projects"
+            href="#contact"
             style={{
               display: 'inline-flex',
               alignItems: 'center',
@@ -137,21 +119,7 @@ export function HeroSection() {
               el.style.borderColor = tokens.colors.borderStrong
             }}
           >
-            View Projects
-          </a>
-          <a
-            href="#contact"
-            style={{
-              fontSize: '15px',
-              color: tokens.colors.textSecondary,
-              textDecoration: 'none',
-              fontWeight: 500,
-              transition: 'color 0.2s',
-            }}
-            onMouseEnter={(e) => ((e.target as HTMLElement).style.color = tokens.colors.textPrimary)}
-            onMouseLeave={(e) => ((e.target as HTMLElement).style.color = tokens.colors.textSecondary)}
-          >
-            Get in touch →
+            Get in touch
           </a>
         </div>
       </div>
