@@ -1,4 +1,6 @@
 import { tokens } from '../../tokens'
+import creativeAgencyHero from '../../assets/projects/creative-agency-hero.webp'
+import githubSearchHero from '../../assets/projects/github-search-hero.webp'
 import { ProjectCard } from './ProjectCard'
 
 export function ProjectsSection() {
@@ -48,7 +50,7 @@ export function ProjectsSection() {
           <div className="row-span-1 md:row-span-2">
             <ProjectCard
               number="01"
-              title="Space Tourism Dashboard"
+              title="Space Tourism Website"
               description="Enterprise analytics platform built with React and TypeScript. 250K+ monthly active users. Reduced bundle size by 35% through aggressive code splitting."
               tags={['React', 'TypeScript', 'Recharts', 'RTK Query']}
               large
@@ -61,12 +63,16 @@ export function ProjectsSection() {
             title="Flux Web Kit"
             description="Open-source component library with 60+ accessible components. Storybook docs, full ARIA compliance, 4.2k GitHub stars."
             tags={['Storybook', 'Radix UI', 'Tailwind']}
+            image={githubSearchHero}
+            imageAlt="GitHub User Search App result card"
           />
           <ProjectCard
             number="03"
             title="Component Studio"
             description="Visual design system builder. Drag-and-drop interface for composing and exporting React components with live code preview."
             tags={['Next.js', 'Framer Motion', 'AST']}
+            image={creativeAgencyHero}
+            imageAlt="Creative Agency site hero with headline and team photo"
           />
         </div>
       </div>

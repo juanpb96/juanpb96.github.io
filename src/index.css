@@ -126,3 +126,80 @@ section {
   from { opacity: 0; transform: translateY(12px); }
   to { opacity: 1; transform: translateY(0); }
 }
+
+/* Project card icon buttons — live-site + GitHub links.
+   Default state is icon-only (no background/border at all) — the circular
+   backdrop is built from scratch on hover/focus by transitioning
+   background-color/border-color from transparent, not swapped between two
+   visible states. Base colors live in this stylesheet (not inline style) so
+   :hover/:focus-visible below can actually override them — an inline style
+   attribute would always win over these regardless of state. */
+.project-icon-btn {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-style: solid;
+  border-width: 1px;
+  border-color: transparent;
+  background-color: transparent;
+  color: var(--text-primary);
+  transition: background-color 0.2s, border-color 0.2s;
+}
+
+.project-icon-btn svg {
+  background-color: transparent;
+  transition: color 0.2s;
+}
+
+.project-icon-btn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  background-color: var(--accent-dim);
+  border-color: var(--accent);
+}
+
+.project-icon-btn:focus-visible svg {
+  color: var(--accent);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .project-icon-btn:hover {
+    background-color: var(--accent-dim);
+    border-color: var(--accent);
+  }
+  .project-icon-btn:hover svg {
+    color: var(--accent);
+  }
+}
+
+.project-icon-btn-tooltip {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%) translateY(4px);
+  padding: 4px 10px;
+  border-radius: 6px;
+  background-color: var(--surface-raised);
+  border: 1px solid var(--border-strong);
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  z-index: 10;
+}
+
+.project-icon-btn:focus-visible .project-icon-btn-tooltip {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .project-icon-btn:hover .project-icon-btn-tooltip {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}

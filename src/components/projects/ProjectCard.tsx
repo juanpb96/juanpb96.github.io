@@ -1,7 +1,9 @@
 import { useState } from 'react'
 import { tokens } from '../../tokens'
-import { DashboardMockup } from './DashboardMockup'
-import { LayerStackMockup } from './LayerStackMockup'
+import spaceTourismHero from '../../assets/projects/space-tourism-hero.webp'
+import { GithubIcon } from './GithubIcon'
+import { GlobeIcon } from './GlobeIcon'
+import { IconButton } from './IconButton'
 
 interface ProjectCardProps {
   number: string
@@ -9,6 +11,10 @@ interface ProjectCardProps {
   description: string
   tags: string[]
   large?: boolean
+  liveUrl?: string
+  githubUrl?: string
+  image?: string
+  imageAlt?: string
 }
 
 export function ProjectCard({
@@ -17,6 +23,10 @@ export function ProjectCard({
   description,
   tags,
   large,
+  liveUrl = '#',
+  githubUrl = '#',
+  image,
+  imageAlt,
 }: ProjectCardProps) {
   const [hovered, setHovered] = useState(false)
 
@@ -24,11 +34,15 @@ export function ProjectCard({
     <div
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
+      className={large ? 'pt-8 pb-8 md:pt-5 md:pb-6' : undefined}
       style={{
         borderRadius: `${tokens.radius.lg}px`,
         backgroundColor: tokens.colors.surface,
         border: `1px solid ${hovered ? tokens.colors.borderStrong : tokens.colors.border}`,
-        padding: large ? `${tokens.spacing[32]}px` : `${tokens.spacing[24]}px`,
+        paddingLeft: `${tokens.spacing[large ? 32 : 24]}px`,
+        paddingRight: `${tokens.spacing[large ? 32 : 24]}px`,
+        paddingTop: large ? undefined : `${tokens.spacing[24]}px`,
+        paddingBottom: large ? undefined : `${tokens.spacing[24]}px`,
         transition: 'border-color 0.3s, box-shadow 0.3s',
         boxShadow: hovered ? `0 0 40px ${tokens.colors.accentGlow}` : 'none',
         display: 'flex',
@@ -55,7 +69,33 @@ export function ProjectCard({
       </div>
 
       {/* Mockup */}
-      {large ? <DashboardMockup /> : <LayerStackMockup label={title} />}
+      {large ? (
+        <img
+          src={spaceTourismHero}
+          alt="Space Tourism Website landing page"
+          className="hidden md:block"
+          style={{
+            width: '100%',
+            aspectRatio: '4 / 3',
+            objectFit: 'cover',
+            borderRadius: `${tokens.radius.sm}px`,
+            border: `1px solid ${tokens.colors.border}`,
+          }}
+        />
+      ) : (
+        <img
+          src={image}
+          alt={imageAlt}
+          className="hidden md:block"
+          style={{
+            width: '100%',
+            aspectRatio: '51 / 10',
+            objectFit: 'cover',
+            borderRadius: `${tokens.radius.sm}px`,
+            border: `1px solid ${tokens.colors.border}`,
+          }}
+        />
+      )}
 
       {/* Description */}
       <p style={{ fontSize: '14px', color: tokens.colors.textSecondary, margin: 0, lineHeight: 1.6 }}>{description}</p>
@@ -80,7 +120,14 @@ export function ProjectCard({
             </span>
           ))}
         </div>
-        <span style={{ color: tokens.colors.accent, fontSize: '13px', fontWeight: 500, cursor: 'pointer' }}>View →</span>
+        <div style={{ display: 'flex', gap: `${tokens.spacing[8]}px` }}>
+          <IconButton href={liveUrl} ariaLabel="View live site" tooltip="Live site">
+            <GlobeIcon />
+          </IconButton>
+          <IconButton href={githubUrl} ariaLabel="View source code on GitHub" tooltip="GitHub">
+            <GithubIcon />
+          </IconButton>
+        </div>
       </div>
     </div>
   )
