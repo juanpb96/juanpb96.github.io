@@ -51,8 +51,10 @@ export function ProjectsSection() {
             <ProjectCard
               number="01"
               title="Space Tourism Website"
-              description="Enterprise analytics platform built with React and TypeScript. 250K+ monthly active users. Reduced bundle size by 35% through aggressive code splitting."
-              tags={['React', 'TypeScript', 'Recharts', 'RTK Query']}
+              description="Multi-page space tourism site: home, destination, crew, and technology, with client-side routing and Storybook-driven component development. Animated with Framer Motion."
+              tags={['React', 'TypeScript', 'Framer Motion', 'React Router', 'Storybook']}
+              liveUrl="https://juanbonilla.me/FEM_space-tourism-website/home"
+              githubUrl="https://github.com/juanpb96/FEM_space-tourism-website"
               large
             />
           </div>
@@ -60,17 +62,21 @@ export function ProjectsSection() {
           {/* Two smaller projects */}
           <ProjectCard
             number="02"
-            title="Flux Web Kit"
-            description="Open-source component library with 60+ accessible components. Storybook docs, full ARIA compliance, 4.2k GitHub stars."
-            tags={['Storybook', 'Radix UI', 'Tailwind']}
+            title="GitHub User Search App"
+            description="Look up any GitHub profile: repos, followers, bio, with light/dark theme support. Focused on accessible error handling."
+            tags={['React', 'Redux', 'SCSS']}
+            liveUrl="https://juanbonilla.me/FEM_github-user-search-app/"
+            githubUrl="https://github.com/juanpb96/FEM_github-user-search-app"
             image={githubSearchHero}
             imageAlt="GitHub User Search App result card"
           />
           <ProjectCard
             number="03"
-            title="Component Studio"
-            description="Visual design system builder. Drag-and-drop interface for composing and exporting React components with live code preview."
-            tags={['Next.js', 'Framer Motion', 'AST']}
+            title="Creative Agency Single Page Site"
+            description="Branding agency landing page with layered visual design and an accessible image carousel, built with proper ARIA roles."
+            tags={['HTML5', 'Tailwind', 'JavaScript']}
+            liveUrl="https://juanbonilla.me/FEM_creative-single-page-site/"
+            githubUrl="https://github.com/juanpb96/FEM_creative-single-page-site"
             image={creativeAgencyHero}
             imageAlt="Creative Agency site hero with headline and team photo"
           />
