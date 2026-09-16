@@ -70,8 +70,8 @@ export function ExperienceSection() {
                   }}
                 />
                 <div>
-                  <div style={{ fontSize: '13px', color: i === 0 ? tokens.colors.textPrimary : tokens.colors.textSecondary, fontWeight: i === 0 ? 500 : 400 }}>{exp.company}</div>
-                  <div style={{ fontSize: '11px', color: tokens.colors.textTertiary, fontFamily: tokens.fonts.mono }}>{exp.period}</div>
+                  <div style={{ fontSize: '14px', color: i === 0 ? tokens.colors.textPrimary : tokens.colors.textSecondary, fontWeight: i === 0 ? 500 : 400 }}>{exp.company}</div>
+                  <div style={{ fontSize: '12px', color: tokens.colors.textTertiary, fontFamily: tokens.fonts.mono }}>{exp.period}</div>
                 </div>
               </div>
             ))}

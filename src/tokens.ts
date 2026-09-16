@@ -8,7 +8,7 @@ const colors = {
   borderStrong: 'rgba(255,255,255,0.13)',
   textPrimary: '#eef0f4',
   textSecondary: '#8b909a',
-  textTertiary: '#4a4f5a',
+  textTertiary: '#737a87',
   accent: '#4d9cf8',
   accentDim: 'rgba(77,156,248,0.18)',
   accentGlow: 'rgba(77,156,248,0.10)',

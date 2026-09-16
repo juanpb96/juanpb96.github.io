@@ -26,55 +26,42 @@ export function ExperienceCard({ exp, index }: ExperienceCardProps) {
       }}
     >
       {/* Role header */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '16px' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
-          {/* Company avatar */}
-          <div
-            style={{
-              width: '36px',
-              height: '36px',
-              borderRadius: '10px',
-              backgroundColor: tokens.colors.surfaceRaised,
-              border: `1px solid ${tokens.colors.borderStrong}`,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              fontFamily: tokens.fonts.display,
-              fontWeight: 700,
-              fontSize: '14px',
-              color: active ? tokens.colors.accent : tokens.colors.textSecondary,
-              flexShrink: 0,
-            }}
-          >
-            {exp.company[0]}
-          </div>
-          <div>
-            <div
-              style={{
-                fontFamily: tokens.fonts.display,
-                fontWeight: 600,
-                fontSize: '16px',
-                color: tokens.colors.textPrimary,
-                marginBottom: '2px',
-              }}
-            >
-              {exp.role}
-            </div>
-            <div style={{ fontSize: '13px', color: tokens.colors.textSecondary }}>
-              {exp.company} · <span style={{ fontFamily: tokens.fonts.mono, fontSize: '12px' }}>{exp.period}</span>
-            </div>
-          </div>
-        </div>
-        <span
+      <div style={{ display: 'flex', alignItems: 'flex-start', gap: '14px', marginBottom: '16px' }}>
+        {/* Company avatar */}
+        <div
           style={{
-            fontSize: '12px',
-            color: tokens.colors.textTertiary,
-            fontFamily: tokens.fonts.mono,
-            whiteSpace: 'nowrap',
+            width: '36px',
+            height: '36px',
+            borderRadius: '10px',
+            backgroundColor: tokens.colors.surfaceRaised,
+            border: `1px solid ${tokens.colors.borderStrong}`,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            fontFamily: tokens.fonts.display,
+            fontWeight: 700,
+            fontSize: '14px',
+            color: active ? tokens.colors.accent : tokens.colors.textSecondary,
+            flexShrink: 0,
           }}
         >
-          {exp.location}
-        </span>
+          {exp.company[0]}
+        </div>
+        <div>
+          <div
+            style={{
+              fontFamily: tokens.fonts.display,
+              fontWeight: 600,
+              fontSize: '16px',
+              color: tokens.colors.textPrimary,
+              marginBottom: '2px',
+            }}
+          >
+            {exp.role}
+          </div>
+          <div style={{ fontSize: '13px', color: tokens.colors.textSecondary, marginBottom: '2px' }}>{exp.company}</div>
+          <div style={{ fontSize: '12px', color: tokens.colors.textTertiary, fontFamily: tokens.fonts.mono }}>{exp.period}</div>
+        </div>
       </div>
 
       {/* Description + achievements */}
@@ -82,7 +69,7 @@ export function ExperienceCard({ exp, index }: ExperienceCardProps) {
         {exp.description}
       </p>
 
-      <div className="grid grid-cols-1 mdlg:grid-cols-2" style={{ gap: '6px', marginBottom: `${tokens.spacing[20]}px` }}>
+      <div className="grid grid-cols-1" style={{ gap: '6px', marginBottom: `${tokens.spacing[20]}px` }}>
         {exp.achievements.map((a) => (
           <div key={a} style={{ fontSize: '13px', color: tokens.colors.textSecondary, display: 'flex', gap: `${tokens.spacing[8]}px`, alignItems: 'flex-start' }}>
             <span style={{ color: active ? tokens.colors.accent : tokens.colors.textTertiary, marginTop: '2px', flexShrink: 0 }}>·</span>
@@ -91,35 +78,25 @@ export function ExperienceCard({ exp, index }: ExperienceCardProps) {
         ))}
       </div>
 
-      {/* Tags + CTA */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
-          {exp.tags.map((tag) => (
-            <span
-              key={tag}
-              style={{
-                padding: '3px 10px',
-                borderRadius: `${tokens.radius.full}px`,
-                border: `1px solid ${active ? tokens.colors.accentBorder : tokens.colors.border}`,
-                backgroundColor: active ? 'rgba(77,156,248,0.08)' : 'rgba(255,255,255,0.03)',
-                fontSize: '11px',
-                color: active ? tokens.colors.accent : tokens.colors.textSecondary,
-                fontFamily: tokens.fonts.mono,
-                transition: 'all 0.3s',
-              }}
-            >
-              {tag}
-            </span>
-          ))}
-        </div>
-        {exp.active && (
-          <a
-            href="#projects"
-            style={{ color: tokens.colors.accent, fontSize: '13px', fontWeight: 500, textDecoration: 'none', whiteSpace: 'nowrap' }}
+      {/* Tags */}
+      <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
+        {exp.tags.map((tag) => (
+          <span
+            key={tag}
+            style={{
+              padding: '3px 10px',
+              borderRadius: `${tokens.radius.full}px`,
+              border: `1px solid ${active ? tokens.colors.accentBorder : tokens.colors.border}`,
+              backgroundColor: active ? 'rgba(77,156,248,0.08)' : 'rgba(255,255,255,0.03)',
+              fontSize: '11px',
+              color: active ? tokens.colors.accent : tokens.colors.textSecondary,
+              fontFamily: tokens.fonts.mono,
+              transition: 'all 0.3s',
+            }}
           >
-            View Projects →
-          </a>
-        )}
+            {tag}
+          </span>
+        ))}
       </div>
     </div>
   )
