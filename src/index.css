@@ -173,6 +173,41 @@ section {
   }
 }
 
+/* Tag-collapse toggle ("+N") on mobile project cards — expands the hit area
+   to a 44×44px minimum tap target without affecting the pill's visual size,
+   mirroring .nav-tap-target. */
+.project-tag-toggle {
+  position: relative;
+  font: inherit;
+  color: var(--text-secondary);
+  border: 1px solid var(--border);
+  transition: color 0.2s, border-color 0.2s;
+}
+
+.project-tag-toggle::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 44px;
+  height: 44px;
+  transform: translate(-50%, -50%);
+}
+
+.project-tag-toggle:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .project-tag-toggle:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+  }
+}
+
 .project-icon-btn-tooltip {
   position: absolute;
   bottom: calc(100% + 8px);

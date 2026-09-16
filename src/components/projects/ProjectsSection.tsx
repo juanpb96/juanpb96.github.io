@@ -31,23 +31,30 @@ export function ProjectsSection() {
               fontSize: `clamp(${tokens.typography.sectionTitle.sizeMobile}px, 5vw, ${tokens.typography.sectionTitle.size}px)`,
               letterSpacing: '-0.03em',
               color: tokens.colors.textPrimary,
-              margin: 0,
+              margin: `0 0 ${tokens.spacing[20]}px 0`,
+              lineHeight: 1.05,
             }}
           >
-            Selected Work
+            Projects
           </h2>
+          <p
+            className="sm:max-w-[600px]"
+            style={{ fontSize: '15px', color: tokens.colors.textSecondary, lineHeight: 1.7, margin: 0, textWrap: 'balance' }}
+          >
+            Showcasing the projects that best reflect my approach to structure, interaction, and accessibility in practice.
+          </p>
         </div>
 
         {/* Asymmetric grid */}
         <div
-          className="grid grid-cols-1 md:grid-cols-2"
+          className="grid grid-cols-1 lg:grid-cols-2"
           style={{
             gridTemplateRows: 'auto auto',
             gap: `${tokens.spacing[24]}px`,
           }}
         >
           {/* Large feature project */}
-          <div className="row-span-1 md:row-span-2">
+          <div className="row-span-1 lg:row-span-2">
             <ProjectCard
               number="01"
               title="Space Tourism Website"
@@ -69,6 +76,7 @@ export function ProjectsSection() {
             githubUrl="https://github.com/juanpb96/FEM_github-user-search-app"
             image={githubSearchHero}
             imageAlt="GitHub User Search App result card"
+            mobileImageZoom
           />
           <ProjectCard
             number="03"
