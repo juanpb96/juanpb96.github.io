@@ -37,12 +37,15 @@ export function ExperienceSection() {
       className="px-container-mobile md:px-container-desktop"
       style={{ paddingTop: 'clamp(64px, 10vw, 120px)', paddingBottom: 'clamp(64px, 10vw, 120px)', position: 'relative' }}
     >
-      {/* Vertical separator line */}
+      {/* Vertical separator line — offset must track the grid's own column
+          boundary: proportional (42%) in the md-mdlg range, fixed 340px at
+          mdlg+, matching the grid-cols breakpoints below exactly. Grid
+          percentage tracks resolve against the full content box (gap
+          included), not the space left after the gap, hence no gap term here. */}
       <div
-        className="hidden md:block"
+        className="hidden md:block md:left-[calc(48px_+_(100%_-_96px)_*_0.42)] mdlg:left-[calc(48px_+_340px)]"
         style={{
           position: 'absolute',
-          left: 'calc(48px + 340px)',
           top: 'clamp(64px, 10vw, 120px)',
           bottom: 'clamp(64px, 10vw, 120px)',
           width: '1px',
@@ -51,7 +54,7 @@ export function ExperienceSection() {
         }}
       />
 
-      <div className="grid grid-cols-1 md:grid-cols-[340px_1fr]" style={{ gap: 'clamp(48px, 8vw, 80px)', alignItems: 'start' }}>
+      <div className="grid grid-cols-1 md:grid-cols-[42%_1fr] mdlg:grid-cols-[340px_1fr]" style={{ gap: 'clamp(48px, 8vw, 80px)', alignItems: 'start' }}>
         {/* Left: sticky label */}
         <div className="md:sticky md:top-24">
           <h2
