@@ -1,28 +1,37 @@
-import { useState } from 'react'
+import { forwardRef } from 'react'
 import type { Experience } from '../../data/experiences'
 import { tokens } from '../../tokens'
 
 interface ExperienceCardProps {
   exp: Experience
-  index: number
+  isActive: boolean
+  selected: boolean
+  onMouseEnter: () => void
+  onMouseLeave: () => void
+  onClick: () => void
 }
 
-export function ExperienceCard({ exp, index }: ExperienceCardProps) {
-  const [hovered, setHovered] = useState(false)
-  const active = exp.active || hovered
+export const ExperienceCard = forwardRef<HTMLDivElement, ExperienceCardProps>(function ExperienceCard(
+  { exp, isActive, selected, onMouseEnter, onMouseLeave, onClick },
+  ref,
+) {
+  const highlighted = isActive || selected
 
   return (
     <div
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
+      ref={ref}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
+      onClick={onClick}
       style={{
         borderRadius: `${tokens.radius.lg}px`,
-        border: `1px solid ${active ? tokens.colors.accentBorder : tokens.colors.border}`,
-        backgroundColor: active ? tokens.colors.accentGlow : tokens.colors.surface,
+        border: `1px solid ${highlighted ? tokens.colors.accentBorder : tokens.colors.border}`,
+        backgroundColor: highlighted ? tokens.colors.accentGlow : tokens.colors.surface,
         padding: `28px ${tokens.spacing[32]}px`,
         transition: 'all 0.3s ease',
-        boxShadow: active ? `0 0 40px rgba(77,156,248,0.08), inset 0 1px 0 ${tokens.colors.accentGlow}` : 'none',
+        boxShadow: highlighted ? `0 0 40px rgba(77,156,248,0.08), inset 0 1px 0 ${tokens.colors.accentGlow}` : 'none',
         position: 'relative',
+        scrollMarginTop: `calc(64px + ${tokens.spacing[20]}px)`,
       }}
     >
       {/* Role header */}
@@ -41,7 +50,7 @@ export function ExperienceCard({ exp, index }: ExperienceCardProps) {
             fontFamily: tokens.fonts.display,
             fontWeight: 700,
             fontSize: '14px',
-            color: active ? tokens.colors.accent : tokens.colors.textSecondary,
+            color: highlighted ? tokens.colors.accent : tokens.colors.textSecondary,
             flexShrink: 0,
           }}
         >
@@ -72,7 +81,7 @@ export function ExperienceCard({ exp, index }: ExperienceCardProps) {
       <div className="grid grid-cols-1" style={{ gap: '6px', marginBottom: `${tokens.spacing[20]}px` }}>
         {exp.achievements.map((a) => (
           <div key={a} style={{ fontSize: '13px', color: tokens.colors.textSecondary, display: 'flex', gap: `${tokens.spacing[8]}px`, alignItems: 'flex-start' }}>
-            <span style={{ color: active ? tokens.colors.accent : tokens.colors.textTertiary, marginTop: '2px', flexShrink: 0 }}>·</span>
+            <span style={{ color: highlighted ? tokens.colors.accent : tokens.colors.textTertiary, marginTop: '2px', flexShrink: 0 }}>·</span>
             {a}
           </div>
         ))}
@@ -86,10 +95,10 @@ export function ExperienceCard({ exp, index }: ExperienceCardProps) {
             style={{
               padding: '3px 10px',
               borderRadius: `${tokens.radius.full}px`,
-              border: `1px solid ${active ? tokens.colors.accentBorder : tokens.colors.border}`,
-              backgroundColor: active ? 'rgba(77,156,248,0.08)' : 'rgba(255,255,255,0.03)',
+              border: `1px solid ${highlighted ? tokens.colors.accentBorder : tokens.colors.border}`,
+              backgroundColor: highlighted ? 'rgba(77,156,248,0.08)' : 'rgba(255,255,255,0.03)',
               fontSize: '11px',
-              color: active ? tokens.colors.accent : tokens.colors.textSecondary,
+              color: highlighted ? tokens.colors.accent : tokens.colors.textSecondary,
               fontFamily: tokens.fonts.mono,
               transition: 'all 0.3s',
             }}
@@ -100,4 +109,4 @@ export function ExperienceCard({ exp, index }: ExperienceCardProps) {
       </div>
     </div>
   )
-}
+})

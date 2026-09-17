@@ -1,8 +1,36 @@
-import { experiences } from '../../data/experiences'
+import { useRef, useState } from 'react'
+import { experiences, isCurrentExperience } from '../../data/experiences'
 import { tokens } from '../../tokens'
 import { ExperienceCard } from './ExperienceCard'
 
+function supportsHoverPointer() {
+  return typeof window !== 'undefined' && window.matchMedia('(hover: hover) and (pointer: fine)').matches
+}
+
 export function ExperienceSection() {
+  // Hover is transient (fine-pointer only, per the media-query gating used for
+  // conditional hover styles elsewhere in the site). A click/tap/keyboard
+  // activation pins the selection so it survives the mouseleave that scrolling
+  // to a card can trigger when the pointer ends up over different content.
+  const [hoverIndex, setHoverIndex] = useState<number | null>(null)
+  const [pinnedIndex, setPinnedIndex] = useState<number | null>(null)
+  const cardRefs = useRef<(HTMLDivElement | null)[]>([])
+
+  const handleMouseEnter = (i: number) => {
+    if (supportsHoverPointer()) setHoverIndex(i)
+  }
+
+  const handleMouseLeave = (i: number) => {
+    if (supportsHoverPointer()) setHoverIndex((prev) => (prev === i ? null : prev))
+  }
+
+  const pinIndex = (i: number) => setPinnedIndex(i)
+
+  const handleActivate = (i: number) => {
+    pinIndex(i)
+    cardRefs.current[i]?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  }
+
   return (
     <section
       id="experience"
@@ -55,33 +83,127 @@ export function ExperienceSection() {
                 backgroundColor: tokens.colors.border,
               }}
             />
-            {experiences.map((exp, i) => (
-              <div key={i} style={{ display: 'flex', alignItems: 'center', gap: `${tokens.spacing[16]}px`, padding: '12px 0', position: 'relative' }}>
-                <div
+            {experiences.map((exp, i) => {
+              const isActive = isCurrentExperience(exp)
+              const selected = hoverIndex === i || pinnedIndex === i
+              const highlighted = isActive || selected
+
+              const currentRoleId = `experience-current-role-${i}`
+
+              return (
+                <button
+                  key={i}
+                  type="button"
+                  className="experience-stepper-item"
+                  aria-label={`View ${exp.company} experience, ${exp.period}`}
+                  aria-pressed={pinnedIndex === i}
+                  aria-describedby={isActive ? currentRoleId : undefined}
+                  onMouseEnter={() => handleMouseEnter(i)}
+                  onMouseLeave={() => handleMouseLeave(i)}
+                  onClick={() => handleActivate(i)}
                   style={{
-                    width: '11px',
-                    height: '11px',
-                    borderRadius: '50%',
-                    backgroundColor: i === 0 ? tokens.colors.accent : tokens.colors.surface,
-                    border: `1px solid ${i === 0 ? tokens.colors.accent : tokens.colors.borderStrong}`,
-                    boxShadow: i === 0 ? `0 0 12px ${tokens.colors.accent}` : 'none',
-                    flexShrink: 0,
-                    zIndex: 1,
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: `${tokens.spacing[16]}px`,
+                    padding: '12px 0',
+                    position: 'relative',
+                    width: '100%',
+                    background: 'none',
+                    border: 'none',
+                    textAlign: 'left',
+                    cursor: 'pointer',
+                    font: 'inherit',
+                    color: 'inherit',
                   }}
-                />
-                <div>
-                  <div style={{ fontSize: '14px', color: i === 0 ? tokens.colors.textPrimary : tokens.colors.textSecondary, fontWeight: i === 0 ? 500 : 400 }}>{exp.company}</div>
-                  <div style={{ fontSize: '12px', color: tokens.colors.textTertiary, fontFamily: tokens.fonts.mono }}>{exp.period}</div>
-                </div>
-              </div>
-            ))}
+                >
+                  <span
+                    style={{
+                      display: 'block',
+                      width: '11px',
+                      height: '11px',
+                      borderRadius: '50%',
+                      backgroundColor: isActive ? tokens.colors.accent : tokens.colors.surface,
+                      border: `1px solid ${isActive ? tokens.colors.accent : selected ? tokens.colors.accentBorder : tokens.colors.borderStrong}`,
+                      boxShadow: isActive
+                        ? `0 0 12px ${tokens.colors.accent}`
+                        : selected
+                          ? `inset 0 0 6px ${tokens.colors.accentGlow}, inset 0 0 0 1px ${tokens.colors.accentBorder}`
+                          : 'none',
+                      transition: 'all 0.2s ease',
+                      flexShrink: 0,
+                      zIndex: 1,
+                    }}
+                  />
+                  <span>
+                    {/* Google Fonts serves Instrument Sans 400/500 as separate static
+                        faces (not a variable-font wght axis), so font-weight can't be
+                        interpolated. Two stacked layers cross-fade via opacity instead,
+                        for the same perceived smoothness as the color transition. */}
+                    <span style={{ display: 'grid' }}>
+                      <span
+                        style={{
+                          gridArea: '1 / 1',
+                          fontSize: '14px',
+                          fontWeight: 400,
+                          color: tokens.colors.textSecondary,
+                          opacity: highlighted ? 0 : 1,
+                          transition: 'opacity 0.2s ease',
+                        }}
+                      >
+                        {exp.company}
+                      </span>
+                      <span
+                        aria-hidden="true"
+                        style={{
+                          gridArea: '1 / 1',
+                          fontSize: '14px',
+                          fontWeight: 500,
+                          color: tokens.colors.textPrimary,
+                          opacity: highlighted ? 1 : 0,
+                          transition: 'opacity 0.2s ease',
+                        }}
+                      >
+                        {exp.company}
+                      </span>
+                    </span>
+                    <span
+                      style={{
+                        display: 'block',
+                        fontSize: '12px',
+                        color: highlighted ? tokens.colors.textSecondary : tokens.colors.textTertiary,
+                        fontFamily: tokens.fonts.mono,
+                        transition: 'color 0.2s ease',
+                      }}
+                    >
+                      {exp.period}
+                    </span>
+                  </span>
+                  {isActive && (
+                    <span id={currentRoleId} className="sr-only">
+                      (current role)
+                    </span>
+                  )}
+                </button>
+              )
+            })}
           </div>
         </div>
 
         {/* Right: cards */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: `${tokens.spacing[20]}px` }}>
           {experiences.map((exp, i) => (
-            <ExperienceCard key={i} exp={exp} index={i} />
+            <ExperienceCard
+              key={i}
+              ref={(el) => {
+                cardRefs.current[i] = el
+              }}
+              exp={exp}
+              isActive={isCurrentExperience(exp)}
+              selected={hoverIndex === i || pinnedIndex === i}
+              onMouseEnter={() => handleMouseEnter(i)}
+              onMouseLeave={() => handleMouseLeave(i)}
+              onClick={() => pinIndex(i)}
+            />
           ))}
         </div>
       </div>

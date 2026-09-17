@@ -6,14 +6,17 @@ export interface Experience {
   description: string
   achievements: string[]
   tags: string[]
-  active: boolean
+}
+
+export function isCurrentExperience(exp: Experience): boolean {
+  return exp.period.toLowerCase().includes('present')
 }
 
 export const experiences: Experience[] = [
   {
     role: 'Senior Frontend Engineer',
     company: 'Acme Studio',
-    period: '2023 — Present',
+    period: '2025 - 2026',
     location: 'Remote',
     description: 'Building modern web platforms and design systems focused on accessibility, performance, and developer experience.',
     achievements: [
@@ -23,12 +26,11 @@ export const experiences: Experience[] = [
       'Collaborated closely with UX and Product teams.',
     ],
     tags: ['React', 'Next.js', 'TypeScript', 'Accessibility', 'Storybook'],
-    active: true,
   },
   {
     role: 'Frontend Developer',
     company: 'Flux Digital',
-    period: '2021 — 2023',
+    period: '2021 - 2023',
     location: 'Madrid, Spain',
     description: 'Designed and implemented enterprise dashboards and internal platforms with a focus on maintainability.',
     achievements: [
@@ -38,12 +40,11 @@ export const experiences: Experience[] = [
       'Introduced automated testing.',
     ],
     tags: ['React', 'Redux', 'Jest', 'Tailwind'],
-    active: false,
   },
   {
     role: 'Junior Frontend Developer',
     company: 'Creative Labs',
-    period: '2019 — 2021',
+    period: '2019 - 2021',
     location: 'Barcelona',
     description: 'Started career building consumer-facing web products. Focused on responsive layout and cross-browser compatibility.',
     achievements: [
@@ -53,6 +54,5 @@ export const experiences: Experience[] = [
       'Achieved 100% accessibility audit pass rate.',
     ],
     tags: ['HTML', 'CSS', 'JavaScript', 'Sass'],
-    active: false,
   },
 ]
