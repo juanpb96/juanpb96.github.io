@@ -1,4 +1,4 @@
-import { forwardRef } from 'react'
+import { forwardRef, useState } from 'react'
 import type { Experience } from '../../data/experiences'
 import { tokens } from '../../tokens'
 
@@ -16,6 +16,8 @@ export const ExperienceCard = forwardRef<HTMLDivElement, ExperienceCardProps>(fu
   ref,
 ) {
   const highlighted = isActive || selected
+  const [logoFailed, setLogoFailed] = useState(false)
+  const showLogo = Boolean(exp.logo) && !logoFailed
 
   return (
     <div
@@ -41,9 +43,12 @@ export const ExperienceCard = forwardRef<HTMLDivElement, ExperienceCardProps>(fu
           style={{
             width: '36px',
             height: '36px',
+            padding: showLogo ? `${tokens.spacing[4]}px` : undefined,
             borderRadius: '10px',
             backgroundColor: tokens.colors.surfaceRaised,
-            border: `1px solid ${tokens.colors.borderStrong}`,
+            border: `1px solid ${highlighted ? tokens.colors.accentBorder : tokens.colors.borderStrong}`,
+            boxShadow: highlighted ? `inset 0 0 6px ${tokens.colors.accentGlow}, inset 0 0 0 1px ${tokens.colors.accentBorder}` : 'none',
+            transition: 'all 0.3s ease',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
@@ -54,7 +59,16 @@ export const ExperienceCard = forwardRef<HTMLDivElement, ExperienceCardProps>(fu
             flexShrink: 0,
           }}
         >
-          {exp.company[0]}
+          {showLogo ? (
+            <img
+              src={exp.logo}
+              alt=""
+              onError={() => setLogoFailed(true)}
+              style={{ width: '100%', height: '100%', objectFit: 'contain', display: 'block' }}
+            />
+          ) : (
+            exp.company[0]
+          )}
         </div>
         <div>
           <div

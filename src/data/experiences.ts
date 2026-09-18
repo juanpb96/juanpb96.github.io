@@ -1,3 +1,7 @@
+import colcanLogo from '../assets/experience/colcan.png'
+import globantLogo from '../assets/experience/globant.png'
+import monksLogo from '../assets/experience/monks.png'
+
 export interface Experience {
   role: string
   company: string
@@ -6,6 +10,7 @@ export interface Experience {
   description: string
   achievements: string[]
   tags: string[]
+  logo?: string
 }
 
 export function isCurrentExperience(exp: Experience): boolean {
@@ -25,6 +30,7 @@ export const experiences: Experience[] = [
       'Expanded test coverage for dialog lifecycles and form layout sanitization.',
     ],
     tags: ['React', 'TypeScript', 'CSS', 'Jest', 'Testing Library'],
+    logo: globantLogo,
   },
   {
     role: 'Front-end Developer',
@@ -39,6 +45,7 @@ export const experiences: Experience[] = [
       'Automated end-to-end user journey validation with Playwright.',
     ],
     tags: ['React', 'TypeScript', 'Storybook', 'Tailwind CSS', 'Playwright'],
+    logo: monksLogo,
   },
   {
     role: 'Front-end Developer',
@@ -51,5 +58,6 @@ export const experiences: Experience[] = [
       'Used Git for version control.',
     ],
     tags: ['Angular', 'REST APIs', 'Git'],
+    logo: colcanLogo,
   },
 ]
