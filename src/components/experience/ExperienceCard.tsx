@@ -68,7 +68,10 @@ export const ExperienceCard = forwardRef<HTMLDivElement, ExperienceCardProps>(fu
           >
             {exp.role}
           </div>
-          <div style={{ fontSize: '13px', color: tokens.colors.textSecondary, marginBottom: '2px' }}>{exp.company}</div>
+          <div style={{ fontSize: '13px', color: tokens.colors.textSecondary, marginBottom: '2px' }}>
+            {exp.company}
+            {exp.formerName && ` (formerly ${exp.formerName})`}
+          </div>
           <div style={{ fontSize: '12px', color: tokens.colors.textTertiary, fontFamily: tokens.fonts.mono }}>{exp.period}</div>
         </div>
       </div>

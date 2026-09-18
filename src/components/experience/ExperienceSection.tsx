@@ -71,7 +71,7 @@ export function ExperienceSection() {
             Experience
           </h2>
           <p style={{ fontSize: '15px', color: tokens.colors.textSecondary, lineHeight: 1.7, margin: 0 }}>
-            Building accessible, scalable and high-performance digital products through thoughtful engineering and user-centered design.
+            Building interfaces since 2021 across financial platforms, media, retail, and enterprise data tools, with a focus on pixel-perfect execution and accessibility as a practiced discipline, not an afterthought.
           </p>
 
           {/* Timeline dots */}
