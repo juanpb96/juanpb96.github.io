@@ -20,7 +20,7 @@ export function ContactSection() {
       />
 
       <div
-        className="grid grid-cols-1 md:grid-cols-2"
+        className="grid grid-cols-1 mdlg:grid-cols-2"
         style={{
           gap: 'clamp(48px, 8vw, 80px)',
           alignItems: 'center',
