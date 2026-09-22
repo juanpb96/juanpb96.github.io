@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { ArrowRightIcon } from '../icons/ArrowRightIcon'
 import { tokens } from '../../tokens'
 
 interface FieldLabelProps {
@@ -152,7 +153,7 @@ export function ContactForm() {
           }}
         >
           Send message
-          <span className="cta-button-arrow" aria-hidden="true">→</span>
+          <ArrowRightIcon className="cta-button-arrow" />
         </button>
       </form>
     </div>

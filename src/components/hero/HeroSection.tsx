@@ -1,4 +1,5 @@
 import { tokens } from '../../tokens'
+import { ArrowRightIcon } from '../icons/ArrowRightIcon'
 import { AccessibilityPanel } from './AccessibilityPanel'
 import { CodePanel } from './CodePanel'
 import { DesignPanel } from './DesignPanel'
@@ -107,7 +108,7 @@ export function HeroSection() {
             }}
           >
             Get in touch
-            <span className="cta-button-arrow" aria-hidden="true">→</span>
+            <ArrowRightIcon className="cta-button-arrow" />
           </a>
         </div>
       </div>

@@ -221,6 +221,15 @@ section {
    of state. Shared by both instances so their hover/focus behavior stays
    identical by construction rather than by copy-paste. */
 .cta-button {
+  /* Neutralizes native OS/browser widget theming on <button> (the Hero
+     link never had any, since <a> has no native appearance). Without
+     this, Chrome keeps rendering its own control chrome underneath our
+     border/background overrides, which is what was producing the
+     downward shift and distorted arrow on hover/focus/active. */
+  appearance: none;
+  -webkit-appearance: none;
+  margin: 0;
+  font: inherit;
   border: 1px solid var(--border-strong);
   background-color: transparent;
   color: var(--text-primary);
