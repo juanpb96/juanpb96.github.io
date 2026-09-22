@@ -23,7 +23,7 @@ export function ContactSection() {
         className="grid grid-cols-1 mdlg:grid-cols-2"
         style={{
           gap: 'clamp(48px, 8vw, 80px)',
-          alignItems: 'start',
+          alignItems: 'center',
           position: 'relative',
           zIndex: 1,
         }}
