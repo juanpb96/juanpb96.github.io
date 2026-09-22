@@ -1,9 +1,9 @@
-import { useState } from 'react'
 import { tokens } from '../../tokens'
 
 interface ContactCardProps {
   icon: string
   title: string
+  badge?: string
   subtitle: string
   href: string
 }
@@ -11,42 +11,36 @@ interface ContactCardProps {
 export function ContactCard({
   icon,
   title,
+  badge,
   subtitle,
   href,
 }: ContactCardProps) {
-  const [hovered, setHovered] = useState(false)
-
   return (
     <a
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
+      className="contact-card"
       style={{
         display: 'flex',
         alignItems: 'center',
         gap: `${tokens.spacing[16]}px`,
         padding: `${tokens.spacing[20]}px ${tokens.spacing[24]}px`,
         borderRadius: `${tokens.radius.md}px`,
-        border: `1px solid ${hovered ? tokens.colors.accentBorder : tokens.colors.borderStrong}`,
-        backgroundColor: hovered ? tokens.colors.accentGlow : 'rgba(255,255,255,0.04)',
         backdropFilter: 'blur(16px)',
         WebkitBackdropFilter: 'blur(16px)',
         textDecoration: 'none',
         cursor: 'pointer',
-        transition: 'all 0.25s ease',
-        boxShadow: hovered ? `0 8px 32px ${tokens.colors.accentGlow}` : 'none',
       }}
     >
       {/* Icon */}
       <div
+        className="contact-card-icon"
         style={{
           width: '44px',
           height: '44px',
           borderRadius: '12px',
           backgroundColor: tokens.colors.surfaceRaised,
-          border: `1px solid ${tokens.colors.borderStrong}`,
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
@@ -57,10 +51,27 @@ export function ContactCard({
         {icon}
       </div>
       <div style={{ flex: 1 }}>
-        <div style={{ fontFamily: tokens.fonts.display, fontWeight: 600, fontSize: '15px', color: tokens.colors.textPrimary, marginBottom: '2px' }}>{title}</div>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '2px' }}>
+          <div style={{ fontFamily: tokens.fonts.display, fontWeight: 600, fontSize: '15px', color: tokens.colors.textPrimary }}>{title}</div>
+          {badge && (
+            <span
+              style={{
+                padding: '3px 10px',
+                borderRadius: `${tokens.radius.full}px`,
+                border: `1px solid ${tokens.colors.accentBorder}`,
+                backgroundColor: 'rgba(77,156,248,0.08)',
+                fontSize: '11px',
+                color: tokens.colors.accent,
+                fontFamily: tokens.fonts.mono,
+              }}
+            >
+              {badge}
+            </span>
+          )}
+        </div>
         <div style={{ fontSize: '13px', color: tokens.colors.textSecondary }}>{subtitle}</div>
       </div>
-      <span style={{ color: hovered ? tokens.colors.accent : tokens.colors.textTertiary, fontSize: '18px', transition: 'color 0.2s' }}>→</span>
+      <span className="contact-card-arrow" style={{ fontSize: '18px' }}>→</span>
     </a>
   )
 }

@@ -1,6 +1,5 @@
 import { tokens } from '../../tokens'
 import { ContactCard } from './ContactCard'
-import { Sparkle } from './Sparkle'
 
 export function ContactSection() {
   return (
@@ -18,20 +17,6 @@ export function ContactSection() {
       <div
         className="grid-texture"
         style={{ position: 'absolute', inset: 0, opacity: 0.2, pointerEvents: 'none' }}
-      />
-
-      {/* Blue ambient blob */}
-      <div
-        style={{
-          position: 'absolute',
-          top: '10%',
-          right: '20%',
-          width: '400px',
-          height: '400px',
-          borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(77,156,248,0.12) 0%, transparent 70%)',
-          pointerEvents: 'none',
-        }}
       />
 
       <div
@@ -69,72 +54,23 @@ export function ContactSection() {
           >
             If you'd like to discuss a project, collaborate, or simply say hello, feel free to reach out through any of the channels below.
           </p>
-          <a
-            href="mailto:hello@juanbo.dev"
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '10px',
-              padding: `14px ${tokens.spacing[32]}px`,
-              borderRadius: '12px',
-              backgroundColor: tokens.colors.textPrimary,
-              color: tokens.colors.bg,
-              textDecoration: 'none',
-              fontFamily: tokens.fonts.display,
-              fontWeight: 600,
-              fontSize: '15px',
-              transition: 'background-color 0.2s',
-            }}
-            onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.backgroundColor = '#c8d4e8')}
-            onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.backgroundColor = tokens.colors.textPrimary)}
-          >
-            Send an Email →
-          </a>
         </div>
 
-        {/* Right: Contact cards + decorative elements */}
-        <div style={{ position: 'relative' }}>
-          {/* Decorative floating shape */}
-          <div
-            style={{
-              position: 'absolute',
-              top: '-40px',
-              right: '-20px',
-              width: `${tokens.spacing[80]}px`,
-              height: `${tokens.spacing[80]}px`,
-              borderRadius: `${tokens.radius.lg}px`,
-              border: `1px solid ${tokens.colors.borderStrong}`,
-              backgroundColor: 'rgba(77,156,248,0.05)',
-              backdropFilter: 'blur(8px)',
-              transform: 'rotate(15deg)',
-            }}
+        {/* Right: Contact cards */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+          <ContactCard
+            icon="✉"
+            title="Email"
+            badge="Preferred"
+            subtitle="The best way to reach me directly."
+            href="mailto:hello@juanbo.dev"
           />
-
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', position: 'relative', zIndex: 1 }}>
-            <ContactCard
-              icon="✉"
-              title="Email"
-              subtitle="The best way to reach me directly."
-              href="mailto:hello@juanbo.dev"
-            />
-            <ContactCard
-              icon="in"
-              title="LinkedIn"
-              subtitle="Connect and follow my professional journey."
-              href="https://linkedin.com"
-            />
-            <ContactCard
-              icon="◎"
-              title="GitHub"
-              subtitle="Explore my projects and open-source work."
-              href="https://github.com"
-            />
-          </div>
-
-          {/* Sparkle decoration */}
-          <div style={{ position: 'absolute', bottom: '-24px', right: '0' }}>
-            <Sparkle />
-          </div>
+          <ContactCard
+            icon="in"
+            title="LinkedIn"
+            subtitle="Connect and follow my professional journey."
+            href="https://linkedin.com"
+          />
         </div>
       </div>
     </section>
