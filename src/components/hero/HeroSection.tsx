@@ -92,34 +92,22 @@ export function HeroSection() {
         <div style={{ display: 'flex', gap: `${tokens.spacing[16]}px`, alignItems: 'center' }}>
           <a
             href="#contact"
+            className="cta-button"
             style={{
               display: 'inline-flex',
               alignItems: 'center',
               gap: '8px',
               padding: '13px 28px',
               borderRadius: `${tokens.radius.sm}px`,
-              border: `1px solid ${tokens.colors.borderStrong}`,
-              backgroundColor: 'transparent',
-              color: tokens.colors.textPrimary,
               textDecoration: 'none',
               fontSize: '15px',
               fontWeight: 500,
               fontFamily: tokens.fonts.display,
-              transition: 'background-color 0.2s, border-color 0.2s',
               cursor: 'pointer',
-            }}
-            onMouseEnter={(e) => {
-              const el = e.currentTarget as HTMLElement
-              el.style.backgroundColor = tokens.colors.accentDim
-              el.style.borderColor = tokens.colors.accent
-            }}
-            onMouseLeave={(e) => {
-              const el = e.currentTarget as HTMLElement
-              el.style.backgroundColor = 'transparent'
-              el.style.borderColor = tokens.colors.borderStrong
             }}
           >
             Get in touch
+            <span className="cta-button-arrow" aria-hidden="true">→</span>
           </a>
         </div>
       </div>

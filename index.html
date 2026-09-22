@@ -7,6 +7,22 @@
   </head>
   <body>
     <div id="root"></div>
+
+    <!--
+      Netlify Forms detects a form by parsing the STATIC HTML produced at
+      build time — it never runs the client-side bundle, so the real
+      contact form (rendered by React inside #root at runtime) is invisible
+      to it. This hidden replica exists purely so Netlify's build-time scan
+      can register the form name and field names; it mirrors
+      src/components/contact/ContactForm.tsx and must be kept in sync with
+      it (name="contact" and the name/email/message fields).
+    -->
+    <form name="contact" data-netlify="true" hidden>
+      <input type="text" name="name" />
+      <input type="email" name="email" />
+      <textarea name="message"></textarea>
+    </form>
+
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

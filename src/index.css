@@ -215,54 +215,91 @@ section {
   border-radius: 4px;
 }
 
-/* Contact channel cards — base colors live here (not inline style) so
-   :hover/:focus-visible can override them; an inline style attribute would
-   always win over these regardless of state. */
-.contact-card {
+/* Primary CTA button (Hero "Get in touch", contact form submit) — base
+   colors live here (not inline style) so :hover/:focus-visible can override
+   them; an inline style attribute would always win over these regardless
+   of state. Shared by both instances so their hover/focus behavior stays
+   identical by construction rather than by copy-paste. */
+.cta-button {
   border: 1px solid var(--border-strong);
-  background-color: rgba(255, 255, 255, 0.04);
-  box-shadow: none;
-  transition: border-color 0.25s ease, background-color 0.25s ease, box-shadow 0.25s ease;
+  background-color: transparent;
+  color: var(--text-primary);
+  transition: background-color 0.2s, border-color 0.2s;
 }
 
-.contact-card-icon {
-  border: 1px solid var(--border-strong);
-  transition: border-color 0.25s ease, color 0.25s ease;
+.cta-button-arrow {
+  display: inline-block;
+  transition: transform 0.2s ease, color 0.2s ease;
 }
 
-.contact-card-arrow {
-  color: var(--text-tertiary);
-  transition: color 0.2s;
-}
-
-.contact-card:focus-visible {
+.cta-button:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
-  border-color: var(--accent-border);
-  background-color: var(--accent-glow);
-  box-shadow: 0 8px 32px var(--accent-glow);
+  background-color: var(--accent-dim);
+  border-color: var(--accent);
 }
-.contact-card:focus-visible .contact-card-icon {
-  border-color: var(--accent-border);
-  color: var(--accent);
-}
-.contact-card:focus-visible .contact-card-arrow {
+.cta-button:focus-visible .cta-button-arrow {
+  transform: translateX(4px);
   color: var(--accent);
 }
 
 @media (hover: hover) and (pointer: fine) {
-  .contact-card:hover {
-    border-color: var(--accent-border);
-    background-color: var(--accent-glow);
-    box-shadow: 0 8px 32px var(--accent-glow);
+  .cta-button:hover {
+    background-color: var(--accent-dim);
+    border-color: var(--accent);
   }
-  .contact-card:hover .contact-card-icon {
-    border-color: var(--accent-border);
+  .cta-button:hover .cta-button-arrow {
+    transform: translateX(4px);
     color: var(--accent);
   }
-  .contact-card:hover .contact-card-arrow {
-    color: var(--accent);
+}
+
+/* Inline links within body copy (Contact section "email"/"LinkedIn"). */
+.inline-link {
+  color: var(--accent);
+  text-decoration: underline;
+  text-decoration-color: var(--accent-border);
+  text-underline-offset: 2px;
+  transition: text-decoration-color 0.2s ease;
+}
+
+.inline-link:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 2px;
+  text-decoration-color: var(--accent);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .inline-link:hover {
+    text-decoration-color: var(--accent);
   }
+}
+
+/* Contact form fields — border/shadow live here so :focus can override the
+   base state, same reasoning as .cta-button above. */
+.contact-form-field {
+  border: 1px solid var(--border-strong);
+  background-color: var(--surface);
+  color: var(--text-primary);
+  font: inherit;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.contact-form-field::placeholder {
+  color: var(--text-tertiary);
+}
+
+.contact-form-field:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-glow);
+}
+
+.contact-form-textarea {
+  resize: vertical;
+  min-height: 120px;
+  max-height: 280px;
 }
 
 .project-icon-btn-tooltip {

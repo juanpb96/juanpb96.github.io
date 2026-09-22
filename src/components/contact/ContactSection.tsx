@@ -1,5 +1,5 @@
 import { tokens } from '../../tokens'
-import { ContactCard } from './ContactCard'
+import { ContactForm } from './ContactForm'
 
 export function ContactSection() {
   return (
@@ -23,7 +23,7 @@ export function ContactSection() {
         className="grid grid-cols-1 mdlg:grid-cols-2"
         style={{
           gap: 'clamp(48px, 8vw, 80px)',
-          alignItems: 'center',
+          alignItems: 'start',
           position: 'relative',
           zIndex: 1,
         }}
@@ -48,11 +48,24 @@ export function ContactSection() {
               fontSize: '15px',
               color: tokens.colors.textSecondary,
               lineHeight: 1.7,
-              marginBottom: '16px',
+              marginBottom: '12px',
               maxWidth: '420px',
             }}
           >
-            If you'd like to discuss a project, collaborate, or simply say hello, feel free to reach out through email or LinkedIn.
+            If you'd like to discuss a project, collaborate, or simply say hello, feel free to reach out through{' '}
+            <a href="mailto:hello@juanbonilla.me" className="inline-link">
+              email
+            </a>{' '}
+            or{' '}
+            <a
+              href="https://www.linkedin.com/in/juanpablobonilla"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-link"
+            >
+              LinkedIn
+            </a>
+            .
           </p>
           <p
             style={{
@@ -66,25 +79,8 @@ export function ContactSection() {
           </p>
         </div>
 
-        {/* Right: Contact cards */}
-        <div
-          className="grid grid-cols-1 sm:grid-cols-2 mdlg:grid-cols-1"
-          style={{ gap: `${tokens.spacing[20]}px` }}
-        >
-          <ContactCard
-            icon="✉"
-            title="Email"
-            badge="Preferred"
-            subtitle="The best way to reach me directly."
-            href="mailto:hello@juanbonilla.me"
-          />
-          <ContactCard
-            icon="in"
-            title="LinkedIn"
-            subtitle="A closer look at my experience, let's connect."
-            href="https://www.linkedin.com/in/juanpablobonilla"
-          />
-        </div>
+        {/* Right: Contact form */}
+        <ContactForm />
       </div>
     </section>
   )
