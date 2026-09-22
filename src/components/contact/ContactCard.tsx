@@ -52,7 +52,7 @@ export function ContactCard({
       </div>
       <div style={{ flex: 1 }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '2px' }}>
-          <div style={{ fontFamily: tokens.fonts.display, fontWeight: 600, fontSize: '15px', color: tokens.colors.textPrimary }}>{title}</div>
+          <div style={{ fontFamily: tokens.fonts.display, fontWeight: 600, fontSize: '15px', color: tokens.colors.textPrimary, textWrap: 'balance' }}>{title}</div>
           {badge && (
             <span
               style={{
@@ -69,7 +69,7 @@ export function ContactCard({
             </span>
           )}
         </div>
-        <div style={{ fontSize: '13px', color: tokens.colors.textSecondary }}>{subtitle}</div>
+        <div style={{ fontSize: '13px', color: tokens.colors.textSecondary, textWrap: 'balance' }}>{subtitle}</div>
       </div>
       <span className="contact-card-arrow" style={{ fontSize: '18px' }}>→</span>
     </a>

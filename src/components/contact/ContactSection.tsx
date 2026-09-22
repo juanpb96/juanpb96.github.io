@@ -59,7 +59,6 @@ export function ContactSection() {
               fontSize: '12px',
               color: tokens.colors.textTertiary,
               lineHeight: 1.7,
-              marginBottom: '40px',
               maxWidth: '420px',
             }}
           >
@@ -68,7 +67,10 @@ export function ContactSection() {
         </div>
 
         {/* Right: Contact cards */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: `${tokens.spacing[20]}px` }}>
+        <div
+          className="grid grid-cols-1 sm:grid-cols-2 mdlg:grid-cols-1"
+          style={{ gap: `${tokens.spacing[20]}px` }}
+        >
           <ContactCard
             icon="✉"
             title="Email"
