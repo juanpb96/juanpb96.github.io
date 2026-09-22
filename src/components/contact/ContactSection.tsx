@@ -48,11 +48,22 @@ export function ContactSection() {
               fontSize: '15px',
               color: tokens.colors.textSecondary,
               lineHeight: 1.7,
+              marginBottom: '16px',
+              maxWidth: '420px',
+            }}
+          >
+            If you'd like to discuss a project, collaborate, or simply say hello, feel free to reach out through email or LinkedIn.
+          </p>
+          <p
+            style={{
+              fontSize: '12px',
+              color: tokens.colors.textTertiary,
+              lineHeight: 1.7,
               marginBottom: '40px',
               maxWidth: '420px',
             }}
           >
-            If you'd like to discuss a project, collaborate, or simply say hello, feel free to reach out through any of the channels below.
+            Bogotá, GMT-5. Usually replies within a day
           </p>
         </div>
 
@@ -63,13 +74,13 @@ export function ContactSection() {
             title="Email"
             badge="Preferred"
             subtitle="The best way to reach me directly."
-            href="mailto:hello@juanbo.dev"
+            href="mailto:hello@juanbonilla.me"
           />
           <ContactCard
             icon="in"
             title="LinkedIn"
-            subtitle="Connect and follow my professional journey."
-            href="https://linkedin.com"
+            subtitle="A closer look at my experience, let's connect."
+            href="https://www.linkedin.com/in/juanpablobonilla"
           />
         </div>
       </div>
