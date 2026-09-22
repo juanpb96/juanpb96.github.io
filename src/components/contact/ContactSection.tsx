@@ -8,7 +8,7 @@ export function ContactSection() {
       className="px-container-mobile md:px-container-desktop"
       style={{
         paddingTop: 'clamp(64px, 10vw, 120px)',
-        paddingBottom: 'clamp(48px, 8vw, 80px)',
+        paddingBottom: 'clamp(64px, 10vw, 120px)',
         position: 'relative',
         overflow: 'hidden',
       }}
