@@ -68,7 +68,7 @@ export function ContactSection() {
         </div>
 
         {/* Right: Contact cards */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: `${tokens.spacing[20]}px` }}>
           <ContactCard
             icon="✉"
             title="Email"
