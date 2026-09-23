@@ -46,12 +46,13 @@ interface FormFieldProps {
   id: string
   name: string
   label: string
+  placeholder?: string
   type?: 'text' | 'email'
   multiline?: boolean
   required?: boolean
 }
 
-function FormField({ id, name, label, type = 'text', multiline, required }: FormFieldProps) {
+function FormField({ id, name, label, placeholder, type = 'text', multiline, required }: FormFieldProps) {
   const [focused, setFocused] = useState(false)
 
   const fieldStyle = {
@@ -71,6 +72,7 @@ function FormField({ id, name, label, type = 'text', multiline, required }: Form
         <textarea
           id={id}
           name={name}
+          placeholder={placeholder}
           required={required}
           rows={4}
           onFocus={() => setFocused(true)}
@@ -83,6 +85,7 @@ function FormField({ id, name, label, type = 'text', multiline, required }: Form
           id={id}
           name={name}
           type={type}
+          placeholder={placeholder}
           required={required}
           onFocus={() => setFocused(true)}
           onBlur={() => setFocused(false)}
@@ -132,9 +135,9 @@ export function ContactForm() {
       >
         <input type="hidden" name="form-name" value="contact" />
 
-        <FormField id="contact-name" name="name" label="Name" required />
-        <FormField id="contact-email" name="email" label="Email" type="email" required />
-        <FormField id="contact-message" name="message" label="Message" multiline required />
+        <FormField id="contact-name" name="name" label="Name" placeholder="Your name" required />
+        <FormField id="contact-email" name="email" label="Email" type="email" placeholder="you@example.com" required />
+        <FormField id="contact-message" name="message" label="Message" placeholder="What would you like to discuss?" multiline required />
 
         <button
           type="submit"
