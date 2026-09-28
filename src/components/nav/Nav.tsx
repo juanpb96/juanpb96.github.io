@@ -47,6 +47,7 @@ export function Nav() {
     if (!open) return
 
     linkRefs.current[0]?.focus()
+    const hamburgerButton = hamburgerRef.current
 
     const getFocusables = (): HTMLElement[] =>
       [...linkRefs.current, logoRef.current, hamburgerRef.current].filter(
@@ -94,7 +95,7 @@ export function Nav() {
       backgroundSiblings.forEach((el) => {
         ;(el as HTMLElement).inert = false
       })
-      hamburgerRef.current?.focus()
+      hamburgerButton?.focus()
     }
     // oxlint-disable-next-line react-hooks/exhaustive-deps
   }, [open])
