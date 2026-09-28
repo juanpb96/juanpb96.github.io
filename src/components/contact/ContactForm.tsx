@@ -1,9 +1,12 @@
-import { useState } from 'react'
-import { ArrowRightIcon } from '../icons/ArrowRightIcon'
-import { tokens } from '../../tokens'
+import { useState } from "react"
+
+import { ArrowRightIcon } from "../icons/ArrowRightIcon"
+
+import { tokens } from "../../tokens"
 
 interface FieldLabelProps {
   label: string
+
   focused: boolean
 }
 
@@ -12,16 +15,21 @@ interface FieldLabelProps {
    axis), so font-weight can't be interpolated. Two stacked layers cross-fade
    via opacity instead, each carrying its own static color, which reads as a
    combined color + weight transition. */
+
 function FieldLabel({ label, focused }: FieldLabelProps) {
   return (
-    <span style={{ display: 'grid' }}>
+    <span style={{ display: "grid" }}>
       <span
         style={{
-          gridArea: '1 / 1',
+          gridArea: "1 / 1",
+
           fontWeight: 400,
+
           color: tokens.colors.textTertiary,
+
           opacity: focused ? 0 : 1,
-          transition: 'opacity 0.2s ease',
+
+          transition: "opacity 0.2s ease",
         }}
       >
         {label}
@@ -29,11 +37,15 @@ function FieldLabel({ label, focused }: FieldLabelProps) {
       <span
         aria-hidden="true"
         style={{
-          gridArea: '1 / 1',
+          gridArea: "1 / 1",
+
           fontWeight: 500,
+
           color: tokens.colors.textPrimary,
+
           opacity: focused ? 1 : 0,
-          transition: 'opacity 0.2s ease',
+
+          transition: "opacity 0.2s ease",
         }}
       >
         {label}
@@ -44,28 +56,49 @@ function FieldLabel({ label, focused }: FieldLabelProps) {
 
 interface FormFieldProps {
   id: string
+
   name: string
+
   label: string
+
   placeholder?: string
-  type?: 'text' | 'email'
+
+  type?: "text" | "email"
+
   multiline?: boolean
+
   required?: boolean
 }
 
-function FormField({ id, name, label, placeholder, type = 'text', multiline, required }: FormFieldProps) {
+function FormField({
+  id,
+  name,
+  label,
+  placeholder,
+  type = "text",
+  multiline,
+  required,
+}: FormFieldProps) {
   const [focused, setFocused] = useState(false)
 
   const fieldStyle = {
-    width: '100%',
-    padding: '12px 14px',
+    width: "100%",
+
+    padding: "12px 14px",
+
     borderRadius: `${tokens.radius.sm}px`,
-    fontSize: '14px',
+
+    fontSize: "14px",
+
     fontFamily: tokens.fonts.body,
   }
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-      <label htmlFor={id} style={{ fontSize: '13px', fontFamily: tokens.fonts.display }}>
+    <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+      <label
+        htmlFor={id}
+        style={{ fontSize: "13px", fontFamily: tokens.fonts.display }}
+      >
         <FieldLabel label={label} focused={focused} />
       </label>
       {multiline ? (
@@ -102,18 +135,26 @@ export function ContactForm() {
     <div
       style={{
         border: `1px solid ${tokens.colors.borderStrong}`,
+
         borderRadius: `${tokens.radius.lg}px`,
+
         backgroundColor: tokens.colors.surface,
+
         padding: `${tokens.spacing[32]}px`,
       }}
     >
       <h3
         style={{
           fontFamily: tokens.fonts.display,
+
           fontWeight: 600,
-          fontSize: '18px',
+
+          fontSize: "18px",
+
           color: tokens.colors.textPrimary,
+
           lineHeight: 1.4,
+
           margin: `0 0 ${tokens.spacing[24]}px 0`,
         }}
       >
@@ -131,28 +172,61 @@ export function ContactForm() {
         name="contact"
         method="POST"
         data-netlify="true"
-        style={{ display: 'flex', flexDirection: 'column', gap: `${tokens.spacing[20]}px` }}
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          gap: `${tokens.spacing[20]}px`,
+        }}
       >
         <input type="hidden" name="form-name" value="contact" />
 
-        <FormField id="contact-name" name="name" label="Name" placeholder="Your name" required />
-        <FormField id="contact-email" name="email" label="Email" type="email" placeholder="you@example.com" required />
-        <FormField id="contact-message" name="message" label="Message" placeholder="What would you like to discuss?" multiline required />
+        <FormField
+          id="contact-name"
+          name="name"
+          label="Name"
+          placeholder="Your name"
+          required
+        />
+        <FormField
+          id="contact-email"
+          name="email"
+          label="Email"
+          type="email"
+          placeholder="you@example.com"
+          required
+        />
+        <FormField
+          id="contact-message"
+          name="message"
+          label="Message"
+          placeholder="What would you like to discuss?"
+          multiline
+          required
+        />
 
         <button
           type="submit"
           className="cta-button"
           style={{
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: '8px',
-            alignSelf: 'flex-start',
-            padding: '13px 28px',
+            display: "inline-flex",
+
+            alignItems: "center",
+
+            gap: "8px",
+
+            alignSelf: "flex-start",
+
+            padding: "13px 28px",
+
             borderRadius: `${tokens.radius.sm}px`,
-            fontSize: '15px',
+
+            fontSize: "15px",
+
             fontWeight: 500,
+
             fontFamily: tokens.fonts.display,
-            cursor: 'pointer',
+
+            cursor: "pointer",
           }}
         >
           Send message
