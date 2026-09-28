@@ -31,8 +31,8 @@ export const ExperienceCard = forwardRef<HTMLDivElement, ExperienceCardProps>(
     const showLogo = Boolean(exp.logo) && !logoFailed
 
     return (
-      // oxlint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions -- intentional: this onClick only mirrors the side stepper's selection for mouse/touch. The stepper button (native <button>, aria-pressed, aria-label, focus-visible) is the sole keyboard entry point by design, since focus on the card has no action of its own beyond that visual mirror.
-      <div
+      // Intentional a11y exception, not a gap: the onClick below only mirrors the side stepper's selection for mouse/touch. The stepper button (native <button>, aria-pressed, aria-label, focus-visible) is the sole keyboard entry point by design, since focus on the card has no action of its own beyond that visual mirror.
+      <div // oxlint-disable-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
         ref={ref}
         onMouseEnter={onMouseEnter}
         onMouseLeave={onMouseLeave}
@@ -65,8 +65,11 @@ export const ExperienceCard = forwardRef<HTMLDivElement, ExperienceCardProps>(
         <div
           style={{
             display: "flex",
+
             alignItems: "flex-start",
+
             gap: "14px",
+
             marginBottom: "16px",
           }}
         >
@@ -121,8 +124,11 @@ export const ExperienceCard = forwardRef<HTMLDivElement, ExperienceCardProps>(
                 onError={() => setLogoFailed(true)}
                 style={{
                   width: "100%",
+
                   height: "100%",
+
                   objectFit: "contain",
+
                   display: "block",
                 }}
               />
@@ -149,7 +155,9 @@ export const ExperienceCard = forwardRef<HTMLDivElement, ExperienceCardProps>(
             <div
               style={{
                 fontSize: "13px",
+
                 color: tokens.colors.textSecondary,
+
                 marginBottom: "2px",
               }}
             >
@@ -159,7 +167,9 @@ export const ExperienceCard = forwardRef<HTMLDivElement, ExperienceCardProps>(
             <div
               style={{
                 fontSize: "12px",
+
                 color: tokens.colors.textTertiary,
+
                 fontFamily: tokens.fonts.mono,
               }}
             >
@@ -172,9 +182,13 @@ export const ExperienceCard = forwardRef<HTMLDivElement, ExperienceCardProps>(
         <p
           style={{
             fontSize: "14px",
+
             color: tokens.colors.textSecondary,
+
             lineHeight: 1.7,
+
             marginBottom: "16px",
+
             margin: "0 0 16px 0",
           }}
         >
@@ -190,9 +204,13 @@ export const ExperienceCard = forwardRef<HTMLDivElement, ExperienceCardProps>(
               key={a}
               style={{
                 fontSize: "13px",
+
                 color: tokens.colors.textSecondary,
+
                 display: "flex",
+
                 gap: `${tokens.spacing[8]}px`,
+
                 alignItems: "flex-start",
               }}
             >
@@ -201,7 +219,9 @@ export const ExperienceCard = forwardRef<HTMLDivElement, ExperienceCardProps>(
                   color: highlighted
                     ? tokens.colors.accent
                     : tokens.colors.textTertiary,
+
                   marginTop: "2px",
+
                   flexShrink: 0,
                 }}
               >
