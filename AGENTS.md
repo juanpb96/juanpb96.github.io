@@ -19,8 +19,9 @@ This is the canonical project structure. Start with task-relevant files below. O
 - `src/components/projects/ProjectCard.tsx` - Single card component for default and featured layouts; optional `large` prop (padding, title size, and which mockup). Do not split into separate default/large components
 - `src/index.css` - Global CSS entrypoint and Tailwind CSS v4 import
 - `index.html` - Vite HTML shell containing the `#root` element and loading `src/main.tsx`
-- `package.json` - Project dependencies and the Vite build, development, preview, and formatting scripts
+- `package.json` - Project dependencies and the Vite build, development, preview, formatting, and lint scripts
 - `vite.config.ts` - Vite configuration with the React plugin, Tailwind CSS v4 plugin, and the `@` alias for `src`
+- `.oxlintrc.json` - oxlint configuration: enabled plugins (`typescript`, `unicorn`, `oxc`, `react`, `jsx-a11y`) and the `correctness` rule category
 
 ## Dependencies
 
@@ -28,6 +29,7 @@ This is the canonical project structure. Start with task-relevant files below. O
 - Styling: Tailwind CSS v4 with the `@tailwindcss/vite` plugin
 - Build tooling: Vite 8, TypeScript 7, and `@vitejs/plugin-react`
 - Formatting: oxfmt
+- Linting: oxlint, including the native `jsx-a11y` plugin for accessibility rules. Run `pnpm run lint`
 
 ## Styling
 
@@ -37,9 +39,10 @@ This project uses **Tailwind CSS v4** through the `@tailwindcss/vite` plugin con
 
 ## Code quality
 
-- Use double quotes for strings containing apostrophes (`"We're here to help"`), or escape them in single-quoted strings. An unescaped apostrophe in a single-quoted string breaks the build.
+- Use double quotes for strings, matching `oxfmt`'s default (enforced by `pnpm run format` and the CI format check).
 - Ensure JSX tags are closed and braces are balanced.
 - Export components as named exports (`export function X`), not default exports.
+- Linter is oxlint (`pnpm run lint`), with the `jsx-a11y` plugin enabled — keep interactive JSX accessible (keyboard handlers alongside click handlers, semantic roles, labelled controls, etc.). Suppress a rule with `// oxlint-disable-next-line <rule>` or `// oxlint-disable-line <rule>` (not the ESLint `// eslint-disable-next-line` syntax) — prefer `-disable-line` on a trailing JSX attribute/tag comment, since `oxfmt` inserts a blank line after a leading `-next-line` comment in JSX and breaks the suppression.
 
 ## Responsive conventions
 

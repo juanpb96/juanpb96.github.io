@@ -1,129 +1,273 @@
-import { forwardRef, useState } from 'react'
-import type { Experience } from '../../data/experiences'
-import { tokens } from '../../tokens'
+import { forwardRef, useState } from "react"
+
+import type { Experience } from "../../data/experiences"
+
+import { tokens } from "../../tokens"
 
 interface ExperienceCardProps {
   exp: Experience
+
   isActive: boolean
+
   selected: boolean
+
   onMouseEnter: () => void
+
   onMouseLeave: () => void
+
   onClick: () => void
 }
 
-export const ExperienceCard = forwardRef<HTMLDivElement, ExperienceCardProps>(function ExperienceCard(
-  { exp, isActive, selected, onMouseEnter, onMouseLeave, onClick },
-  ref,
-) {
-  const highlighted = isActive || selected
-  const [logoFailed, setLogoFailed] = useState(false)
-  const showLogo = Boolean(exp.logo) && !logoFailed
+export const ExperienceCard = forwardRef<HTMLDivElement, ExperienceCardProps>(
+  function ExperienceCard(
+    { exp, isActive, selected, onMouseEnter, onMouseLeave, onClick },
 
-  return (
-    <div
-      ref={ref}
-      onMouseEnter={onMouseEnter}
-      onMouseLeave={onMouseLeave}
-      onClick={onClick}
-      style={{
-        borderRadius: `${tokens.radius.lg}px`,
-        border: `1px solid ${highlighted ? tokens.colors.accentBorder : tokens.colors.border}`,
-        backgroundColor: highlighted ? tokens.colors.accentGlow : tokens.colors.surface,
-        padding: `28px ${tokens.spacing[32]}px`,
-        transition: 'all 0.3s ease',
-        boxShadow: highlighted ? `0 0 40px rgba(77,156,248,0.08), inset 0 1px 0 ${tokens.colors.accentGlow}` : 'none',
-        position: 'relative',
-        scrollMarginTop: `calc(64px + ${tokens.spacing[20]}px)`,
-      }}
-    >
-      {/* Role header */}
-      <div style={{ display: 'flex', alignItems: 'flex-start', gap: '14px', marginBottom: '16px' }}>
-        {/* Company avatar */}
+    ref,
+  ) {
+    const highlighted = isActive || selected
+
+    const [logoFailed, setLogoFailed] = useState(false)
+
+    const showLogo = Boolean(exp.logo) && !logoFailed
+
+    return (
+      // Intentional a11y exception, not a gap: the onClick below only mirrors the side stepper's selection for mouse/touch. The stepper button (native <button>, aria-pressed, aria-label, focus-visible) is the sole keyboard entry point by design, since focus on the card has no action of its own beyond that visual mirror.
+      <div // oxlint-disable-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
+        ref={ref}
+        onMouseEnter={onMouseEnter}
+        onMouseLeave={onMouseLeave}
+        onClick={onClick}
+        style={{
+          borderRadius: `${tokens.radius.lg}px`,
+
+          border: `1px solid ${
+            highlighted ? tokens.colors.accentBorder : tokens.colors.border
+          }`,
+
+          backgroundColor: highlighted
+            ? tokens.colors.accentGlow
+            : tokens.colors.surface,
+
+          padding: `28px ${tokens.spacing[32]}px`,
+
+          transition: "all 0.3s ease",
+
+          boxShadow: highlighted
+            ? `0 0 40px rgba(77,156,248,0.08), inset 0 1px 0 ${tokens.colors.accentGlow}`
+            : "none",
+
+          position: "relative",
+
+          scrollMarginTop: `calc(64px + ${tokens.spacing[20]}px)`,
+        }}
+      >
+        {/* Role header */}
         <div
           style={{
-            width: '36px',
-            height: '36px',
-            padding: showLogo ? `${tokens.spacing[4]}px` : undefined,
-            borderRadius: '10px',
-            backgroundColor: tokens.colors.surfaceRaised,
-            border: `1px solid ${highlighted ? tokens.colors.accentBorder : tokens.colors.borderStrong}`,
-            boxShadow: highlighted ? `inset 0 0 6px ${tokens.colors.accentGlow}, inset 0 0 0 1px ${tokens.colors.accentBorder}` : 'none',
-            transition: 'all 0.3s ease',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            fontFamily: tokens.fonts.display,
-            fontWeight: 700,
-            fontSize: '14px',
-            color: highlighted ? tokens.colors.accent : tokens.colors.textSecondary,
-            flexShrink: 0,
+            display: "flex",
+
+            alignItems: "flex-start",
+
+            gap: "14px",
+
+            marginBottom: "16px",
           }}
         >
-          {showLogo ? (
-            <img
-              src={exp.logo}
-              alt=""
-              onError={() => setLogoFailed(true)}
-              style={{ width: '100%', height: '100%', objectFit: 'contain', display: 'block' }}
-            />
-          ) : (
-            exp.company[0]
-          )}
-        </div>
-        <div>
+          {/* Company avatar */}
           <div
             style={{
+              width: "36px",
+
+              height: "36px",
+
+              padding: showLogo ? `${tokens.spacing[4]}px` : undefined,
+
+              borderRadius: "10px",
+
+              backgroundColor: tokens.colors.surfaceRaised,
+
+              border: `1px solid ${
+                highlighted
+                  ? tokens.colors.accentBorder
+                  : tokens.colors.borderStrong
+              }`,
+
+              boxShadow: highlighted
+                ? `inset 0 0 6px ${tokens.colors.accentGlow}, inset 0 0 0 1px ${tokens.colors.accentBorder}`
+                : "none",
+
+              transition: "all 0.3s ease",
+
+              display: "flex",
+
+              alignItems: "center",
+
+              justifyContent: "center",
+
               fontFamily: tokens.fonts.display,
-              fontWeight: 600,
-              fontSize: '16px',
-              color: tokens.colors.textPrimary,
-              marginBottom: '2px',
+
+              fontWeight: 700,
+
+              fontSize: "14px",
+
+              color: highlighted
+                ? tokens.colors.accent
+                : tokens.colors.textSecondary,
+
+              flexShrink: 0,
             }}
           >
-            {exp.role}
+            {showLogo ? (
+              <img
+                src={exp.logo}
+                alt=""
+                onError={() => setLogoFailed(true)}
+                style={{
+                  width: "100%",
+
+                  height: "100%",
+
+                  objectFit: "contain",
+
+                  display: "block",
+                }}
+              />
+            ) : (
+              exp.company[0]
+            )}
           </div>
-          <div style={{ fontSize: '13px', color: tokens.colors.textSecondary, marginBottom: '2px' }}>
-            {exp.company}
-            {exp.formerName && ` (formerly ${exp.formerName})`}
+          <div>
+            <div
+              style={{
+                fontFamily: tokens.fonts.display,
+
+                fontWeight: 600,
+
+                fontSize: "16px",
+
+                color: tokens.colors.textPrimary,
+
+                marginBottom: "2px",
+              }}
+            >
+              {exp.role}
+            </div>
+            <div
+              style={{
+                fontSize: "13px",
+
+                color: tokens.colors.textSecondary,
+
+                marginBottom: "2px",
+              }}
+            >
+              {exp.company}
+              {exp.formerName && ` (formerly ${exp.formerName})`}
+            </div>
+            <div
+              style={{
+                fontSize: "12px",
+
+                color: tokens.colors.textTertiary,
+
+                fontFamily: tokens.fonts.mono,
+              }}
+            >
+              {exp.period}
+            </div>
           </div>
-          <div style={{ fontSize: '12px', color: tokens.colors.textTertiary, fontFamily: tokens.fonts.mono }}>{exp.period}</div>
+        </div>
+
+        {/* Description + achievements */}
+        <p
+          style={{
+            fontSize: "14px",
+
+            color: tokens.colors.textSecondary,
+
+            lineHeight: 1.7,
+
+            marginBottom: "16px",
+
+            margin: "0 0 16px 0",
+          }}
+        >
+          {exp.description}
+        </p>
+
+        <div
+          className="grid grid-cols-1"
+          style={{ gap: "6px", marginBottom: `${tokens.spacing[20]}px` }}
+        >
+          {exp.achievements.map((a) => (
+            <div
+              key={a}
+              style={{
+                fontSize: "13px",
+
+                color: tokens.colors.textSecondary,
+
+                display: "flex",
+
+                gap: `${tokens.spacing[8]}px`,
+
+                alignItems: "flex-start",
+              }}
+            >
+              <span
+                style={{
+                  color: highlighted
+                    ? tokens.colors.accent
+                    : tokens.colors.textTertiary,
+
+                  marginTop: "2px",
+
+                  flexShrink: 0,
+                }}
+              >
+                ·
+              </span>
+              {a}
+            </div>
+          ))}
+        </div>
+
+        {/* Tags */}
+        <div style={{ display: "flex", gap: "6px", flexWrap: "wrap" }}>
+          {exp.tags.map((tag) => (
+            <span
+              key={tag}
+              style={{
+                padding: "3px 10px",
+
+                borderRadius: `${tokens.radius.full}px`,
+
+                border: `1px solid ${
+                  highlighted
+                    ? tokens.colors.accentBorder
+                    : tokens.colors.border
+                }`,
+
+                backgroundColor: highlighted
+                  ? "rgba(77,156,248,0.08)"
+                  : "rgba(255,255,255,0.03)",
+
+                fontSize: "11px",
+
+                color: highlighted
+                  ? tokens.colors.accent
+                  : tokens.colors.textSecondary,
+
+                fontFamily: tokens.fonts.mono,
+
+                transition: "all 0.3s",
+              }}
+            >
+              {tag}
+            </span>
+          ))}
         </div>
       </div>
-
-      {/* Description + achievements */}
-      <p style={{ fontSize: '14px', color: tokens.colors.textSecondary, lineHeight: 1.7, marginBottom: '16px', margin: '0 0 16px 0' }}>
-        {exp.description}
-      </p>
-
-      <div className="grid grid-cols-1" style={{ gap: '6px', marginBottom: `${tokens.spacing[20]}px` }}>
-        {exp.achievements.map((a) => (
-          <div key={a} style={{ fontSize: '13px', color: tokens.colors.textSecondary, display: 'flex', gap: `${tokens.spacing[8]}px`, alignItems: 'flex-start' }}>
-            <span style={{ color: highlighted ? tokens.colors.accent : tokens.colors.textTertiary, marginTop: '2px', flexShrink: 0 }}>·</span>
-            {a}
-          </div>
-        ))}
-      </div>
-
-      {/* Tags */}
-      <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
-        {exp.tags.map((tag) => (
-          <span
-            key={tag}
-            style={{
-              padding: '3px 10px',
-              borderRadius: `${tokens.radius.full}px`,
-              border: `1px solid ${highlighted ? tokens.colors.accentBorder : tokens.colors.border}`,
-              backgroundColor: highlighted ? 'rgba(77,156,248,0.08)' : 'rgba(255,255,255,0.03)',
-              fontSize: '11px',
-              color: highlighted ? tokens.colors.accent : tokens.colors.textSecondary,
-              fontFamily: tokens.fonts.mono,
-              transition: 'all 0.3s',
-            }}
-          >
-            {tag}
-          </span>
-        ))}
-      </div>
-    </div>
-  )
-})
+    )
+  },
+)
