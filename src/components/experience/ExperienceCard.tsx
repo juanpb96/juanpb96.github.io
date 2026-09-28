@@ -20,6 +20,7 @@ export const ExperienceCard = forwardRef<HTMLDivElement, ExperienceCardProps>(fu
   const showLogo = Boolean(exp.logo) && !logoFailed
 
   return (
+    // oxlint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions -- pre-existing gap, tracked separately from the oxlint migration
     <div
       ref={ref}
       onMouseEnter={onMouseEnter}

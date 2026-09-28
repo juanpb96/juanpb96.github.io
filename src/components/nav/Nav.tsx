@@ -96,7 +96,7 @@ export function Nav() {
       })
       hamburgerRef.current?.focus()
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // oxlint-disable-next-line react-hooks/exhaustive-deps
   }, [open])
 
   const iconOpen = open && !closing
@@ -225,6 +225,7 @@ export function Nav() {
       {open &&
         createPortal(
           <div
+            // oxlint-disable-next-line jsx-a11y/prefer-tag-over-role -- pre-existing gap, tracked separately from the oxlint migration
             role="dialog"
             aria-modal="true"
             style={{
