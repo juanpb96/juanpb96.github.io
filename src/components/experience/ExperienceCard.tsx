@@ -20,7 +20,7 @@ export const ExperienceCard = forwardRef<HTMLDivElement, ExperienceCardProps>(fu
   const showLogo = Boolean(exp.logo) && !logoFailed
 
   return (
-    // oxlint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions -- pre-existing gap, tracked separately from the oxlint migration
+    // oxlint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions -- intentional: this onClick only mirrors the side stepper's selection for mouse/touch. The stepper button (native <button>, aria-pressed, aria-label, focus-visible) is the sole keyboard entry point by design, since focus on the card has no action of its own beyond that visual mirror.
     <div
       ref={ref}
       onMouseEnter={onMouseEnter}
