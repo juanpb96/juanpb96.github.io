@@ -107,6 +107,18 @@ export function Nav() {
 
     window.addEventListener("keydown", handleKeyDown)
 
+    // The overlay is mobile-only (its toggle is md:hidden). If the viewport
+    // crosses Tailwind's md breakpoint (48rem) while it's open, close it so
+    // the overlay, scroll lock and inert background don't linger on desktop.
+    // A CSS-only hide can't undo that JS-applied state, hence the listener.
+    const desktopQuery = window.matchMedia("(min-width: 48rem)")
+
+    const handleBreakpointChange = (e: MediaQueryListEvent) => {
+      if (e.matches) closeMenu()
+    }
+
+    desktopQuery.addEventListener("change", handleBreakpointChange)
+
     document.body.style.overflow = "hidden"
 
     // Reinforce the trap: make everything outside Nav/overlay unreachable,
@@ -125,6 +137,8 @@ export function Nav() {
 
     return () => {
       window.removeEventListener("keydown", handleKeyDown)
+
+      desktopQuery.removeEventListener("change", handleBreakpointChange)
 
       document.body.style.overflow = ""
 
