@@ -4,6 +4,8 @@ import { experiences, isCurrentExperience } from "../../data/experiences"
 
 import { tokens } from "../../tokens"
 
+import { CrossfadeText } from "../shared/CrossfadeText"
+
 import { ExperienceCard } from "./ExperienceCard"
 
 // Created once and reused: the MediaQueryList's .matches stays live, so
@@ -229,47 +231,14 @@ export function ExperienceSection() {
                     }}
                   />
                   <span>
-                    {/* Google Fonts serves Instrument Sans 400/500 as separate static
-                        faces (not a variable-font wght axis), so font-weight can't be
-                        interpolated. Two stacked layers cross-fade via opacity instead,
-                        for the same perceived smoothness as the color transition. */}
-                    <span style={{ display: "grid" }}>
-                      <span
-                        style={{
-                          gridArea: "1 / 1",
-
-                          fontSize: "14px",
-
-                          fontWeight: 400,
-
-                          color: tokens.colors.textSecondary,
-
-                          opacity: highlighted ? 0 : 1,
-
-                          transition: "opacity 0.2s ease",
-                        }}
-                      >
-                        {exp.company}
-                      </span>
-                      <span
-                        aria-hidden="true"
-                        style={{
-                          gridArea: "1 / 1",
-
-                          fontSize: "14px",
-
-                          fontWeight: 500,
-
-                          color: tokens.colors.textPrimary,
-
-                          opacity: highlighted ? 1 : 0,
-
-                          transition: "opacity 0.2s ease",
-                        }}
-                      >
-                        {exp.company}
-                      </span>
-                    </span>
+                    <CrossfadeText
+                      active={highlighted}
+                      color={tokens.colors.textSecondary}
+                      activeColor={tokens.colors.textPrimary}
+                      style={{ fontSize: "14px" }}
+                    >
+                      {exp.company}
+                    </CrossfadeText>
                     <span
                       style={{
                         display: "block",

@@ -2,57 +2,9 @@ import { useState } from "react"
 
 import { ArrowRightIcon } from "../icons/ArrowRightIcon"
 
+import { CrossfadeText } from "../shared/CrossfadeText"
+
 import { tokens } from "../../tokens"
-
-interface FieldLabelProps {
-  label: string
-
-  focused: boolean
-}
-
-/* Same weight-crossfade technique as the Experience stepper's company name:
-   Instrument Sans ships 400/500 as separate static faces (no variable wght
-   axis), so font-weight can't be interpolated. Two stacked layers cross-fade
-   via opacity instead, each carrying its own static color, which reads as a
-   combined color + weight transition. */
-
-function FieldLabel({ label, focused }: FieldLabelProps) {
-  return (
-    <span style={{ display: "grid" }}>
-      <span
-        style={{
-          gridArea: "1 / 1",
-
-          fontWeight: 400,
-
-          color: tokens.colors.textTertiary,
-
-          opacity: focused ? 0 : 1,
-
-          transition: "opacity 0.2s ease",
-        }}
-      >
-        {label}
-      </span>
-      <span
-        aria-hidden="true"
-        style={{
-          gridArea: "1 / 1",
-
-          fontWeight: 500,
-
-          color: tokens.colors.textPrimary,
-
-          opacity: focused ? 1 : 0,
-
-          transition: "opacity 0.2s ease",
-        }}
-      >
-        {label}
-      </span>
-    </span>
-  )
-}
 
 interface FormFieldProps {
   id: string
@@ -99,7 +51,13 @@ function FormField({
         htmlFor={id}
         style={{ fontSize: "13px", fontFamily: tokens.fonts.display }}
       >
-        <FieldLabel label={label} focused={focused} />
+        <CrossfadeText
+          active={focused}
+          color={tokens.colors.textTertiary}
+          activeColor={tokens.colors.textPrimary}
+        >
+          {label}
+        </CrossfadeText>
       </label>
       {multiline ? (
         <textarea
