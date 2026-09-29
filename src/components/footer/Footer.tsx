@@ -2,11 +2,11 @@ import { tokens } from "../../tokens"
 
 import { ContentContainer } from "../layout/ContentContainer"
 
-import { GithubIcon } from "../projects/GithubIcon"
+import { GithubIcon } from "../icons/GithubIcon"
 
 import { IconButton } from "../projects/IconButton"
 
-import { LinkedinIcon } from "../projects/LinkedinIcon"
+import { LinkedinIcon } from "../icons/LinkedinIcon"
 
 const FALLBACK_YEAR = 2026
 

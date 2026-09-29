@@ -4,9 +4,9 @@ import { tokens } from "../../tokens"
 
 import spaceTourismHero from "../../assets/projects/space-tourism-hero.webp"
 
-import { GithubIcon } from "./GithubIcon"
+import { GithubIcon } from "../icons/GithubIcon"
 
-import { GlobeIcon } from "./GlobeIcon"
+import { GlobeIcon } from "../icons/GlobeIcon"
 
 import { IconButton } from "./IconButton"
 
