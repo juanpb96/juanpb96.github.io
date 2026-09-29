@@ -2,7 +2,7 @@ import { useState } from "react"
 
 import { ArrowRightIcon } from "../icons/ArrowRightIcon"
 
-import { CrossfadeText } from "../shared/CrossfadeText"
+import { WeightTransitionText } from "../shared/WeightTransitionText"
 
 import { tokens } from "../../tokens"
 
@@ -51,13 +51,13 @@ function FormField({
         htmlFor={id}
         style={{ fontSize: "13px", fontFamily: tokens.fonts.display }}
       >
-        <CrossfadeText
+        <WeightTransitionText
           active={focused}
           color={tokens.colors.textTertiary}
           activeColor={tokens.colors.textPrimary}
         >
           {label}
-        </CrossfadeText>
+        </WeightTransitionText>
       </label>
       {multiline ? (
         <textarea

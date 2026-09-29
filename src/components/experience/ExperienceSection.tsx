@@ -4,7 +4,7 @@ import { experiences, isCurrentExperience } from "../../data/experiences"
 
 import { tokens } from "../../tokens"
 
-import { CrossfadeText } from "../shared/CrossfadeText"
+import { WeightTransitionText } from "../shared/WeightTransitionText"
 
 import { ExperienceCard } from "./ExperienceCard"
 
@@ -258,14 +258,14 @@ export function ExperienceSection() {
                     }}
                   />
                   <span>
-                    <CrossfadeText
+                    <WeightTransitionText
                       active={highlighted}
                       color={tokens.colors.textSecondary}
                       activeColor={tokens.colors.textPrimary}
                       style={{ fontSize: "14px" }}
                     >
                       {exp.company}
-                    </CrossfadeText>
+                    </WeightTransitionText>
                     <span
                       style={{
                         display: "block",
