@@ -63,6 +63,19 @@ export function ExperienceSection() {
         position: "relative",
       }}
     >
+      {/* Grid texture. Unlike Projects/Contact, the section doesn't set
+          overflow: hidden: that would break the sticky left column below,
+          and the inset: 0 layer can't overflow anyway. */}
+      <div
+        className="grid-texture"
+        style={{
+          position: "absolute",
+          inset: 0,
+          opacity: 0.2,
+          pointerEvents: "none",
+        }}
+      />
+
       {/* Vertical separator line, centered in the column gap: left padding
           (48px) + first column + half the gap. The first column is
           proportional (42%) in the md-mdlg range and a fixed 340px at mdlg+,
@@ -92,7 +105,15 @@ export function ExperienceSection() {
 
       <div
         className="grid grid-cols-1 md:grid-cols-[42%_1fr] mdlg:grid-cols-[340px_1fr]"
-        style={{ gap: "var(--experience-gap)", alignItems: "start" }}
+        style={{
+          gap: "var(--experience-gap)",
+
+          alignItems: "start",
+
+          position: "relative",
+
+          zIndex: 1,
+        }}
       >
         {/* Left: sticky label */}
         <div className="md:sticky md:top-24">
