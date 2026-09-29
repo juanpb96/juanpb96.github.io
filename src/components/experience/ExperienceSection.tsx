@@ -142,6 +142,7 @@ export function ExperienceSection() {
               color: tokens.colors.textSecondary,
               lineHeight: 1.7,
               margin: 0,
+              textWrap: "balance",
             }}
           >
             Building interfaces since 2021 across financial platforms, media,
