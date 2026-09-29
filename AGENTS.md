@@ -18,6 +18,8 @@ This is the canonical project structure. Start with task-relevant files below. O
 - `src/components/` - One folder per page section, one file per component, no barrel `index.ts` files. Folders: `layout/`, `nav/`, `hero/`, `projects/`, `experience/`, `contact/`, `footer/`, plus `icons/` for SVG icon components (import icons from there, not from a section folder) and `shared/` for small presentational primitives reused across sections (e.g. `CrossfadeText`). Components use named exports (`export function X`), imported as `import { X } from './X'`
 - `src/components/projects/ProjectCard.tsx` - Single card component for default and featured layouts; optional `large` prop (padding, title size, and which mockup). Do not split into separate default/large components
 - `src/index.css` - Global CSS entrypoint and Tailwind CSS v4 import
+- `public/fonts/` - Self-hosted Instrument Sans and Inter variable fonts (woff2, subset to the site's characters) with their OFL licenses; declared in `src/index.css` and preloaded in `index.html`. Generated — don't edit by hand
+- `scripts/subset-fonts.mjs` - Regenerates `public/fonts/` from pinned upstream Google Fonts sources (`pnpm run fonts`). Re-run it when new copy introduces characters outside the current subset
 - `index.html` - Vite HTML shell containing the `#root` element and loading `src/main.tsx`
 - `package.json` - Project dependencies and the Vite build, development, preview, formatting, and lint scripts
 - `vite.config.ts` - Vite configuration with the React plugin, Tailwind CSS v4 plugin, and the `@` alias for `src`

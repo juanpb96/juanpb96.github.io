@@ -7,9 +7,28 @@
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <!--
-      The Google Fonts stylesheet is only discovered once src/index.css
-      loads; warming both origins here lets the font files start downloading
-      sooner, shortening the fallback-to-web-font swap window.
+      Self-hosted fonts used above the fold (hero heading and copy). Each is
+      a single variable file covering all used weights, so preloading both
+      starts the download before src/index.css is even parsed.
+    -->
+    <link
+      rel="preload"
+      href="/fonts/instrument-sans.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/fonts/inter.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <!--
+      JetBrains Mono still comes from Google Fonts, whose stylesheet is only
+      discovered once src/index.css loads; warming both origins lets its
+      files start downloading sooner.
     -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />

@@ -154,3 +154,10 @@
 *.stl                filter=lfs diff=lfs merge=lfs -text
 *.nc                 filter=lfs diff=lfs merge=lfs -text
 *.mat                filter=lfs diff=lfs merge=lfs -text
+
+# ---------------------------------------------------------------------------
+# Exceptions
+# ---------------------------------------------------------------------------
+# Self-hosted, subset web fonts are small (tens of KB) and must be real files
+# in the deploy checkout, so keep them out of LFS (overrides *.woff2 above).
+public/fonts/*.woff2 !filter !diff !merge -text

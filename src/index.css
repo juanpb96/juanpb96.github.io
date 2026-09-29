@@ -1,18 +1,42 @@
-@import url('https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Inter:ital,wght@0,300;0,400;0,500;1,300&family=JetBrains+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap');
 @import 'tailwindcss';
 
-/* Metric-matched fallbacks. With display=swap, text first paints in a local
-   system font and reflows when the web font arrives; these faces scale the
-   local font to the web font's average glyph width (size-adjust) and
-   vertical metrics so the swap doesn't shift layout. Values were measured
-   against the site's own copy. Instrument Sans needs two faces because its
-   width relative to Arial differs between regular and bold weights. */
+/* Self-hosted variable fonts, subset to the site's characters by
+   scripts/subset-fonts.mjs (`pnpm run fonts`) and preloaded in index.html.
+   The weight ranges cover every weight the site uses, so font-weight can
+   also be transitioned smoothly. */
+@font-face {
+  font-family: 'Instrument Sans';
+  src: url('/fonts/instrument-sans.woff2') format('woff2');
+  font-weight: 400 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Inter';
+  src: url('/fonts/inter.woff2') format('woff2');
+  font-weight: 400 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Metric-matched fallbacks. With display=swap, text paints in a local system
+   font if a web font isn't ready yet and reflows when it arrives; these
+   faces scale the local font toward the web font's glyph widths
+   (size-adjust) and match its exact vertical metrics (ascent/descent are the
+   font's own values divided by size-adjust) so a late swap barely moves
+   anything. size-adjust was picked by measuring text displacement between
+   fallback and web font across 360-1920px viewports; no single value
+   removes every re-wrap (Arial and Inter differ per glyph), so these
+   minimize it. Instrument Sans needs two faces because its width relative
+   to Arial differs between regular and bold weights. */
 @font-face {
   font-family: 'Instrument Sans Fallback';
   src: local('Arial'), local('ArialMT');
   font-weight: 400 500;
-  size-adjust: 102.7%;
-  ascent-override: 94.4%;
+  size-adjust: 103%;
+  ascent-override: 94.2%;
   descent-override: 24.3%;
   line-gap-override: 0%;
 }
@@ -21,18 +45,18 @@
   font-family: 'Instrument Sans Fallback';
   src: local('Arial Bold'), local('Arial-BoldMT');
   font-weight: 600 700;
-  size-adjust: 98%;
-  ascent-override: 99%;
-  descent-override: 25.5%;
+  size-adjust: 99%;
+  ascent-override: 98%;
+  descent-override: 25.3%;
   line-gap-override: 0%;
 }
 
 @font-face {
   font-family: 'Inter Fallback';
   src: local('Arial'), local('ArialMT');
-  font-weight: 300 500;
-  size-adjust: 107.3%;
-  ascent-override: 90.4%;
+  font-weight: 400 500;
+  size-adjust: 107.9%;
+  ascent-override: 89.8%;
   descent-override: 22.4%;
   line-gap-override: 0%;
 }
