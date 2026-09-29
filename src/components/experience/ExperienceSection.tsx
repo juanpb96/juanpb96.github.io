@@ -6,11 +6,17 @@ import { tokens } from "../../tokens"
 
 import { ExperienceCard } from "./ExperienceCard"
 
+// Created once and reused: the MediaQueryList's .matches stays live, so
+// hover handlers skip a matchMedia call per event while still reflecting a
+// pointer change (e.g. a mouse connected to a tablet mid-session).
+let hoverPointerQuery: MediaQueryList | undefined
+
 function supportsHoverPointer() {
-  return (
-    typeof window !== "undefined" &&
-    window.matchMedia("(hover: hover) and (pointer: fine)").matches
-  )
+  if (typeof window === "undefined") return false
+
+  hoverPointerQuery ??= window.matchMedia("(hover: hover) and (pointer: fine)")
+
+  return hoverPointerQuery.matches
 }
 
 export function ExperienceSection() {
