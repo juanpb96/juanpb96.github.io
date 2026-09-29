@@ -56,20 +56,23 @@ export function ExperienceSection() {
   return (
     <section
       id="experience"
-      className="px-container-mobile md:px-container-desktop"
+      className="px-container-mobile md:px-container-desktop [--experience-gap:clamp(48px,8vw,80px)]"
       style={{
         paddingTop: "clamp(64px, 10vw, 120px)",
         paddingBottom: "clamp(64px, 10vw, 120px)",
         position: "relative",
       }}
     >
-      {/* Vertical separator line — offset must track the grid's own column
-          boundary: proportional (42%) in the md-mdlg range, fixed 340px at
-          mdlg+, matching the grid-cols breakpoints below exactly. Grid
-          percentage tracks resolve against the full content box (gap
-          included), not the space left after the gap, hence no gap term here. */}
+      {/* Vertical separator line, centered in the column gap: left padding
+          (48px) + first column + half the gap. The first column is
+          proportional (42%) in the md-mdlg range and a fixed 340px at mdlg+,
+          matching the grid-cols breakpoints below exactly. Grid percentage
+          tracks resolve against the full content box (section width minus
+          2 × 48px padding, gap included). The gap is read from the same
+          --experience-gap the grid uses, so the line follows its 8vw growth
+          instead of assuming a fixed value. */}
       <div
-        className="hidden md:block md:left-[calc(48px_+_(100%_-_96px)_*_0.42)] mdlg:left-[calc(48px_+_340px)]"
+        className="hidden md:block md:left-[calc(48px_+_(100%_-_96px)_*_0.42_+_var(--experience-gap)_/_2)] mdlg:left-[calc(48px_+_340px_+_var(--experience-gap)_/_2)]"
         style={{
           position: "absolute",
 
@@ -79,6 +82,8 @@ export function ExperienceSection() {
 
           width: "1px",
 
+          transform: "translateX(-50%)",
+
           backgroundColor: tokens.colors.border,
 
           pointerEvents: "none",
@@ -87,7 +92,7 @@ export function ExperienceSection() {
 
       <div
         className="grid grid-cols-1 md:grid-cols-[42%_1fr] mdlg:grid-cols-[340px_1fr]"
-        style={{ gap: "clamp(48px, 8vw, 80px)", alignItems: "start" }}
+        style={{ gap: "var(--experience-gap)", alignItems: "start" }}
       >
         {/* Left: sticky label */}
         <div className="md:sticky md:top-24">
