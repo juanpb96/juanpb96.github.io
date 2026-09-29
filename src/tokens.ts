@@ -27,11 +27,11 @@ const colors = {
 } as const
 
 const fonts = {
-  display: "'Instrument Sans', sans-serif",
+  display: "'Instrument Sans', 'Instrument Sans Fallback', sans-serif",
 
-  mono: "'JetBrains Mono', monospace",
+  mono: "'JetBrains Mono', 'JetBrains Mono Fallback', monospace",
 
-  body: "'Inter', sans-serif",
+  body: "'Inter', 'Inter Fallback', sans-serif",
 } as const
 
 const typography = {
