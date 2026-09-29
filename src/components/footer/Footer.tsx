@@ -52,7 +52,11 @@ export function Footer() {
               Juan Bonilla
             </span>
           </span>
-          <div className="flex items-center gap-2">
+          {/* Each IconButton is a 44px tap target around an 18px glyph, so
+              the first glyph sits (44 - 18) / 2 = 13px in from the button's
+              edge. In the stacked mobile layout, pull the row back by that
+              inset so the glyph lines up with the copy above it. */}
+          <div className="flex items-center gap-2 -ml-[13px] md:ml-0">
             <IconButton
               href="https://www.linkedin.com/in/juanpablobonilla"
               ariaLabel="View LinkedIn profile"
