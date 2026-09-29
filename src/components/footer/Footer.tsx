@@ -8,19 +8,10 @@ import { IconButton } from "../projects/IconButton"
 
 import { LinkedinIcon } from "../icons/LinkedinIcon"
 
-const FALLBACK_YEAR = 2026
-
-function getYear() {
-  try {
-    return new Date().getFullYear()
-  } catch {
-    return FALLBACK_YEAR
-  }
-}
+// Read once at module load rather than during render (react/purity).
+const year = new Date().getFullYear()
 
 export function Footer() {
-  const year = getYear()
-
   return (
     <footer
       style={{
