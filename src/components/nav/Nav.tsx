@@ -306,11 +306,19 @@ export function Nav() {
 
       {/* Mobile nav overlay — portaled to body so it positions against the
           viewport, not the nav's own box (backdrop-filter on nav makes it a
-          containing block for fixed descendants) */}
+          containing block for fixed descendants).
+
+          Rendered as a non-modal <dialog open> rather than via showModal():
+          a modal dialog would make the nav bar inert, but the logo and the
+          hamburger/close button must stay reachable and inside the focus
+          trap. Modality (focus trap, inert background, Escape) is therefore
+          handled manually in the effect above. The declarative open
+          attribute also skips show()'s built-in autofocus, so focus
+          placement stays under our control. */}
       {open &&
         createPortal(
-          <div
-            role="dialog" // oxlint-disable-line jsx-a11y/prefer-tag-over-role -- pre-existing gap, tracked separately from the oxlint migration
+          <dialog
+            open
             aria-modal="true"
             style={{
               position: "fixed",
@@ -322,6 +330,25 @@ export function Nav() {
               right: 0,
 
               bottom: 0,
+
+              // Reset UA <dialog> defaults (fit-content sizing, max sizes,
+              // margin/padding/border, Canvas colors) so the overlay fills
+              // the area defined by its offsets.
+              width: "auto",
+
+              height: "auto",
+
+              maxWidth: "none",
+
+              maxHeight: "none",
+
+              margin: 0,
+
+              padding: 0,
+
+              border: "none",
+
+              color: "inherit",
 
               zIndex: tokens.zIndex.overlay,
 
@@ -395,7 +422,7 @@ export function Nav() {
                 </li>
               ))}
             </ul>
-          </div>,
+          </dialog>,
 
           document.body,
         )}
