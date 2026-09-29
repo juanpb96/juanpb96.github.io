@@ -67,35 +67,11 @@ export function Nav() {
         (el): el is HTMLAnchorElement | HTMLButtonElement => el !== null,
       )
 
-    // The first link is invisible until its entrance animation (which waits
-    // for the 400ms curtain) has played, so focusing it right away would
-    // leave keyboard users with no visible focus indicator. Keep focus on the
-    // visible close button meanwhile and move it in once that animation
-    // finishes. Skipped if the user has already moved focus elsewhere, or if
-    // the menu starts closing (the animation is cancelled and `finished`
-    // rejects). Without an animation (e.g. motion disabled) it focuses at once.
-    let cancelled = false
-
-    const firstLink = linkRefs.current[0]
-
-    const focusFirstLink = () => {
-      const active = document.activeElement
-
-      const focusUntouched =
-        !active || active === document.body || active === hamburgerButton
-
-      if (!cancelled && focusUntouched) firstLink?.focus()
-    }
-
-    const entrance = firstLink
-      ?.getAnimations()
-      .find((animation) => animation instanceof CSSAnimation)
-
-    if (entrance) {
-      entrance.finished.then(focusFirstLink, () => {})
-    } else {
-      focusFirstLink()
-    }
+    // Focus stays on the toggle, now the visible close (X) button, instead of
+    // jumping into the links while they're still animating in; Tab moves on
+    // to the first link. Set explicitly because some browsers (e.g. Safari)
+    // don't focus a button on mouse click, which would leave focus on <body>.
+    hamburgerButton?.focus()
 
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
@@ -148,8 +124,6 @@ export function Nav() {
     })
 
     return () => {
-      cancelled = true
-
       window.removeEventListener("keydown", handleKeyDown)
 
       document.body.style.overflow = ""
