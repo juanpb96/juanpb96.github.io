@@ -10,6 +10,25 @@ const links = ["Projects", "Experience", "Contact"]
 
 const CLOSE_ANIMATION_MS = 260
 
+// Moves focus to where the user should continue from after the overlay
+// closes. A section target (overlay link) isn't focusable on its own, so it
+// gets a temporary tabindex="-1", removed on blur so clicks inside the
+// section don't keep focusing it. preventScroll leaves the anchor's own
+// smooth scroll alone.
+function restoreFocus(target: HTMLElement | null) {
+  if (!target) return
+
+  if (!target.hasAttribute("tabindex")) {
+    target.tabIndex = -1
+
+    target.addEventListener("blur", () => target.removeAttribute("tabindex"), {
+      once: true,
+    })
+  }
+
+  target.focus({ preventScroll: true })
+}
+
 export function Nav() {
   const [scrolled, setScrolled] = useState(false)
 
@@ -25,6 +44,14 @@ export function Nav() {
 
   const linkRefs = useRef<(HTMLAnchorElement | null)[]>([])
 
+  // Pending close timer. Its presence doubles as the "already closing" guard:
+  // the keydown/breakpoint handlers are created once per open and would read a
+  // stale `closing`, and a second timer could close a menu reopened meanwhile.
+  const closeTimerRef = useRef<number | null>(null)
+
+  // Where focus goes once the overlay unmounts; set by whoever closed it.
+  const restoreFocusRef = useRef<HTMLElement | null>(null)
+
   useEffect(() => {
     const handler = () => setScrolled(window.scrollY > 40)
 
@@ -33,16 +60,37 @@ export function Nav() {
     return () => window.removeEventListener("scroll", handler)
   }, [])
 
+  useEffect(
+    () => () => {
+      if (closeTimerRef.current !== null) {
+        window.clearTimeout(closeTimerRef.current)
+      }
+    },
+    [],
+  )
+
   const openMenu = () => {
+    if (closeTimerRef.current !== null) {
+      window.clearTimeout(closeTimerRef.current)
+
+      closeTimerRef.current = null
+    }
+
     setOpen(true)
 
     setClosing(false)
   }
 
-  const closeMenu = () => {
+  const closeMenu = (restoreFocusTo: HTMLElement | null) => {
+    if (closeTimerRef.current !== null) return
+
+    restoreFocusRef.current = restoreFocusTo
+
     setClosing(true)
 
-    window.setTimeout(() => {
+    closeTimerRef.current = window.setTimeout(() => {
+      closeTimerRef.current = null
+
       setOpen(false)
 
       setClosing(false)
@@ -51,7 +99,7 @@ export function Nav() {
 
   const toggleMenu = () => {
     if (open && !closing) {
-      closeMenu()
+      closeMenu(hamburgerRef.current)
     } else if (!open) {
       openMenu()
     }
@@ -62,20 +110,25 @@ export function Nav() {
 
     const hamburgerButton = hamburgerRef.current
 
+    // Overlay links stay visibility: hidden until their entry animation
+    // starts (see nav-link-in), and focus() on a hidden element is a no-op,
+    // so the manual trap has to skip them too.
     const getFocusables = (): HTMLElement[] =>
       [...linkRefs.current, logoRef.current, hamburgerRef.current].filter(
-        (el): el is HTMLAnchorElement | HTMLButtonElement => el !== null,
+        (el): el is HTMLAnchorElement | HTMLButtonElement =>
+          el !== null && getComputedStyle(el).visibility !== "hidden",
       )
 
     // Focus stays on the toggle, now the visible close (X) button, instead of
-    // jumping into the links while they're still animating in; Tab moves on
-    // to the first link. Set explicitly because some browsers (e.g. Safari)
-    // don't focus a button on mouse click, which would leave focus on <body>.
+    // jumping into the links while they're still animating in; Tab reaches
+    // the links once they start to appear. Set explicitly because some
+    // browsers (e.g. Safari) don't focus a button on mouse click, which would
+    // leave focus on <body>.
     hamburgerButton?.focus()
 
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
-        closeMenu()
+        closeMenu(hamburgerButton)
 
         return
       }
@@ -113,8 +166,10 @@ export function Nav() {
     // A CSS-only hide can't undo that JS-applied state, hence the listener.
     const desktopQuery = window.matchMedia("(min-width: 48rem)")
 
+    // The toggle is hidden past the breakpoint, so hand focus to the logo,
+    // the one nav control visible in both layouts.
     const handleBreakpointChange = (e: MediaQueryListEvent) => {
-      if (e.matches) closeMenu()
+      if (e.matches) closeMenu(logoRef.current)
     }
 
     desktopQuery.addEventListener("change", handleBreakpointChange)
@@ -146,7 +201,10 @@ export function Nav() {
         ;(el as HTMLElement).inert = false
       })
 
-      hamburgerButton?.focus()
+      // After the background is un-inerted, or focusing a section would fail.
+      restoreFocus(restoreFocusRef.current ?? hamburgerButton)
+
+      restoreFocusRef.current = null
     }
 
     // oxlint-disable-next-line react-hooks/exhaustive-deps
@@ -236,7 +294,7 @@ export function Nav() {
             href="#hero"
             className="nav-logo nav-tap-target"
             onClick={() => {
-              if (open) closeMenu()
+              if (open) closeMenu(logoRef.current)
             }}
             style={{
               fontFamily: tokens.fonts.display,
@@ -409,7 +467,9 @@ export function Nav() {
                     }}
                     href={`#${label.toLowerCase()}`}
                     className="nav-overlay-link"
-                    onClick={closeMenu}
+                    onClick={() =>
+                      closeMenu(document.getElementById(label.toLowerCase()))
+                    }
                     style={{
                       fontFamily: tokens.typography.cardTitleLarge.font,
 
@@ -423,6 +483,11 @@ export function Nav() {
                         tokens.typography.cardTitleLarge.letterSpacing,
 
                       display: "inline-block",
+
+                      // Hidden (and so unfocusable) through the animation
+                      // delay; nav-link-in makes it visible from its first
+                      // frame. While closing, the animation is dropped.
+                      visibility: closing ? "visible" : "hidden",
 
                       opacity: closing ? 1 : 0,
 

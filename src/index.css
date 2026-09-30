@@ -133,6 +133,13 @@ section {
   scroll-margin-top: 64px;
 }
 
+/* Sections only receive programmatic focus (a temporary tabindex="-1" set
+   after mobile nav navigation) to move the Tab starting point, not as an
+   interactive target, so they don't get a focus ring. */
+section[tabindex="-1"]:focus {
+  outline: none;
+}
+
 /* Nav — logo, hamburger, overlay links */
 .nav-logo,
 .nav-overlay-link {
@@ -190,9 +197,12 @@ section {
   to { opacity: 0; }
 }
 
+/* visibility is set in both keyframes: the link's base style is hidden (so
+   it can't be focused during its animation delay), and a from-only value
+   would interpolate back to hidden at the end of the fill-forwards run. */
 @keyframes nav-link-in {
-  from { opacity: 0; transform: translateY(12px); }
-  to { opacity: 1; transform: translateY(0); }
+  from { opacity: 0; transform: translateY(12px); visibility: visible; }
+  to { opacity: 1; transform: translateY(0); visibility: visible; }
 }
 
 /* Project card icon buttons — live-site + GitHub links.
