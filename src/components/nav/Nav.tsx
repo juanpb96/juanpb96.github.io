@@ -354,7 +354,7 @@ export function Nav() {
             ref={hamburgerRef}
             type="button"
             className="md:hidden nav-hamburger nav-tap-target"
-            aria-label={iconOpen ? "Cerrar menú" : "Abrir menú"}
+            aria-label={iconOpen ? "Close menu" : "Open menu"}
             aria-expanded={iconOpen}
             onClick={toggleMenu}
             style={{
