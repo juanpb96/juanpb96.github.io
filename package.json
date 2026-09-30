@@ -12,7 +12,8 @@
     "build": "vite build",
     "preview": "vite preview",
     "format": "oxfmt",
-    "lint": "oxlint"
+    "lint": "oxlint",
+    "fonts": "node scripts/subset-fonts.mjs"
   },
   "dependencies": {
     "react": "19.0.0",
@@ -26,6 +27,7 @@
     "@vitejs/plugin-react": "6.0.0",
     "oxfmt": "0.2.0",
     "oxlint": "^1.86.0",
+    "subset-font": "2.9.0",
     "tailwindcss": "4.3.3",
     "typescript": "7.0.2",
     "vite": "8.0.0"

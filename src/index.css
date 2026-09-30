@@ -1,7 +1,74 @@
-@import url('https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;1,300&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap');
 @import 'tailwindcss';
+
+/* Self-hosted variable fonts, subset to the site's characters by
+   scripts/subset-fonts.mjs (`pnpm run fonts`) and preloaded in index.html.
+   The weight ranges cover every weight the site uses, so font-weight can
+   also be transitioned smoothly. */
+@font-face {
+  font-family: 'Instrument Sans';
+  src: url('/fonts/instrument-sans.woff2') format('woff2');
+  font-weight: 400 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Inter';
+  src: url('/fonts/inter.woff2') format('woff2');
+  font-weight: 400 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Metric-matched fallbacks. With display=swap, text paints in a local system
+   font if a web font isn't ready yet and reflows when it arrives; these
+   faces scale the local font toward the web font's glyph widths
+   (size-adjust) and match its exact vertical metrics (ascent/descent are the
+   font's own values divided by size-adjust) so a late swap barely moves
+   anything. size-adjust was picked by measuring text displacement between
+   fallback and web font across 360-1920px viewports; no single value
+   removes every re-wrap (Arial and Inter differ per glyph), so these
+   minimize it. Instrument Sans needs two faces because its width relative
+   to Arial differs between regular and bold weights. */
+@font-face {
+  font-family: 'Instrument Sans Fallback';
+  src: local('Arial'), local('ArialMT');
+  font-weight: 400 500;
+  size-adjust: 103%;
+  ascent-override: 94.2%;
+  descent-override: 24.3%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: 'Instrument Sans Fallback';
+  src: local('Arial Bold'), local('Arial-BoldMT');
+  font-weight: 600 700;
+  size-adjust: 99%;
+  ascent-override: 98%;
+  descent-override: 25.3%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: 'Inter Fallback';
+  src: local('Arial'), local('ArialMT');
+  font-weight: 400 500;
+  size-adjust: 107.9%;
+  ascent-override: 89.8%;
+  descent-override: 22.4%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: 'JetBrains Mono Fallback';
+  src: local('Courier New'), local('CourierNewPSMT');
+  size-adjust: 100%;
+  ascent-override: 102%;
+  descent-override: 30%;
+  line-gap-override: 0%;
+}
 
 @theme {
   --spacing-container-mobile: 32px;
@@ -22,9 +89,9 @@
   --accent-dim: rgba(77, 156, 248, 0.18);
   --accent-glow: rgba(77, 156, 248, 0.10);
   --accent-border: rgba(77, 156, 248, 0.3);
-  --font-display: 'Instrument Sans', sans-serif;
-  --font-body: 'Inter', sans-serif;
-  --font-mono: 'JetBrains Mono', monospace;
+  --font-display: 'Instrument Sans', 'Instrument Sans Fallback', sans-serif;
+  --font-body: 'Inter', 'Inter Fallback', sans-serif;
+  --font-mono: 'JetBrains Mono', 'JetBrains Mono Fallback', monospace;
 }
 
 html {
@@ -64,6 +131,13 @@ section {
   position: relative;
   /* offset for the fixed nav height */
   scroll-margin-top: 64px;
+}
+
+/* Sections only receive programmatic focus (a temporary tabindex="-1" set
+   after mobile nav navigation) to move the Tab starting point, not as an
+   interactive target, so they don't get a focus ring. */
+section[tabindex="-1"]:focus {
+  outline: none;
 }
 
 /* Nav — logo, hamburger, overlay links */
@@ -123,9 +197,12 @@ section {
   to { opacity: 0; }
 }
 
+/* visibility is set in both keyframes: the link's base style is hidden (so
+   it can't be focused during its animation delay), and a from-only value
+   would interpolate back to hidden at the end of the fill-forwards run. */
 @keyframes nav-link-in {
-  from { opacity: 0; transform: translateY(12px); }
-  to { opacity: 1; transform: translateY(0); }
+  from { opacity: 0; transform: translateY(12px); visibility: visible; }
+  to { opacity: 1; transform: translateY(0); visibility: visible; }
 }
 
 /* Project card icon buttons — live-site + GitHub links.

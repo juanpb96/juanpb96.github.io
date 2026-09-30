@@ -4,13 +4,21 @@ import { experiences, isCurrentExperience } from "../../data/experiences"
 
 import { tokens } from "../../tokens"
 
+import { WeightTransitionText } from "../shared/WeightTransitionText"
+
 import { ExperienceCard } from "./ExperienceCard"
 
+// Created once and reused: the MediaQueryList's .matches stays live, so
+// hover handlers skip a matchMedia call per event while still reflecting a
+// pointer change (e.g. a mouse connected to a tablet mid-session).
+let hoverPointerQuery: MediaQueryList | undefined
+
 function supportsHoverPointer() {
-  return (
-    typeof window !== "undefined" &&
-    window.matchMedia("(hover: hover) and (pointer: fine)").matches
-  )
+  if (typeof window === "undefined") return false
+
+  hoverPointerQuery ??= window.matchMedia("(hover: hover) and (pointer: fine)")
+
+  return hoverPointerQuery.matches
 }
 
 export function ExperienceSection() {
@@ -48,20 +56,36 @@ export function ExperienceSection() {
   return (
     <section
       id="experience"
-      className="px-container-mobile md:px-container-desktop"
+      className="px-container-mobile md:px-container-desktop [--experience-gap:clamp(48px,8vw,80px)]"
       style={{
         paddingTop: "clamp(64px, 10vw, 120px)",
         paddingBottom: "clamp(64px, 10vw, 120px)",
         position: "relative",
       }}
     >
-      {/* Vertical separator line — offset must track the grid's own column
-          boundary: proportional (42%) in the md-mdlg range, fixed 340px at
-          mdlg+, matching the grid-cols breakpoints below exactly. Grid
-          percentage tracks resolve against the full content box (gap
-          included), not the space left after the gap, hence no gap term here. */}
+      {/* Grid texture. Unlike Projects/Contact, the section doesn't set
+          overflow: hidden: that would break the sticky left column below,
+          and the inset: 0 layer can't overflow anyway. */}
       <div
-        className="hidden md:block md:left-[calc(48px_+_(100%_-_96px)_*_0.42)] mdlg:left-[calc(48px_+_340px)]"
+        className="grid-texture"
+        style={{
+          position: "absolute",
+          inset: 0,
+          opacity: 0.2,
+          pointerEvents: "none",
+        }}
+      />
+
+      {/* Vertical separator line, centered in the column gap: left padding
+          (48px) + first column + half the gap. The first column is
+          proportional (42%) in the md-mdlg range and a fixed 340px at mdlg+,
+          matching the grid-cols breakpoints below exactly. Grid percentage
+          tracks resolve against the full content box (section width minus
+          2 × 48px padding, gap included). The gap is read from the same
+          --experience-gap the grid uses, so the line follows its 8vw growth
+          instead of assuming a fixed value. */}
+      <div
+        className="hidden md:block md:left-[calc(48px_+_(100%_-_96px)_*_0.42_+_var(--experience-gap)_/_2)] mdlg:left-[calc(48px_+_340px_+_var(--experience-gap)_/_2)]"
         style={{
           position: "absolute",
 
@@ -71,6 +95,8 @@ export function ExperienceSection() {
 
           width: "1px",
 
+          transform: "translateX(-50%)",
+
           backgroundColor: tokens.colors.border,
 
           pointerEvents: "none",
@@ -79,7 +105,15 @@ export function ExperienceSection() {
 
       <div
         className="grid grid-cols-1 md:grid-cols-[42%_1fr] mdlg:grid-cols-[340px_1fr]"
-        style={{ gap: "clamp(48px, 8vw, 80px)", alignItems: "start" }}
+        style={{
+          gap: "var(--experience-gap)",
+
+          alignItems: "start",
+
+          position: "relative",
+
+          zIndex: 1,
+        }}
       >
         {/* Left: sticky label */}
         <div className="md:sticky md:top-24">
@@ -108,6 +142,7 @@ export function ExperienceSection() {
               color: tokens.colors.textSecondary,
               lineHeight: 1.7,
               margin: 0,
+              textWrap: "balance",
             }}
           >
             Building interfaces since 2021 across financial platforms, media,
@@ -223,47 +258,14 @@ export function ExperienceSection() {
                     }}
                   />
                   <span>
-                    {/* Google Fonts serves Instrument Sans 400/500 as separate static
-                        faces (not a variable-font wght axis), so font-weight can't be
-                        interpolated. Two stacked layers cross-fade via opacity instead,
-                        for the same perceived smoothness as the color transition. */}
-                    <span style={{ display: "grid" }}>
-                      <span
-                        style={{
-                          gridArea: "1 / 1",
-
-                          fontSize: "14px",
-
-                          fontWeight: 400,
-
-                          color: tokens.colors.textSecondary,
-
-                          opacity: highlighted ? 0 : 1,
-
-                          transition: "opacity 0.2s ease",
-                        }}
-                      >
-                        {exp.company}
-                      </span>
-                      <span
-                        aria-hidden="true"
-                        style={{
-                          gridArea: "1 / 1",
-
-                          fontSize: "14px",
-
-                          fontWeight: 500,
-
-                          color: tokens.colors.textPrimary,
-
-                          opacity: highlighted ? 1 : 0,
-
-                          transition: "opacity 0.2s ease",
-                        }}
-                      >
-                        {exp.company}
-                      </span>
-                    </span>
+                    <WeightTransitionText
+                      active={highlighted}
+                      color={tokens.colors.textSecondary}
+                      activeColor={tokens.colors.textPrimary}
+                      style={{ fontSize: "14px" }}
+                    >
+                      {exp.company}
+                    </WeightTransitionText>
                     <span
                       style={{
                         display: "block",
