@@ -1,0 +1,10 @@
+# /FEM_weather-app itself is served by netlify/edge-functions/weather-app.ts
+[[redirects]]
+from = "/FEM_weather-app/*"
+to = "https://juanbonilla-fem-weather-app.netlify.app/FEM_weather-app/:splat"
+status = 200
+
+[[redirects]]
+from = "/*"
+to = "https://juanpb96.github.io/:splat"
+status = 200
