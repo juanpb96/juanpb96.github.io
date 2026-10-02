@@ -1,5 +1,6 @@
-import type { ReactNode } from 'react'
-import { tokens } from '../../tokens'
+import type { ReactNode } from "react"
+
+import { tokens } from "../../tokens"
 
 interface ContentContainerProps {
   children: ReactNode
@@ -7,7 +8,9 @@ interface ContentContainerProps {
 
 export function ContentContainer({ children }: ContentContainerProps) {
   return (
-    <div style={{ maxWidth: `${tokens.container.maxWidth}px`, margin: '0 auto' }}>
+    <div
+      style={{ maxWidth: `${tokens.container.maxWidth}px`, margin: "0 auto" }}
+    >
       {children}
     </div>
   )

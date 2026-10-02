@@ -1,3 +1,13 @@
+# ---------------------------------------------------------------------------
+# Line endings
+# ---------------------------------------------------------------------------
+# Always check out text files with LF, regardless of the local core.autocrlf
+# (Git for Windows defaults it to true). oxfmt 0.2.0 misreads CRLF input:
+# every line break counts as a preserved blank line, so formatting a CRLF
+# working tree inserts a blank line between every property, member, and
+# statement. Binary types below override this via -text.
+* text=auto eol=lf
+
 # Git LFS Tracking Rules
 # Generated for binary, large, and non-diffable file types
 
@@ -144,3 +154,10 @@
 *.stl                filter=lfs diff=lfs merge=lfs -text
 *.nc                 filter=lfs diff=lfs merge=lfs -text
 *.mat                filter=lfs diff=lfs merge=lfs -text
+
+# ---------------------------------------------------------------------------
+# Exceptions
+# ---------------------------------------------------------------------------
+# Self-hosted, subset web fonts are small (tens of KB) and must be real files
+# in the deploy checkout, so keep them out of LFS (overrides *.woff2 above).
+public/fonts/*.woff2 !filter !diff !merge -text

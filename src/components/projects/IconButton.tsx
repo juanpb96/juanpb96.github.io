@@ -1,14 +1,23 @@
-import type { ReactNode } from 'react'
-import { tokens } from '../../tokens'
+import type { ReactNode } from "react"
+
+import { tokens } from "../../tokens"
 
 interface IconButtonProps {
   href: string
+
   ariaLabel: string
+
   tooltip: string
+
   children: ReactNode
 }
 
-export function IconButton({ href, ariaLabel, tooltip, children }: IconButtonProps) {
+export function IconButton({
+  href,
+  ariaLabel,
+  tooltip,
+  children,
+}: IconButtonProps) {
   return (
     <a
       href={href}
@@ -17,8 +26,10 @@ export function IconButton({ href, ariaLabel, tooltip, children }: IconButtonPro
       aria-label={ariaLabel}
       className="project-icon-btn"
       style={{
-        width: '44px',
-        height: '44px',
+        width: "44px",
+
+        height: "44px",
+
         borderRadius: `${tokens.radius.full}px`,
       }}
     >

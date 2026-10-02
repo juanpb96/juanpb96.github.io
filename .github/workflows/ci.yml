@@ -10,9 +10,18 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  typecheck:
-    name: typecheck
+  checks:
+    name: ${{ matrix.check.name }}
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        check:
+          - name: typecheck
+            run: pnpm exec tsc --noEmit
+          - name: lint
+            run: pnpm run lint
+          - name: format
+            run: pnpm exec oxfmt --check
     steps:
       - name: Checkout
         uses: actions/checkout@v5
@@ -29,5 +38,5 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Run typecheck
-        run: pnpm exec tsc --noEmit
+      - name: Run ${{ matrix.check.name }}
+        run: ${{ matrix.check.run }}
