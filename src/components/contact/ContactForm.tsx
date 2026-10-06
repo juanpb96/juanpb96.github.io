@@ -2,6 +2,8 @@ import { useState } from "react"
 
 import { ArrowRightIcon } from "../icons/ArrowRightIcon"
 
+import { Button } from "../shared/Button"
+
 import { WeightTransitionText } from "../shared/WeightTransitionText"
 
 import { tokens } from "../../tokens"
@@ -162,34 +164,10 @@ export function ContactForm() {
           required
         />
 
-        <button
-          type="submit"
-          className="cta-button"
-          style={{
-            display: "inline-flex",
-
-            alignItems: "center",
-
-            gap: "8px",
-
-            alignSelf: "flex-start",
-
-            padding: "13px 28px",
-
-            borderRadius: `${tokens.radius.sm}px`,
-
-            fontSize: "15px",
-
-            fontWeight: 500,
-
-            fontFamily: tokens.fonts.display,
-
-            cursor: "pointer",
-          }}
-        >
+        <Button variant="primary" type="submit" className="self-start">
           Send message
-          <ArrowRightIcon className="cta-button-arrow" />
-        </button>
+          <ArrowRightIcon className="button-arrow" />
+        </Button>
       </form>
     </div>
   )

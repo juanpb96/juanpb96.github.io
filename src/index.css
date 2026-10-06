@@ -292,50 +292,100 @@ section[tabindex="-1"]:focus {
   border-radius: 4px;
 }
 
-/* Primary CTA button (Hero "Get in touch", contact form submit) — base
-   colors live here (not inline style) so :hover/:focus-visible can override
-   them; an inline style attribute would always win over these regardless
-   of state. Shared by both instances so their hover/focus behavior stays
-   identical by construction rather than by copy-paste. */
-.cta-button {
-  /* Neutralizes native OS/browser widget theming on <button> (the Hero
-     link never had any, since <a> has no native appearance). Without
-     this, Chrome keeps rendering its own control chrome underneath our
-     border/background overrides, which is what was producing the
-     downward shift and distorted arrow on hover/focus/active. */
+/* Buttons (shared/Button: Hero "Get in touch", contact form submit, project
+   links) — base colors live here (not inline style) so :hover/:focus-visible/
+   :active can override them; an inline style attribute would always win over
+   these regardless of state. Every instance goes through these classes so
+   their states stay identical by construction rather than by copy-paste. */
+.button {
+  /* Neutralizes native OS/browser widget theming on <button> (<a> has no
+     native appearance). Without this, Chrome keeps rendering its own
+     control chrome underneath our border/background overrides, which is
+     what was producing the downward shift and distorted arrow on
+     hover/focus/active. */
   appearance: none;
   -webkit-appearance: none;
   margin: 0;
   font: inherit;
-  border: 1px solid var(--border-strong);
-  background-color: transparent;
-  color: var(--text-primary);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: 1px solid transparent;
+  text-decoration: none;
+  cursor: pointer;
   transition: background-color 0.2s, border-color 0.2s;
 }
 
-.cta-button-arrow {
+.button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* Trailing arrow icon. --arrow-shift is the hover/focus nudge: sideways for
+   →, diagonal for ↗ (.button-arrow-diagonal), so each moves the way it
+   points. Shared with .text-link below. */
+.button-arrow {
+  --arrow-shift: translateX(4px);
   display: inline-block;
   transition: transform 0.2s ease, color 0.2s ease;
 }
 
-.cta-button:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 2px;
+.button-arrow-diagonal {
+  --arrow-shift: translate(2px, -2px);
+}
+
+.button:focus-visible .button-arrow {
+  transform: var(--arrow-shift);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .button:hover .button-arrow {
+    transform: var(--arrow-shift);
+  }
+}
+
+/* Primary: solid light fill. Hover/press dim the fill by 10%/20% (mixed
+   toward black) instead of filter: brightness(), which would also dim the
+   label and the focus ring. */
+.button-primary {
+  background-color: var(--text-primary);
+  color: var(--bg);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .button-primary:hover {
+    background-color: color-mix(in srgb, var(--text-primary) 90%, black);
+  }
+}
+
+/* After the hover rule so a press wins while the pointer is still over it. */
+.button-primary:active {
+  background-color: color-mix(in srgb, var(--text-primary) 80%, black);
+}
+
+/* Secondary: outlined, picks up the accent on hover/focus. */
+.button-secondary {
+  border-color: var(--border-strong);
+  background-color: transparent;
+  color: var(--text-primary);
+}
+
+.button-secondary:focus-visible {
   background-color: var(--accent-dim);
   border-color: var(--accent);
 }
-.cta-button:focus-visible .cta-button-arrow {
-  transform: translateX(4px);
+
+.button-secondary:focus-visible .button-arrow {
   color: var(--accent);
 }
 
 @media (hover: hover) and (pointer: fine) {
-  .cta-button:hover {
+  .button-secondary:hover {
     background-color: var(--accent-dim);
     border-color: var(--accent);
   }
-  .cta-button:hover .cta-button-arrow {
-    transform: translateX(4px);
+  .button-secondary:hover .button-arrow {
     color: var(--accent);
   }
 }
@@ -363,7 +413,7 @@ section[tabindex="-1"]:focus {
 }
 
 /* Contact form fields — border/shadow live here so :focus can override the
-   base state, same reasoning as .cta-button above. */
+   base state, same reasoning as .button above. */
 .contact-form-field {
   border: 1px solid var(--border-strong);
   background-color: var(--surface);

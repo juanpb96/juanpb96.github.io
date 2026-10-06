@@ -2,6 +2,8 @@ import { tokens } from "../../tokens"
 
 import { ArrowRightIcon } from "../icons/ArrowRightIcon"
 
+import { Button } from "../shared/Button"
+
 import { AccessibilityPanel } from "./AccessibilityPanel"
 
 import { CodePanel } from "./CodePanel"
@@ -137,34 +139,10 @@ export function HeroSection() {
             alignItems: "center",
           }}
         >
-          <a
-            href="#contact"
-            className="cta-button"
-            style={{
-              display: "inline-flex",
-
-              alignItems: "center",
-
-              gap: "8px",
-
-              padding: "13px 28px",
-
-              borderRadius: `${tokens.radius.sm}px`,
-
-              textDecoration: "none",
-
-              fontSize: "15px",
-
-              fontWeight: 500,
-
-              fontFamily: tokens.fonts.display,
-
-              cursor: "pointer",
-            }}
-          >
+          <Button variant="primary" href="#contact">
             Get in touch
-            <ArrowRightIcon className="cta-button-arrow" />
-          </a>
+            <ArrowRightIcon className="button-arrow" />
+          </Button>
         </div>
       </div>
 
