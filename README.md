@@ -1,4 +1,4 @@
-# Portfolio: Juan Bonilla · Front-End Developer
+# Portfolio: Juan Bonilla · Front-End Engineer
 
 Live site: https://juanbonilla.me
 

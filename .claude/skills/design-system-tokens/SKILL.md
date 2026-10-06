@@ -7,7 +7,7 @@ When styling a component or applying tokens to hardcoded values in this project:
 
 1. Only replace a hardcoded value with a token reference when it matches an existing token exactly (color, spacing, radius, or full typography combo). Never round to the nearest token or invent a new one without asking first.
 2. If a value has no exact match, leave it unchanged and add it to a gap report grouped by category (colors/opacities, spacing, typography, radius) with file + context. Stop for confirmation before creating any new token.
-3. Decorative mockup components (CodePanel, DesignPanel, AccessibilityPanel, DashboardMockup, LayerStackMockup) are exempt from the token system — don't force their colors/spacing into tokens.
+3. Decorative mockup components (illustrations of other UIs rather than site content) are exempt from the token system — don't force their colors/spacing into tokens. None exist right now; real content cards (e.g. the Hero's BuildProcessCard) are not mockups and use tokens.
 4. For responsive behavior: clamp() for values that scale continuously (typography, large section spacing), referencing token values as bounds. Tailwind utility classes with breakpoints for discrete structural changes.
 5. Known breakpoints: md (768px, default for structural changes) and mdlg (900px, custom — see --breakpoint-mdlg in index.css). Don't introduce new custom breakpoints on your own judgment — if a component looks broken at an in-between size, flag it and wait for direction instead of adding a new breakpoint value.
 6. Never use JS-based viewport detection for responsive behavior. If no CSS-only solution exists, stop and ask before implementing one.
