@@ -251,10 +251,10 @@ section[tabindex="-1"]:focus {
   }
 }
 
-/* Tag-collapse toggle ("+N") on mobile project cards — expands the hit area
+/* Tag-collapse toggle ("+N") in shared/TagList on mobile — expands the hit area
    to a 44×44px minimum tap target without affecting the pill's visual size,
    mirroring .nav-tap-target. */
-.project-tag-toggle {
+.tag-toggle {
   position: relative;
   font: inherit;
   color: var(--text-secondary);
@@ -262,7 +262,7 @@ section[tabindex="-1"]:focus {
   transition: color 0.2s, border-color 0.2s;
 }
 
-.project-tag-toggle::before {
+.tag-toggle::before {
   content: '';
   position: absolute;
   top: 50%;
@@ -272,7 +272,7 @@ section[tabindex="-1"]:focus {
   transform: translate(-50%, -50%);
 }
 
-.project-tag-toggle:focus-visible {
+.tag-toggle:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
   color: var(--accent);
@@ -280,7 +280,7 @@ section[tabindex="-1"]:focus {
 }
 
 @media (hover: hover) and (pointer: fine) {
-  .project-tag-toggle:hover {
+  .tag-toggle:hover {
     color: var(--accent);
     border-color: var(--accent);
   }

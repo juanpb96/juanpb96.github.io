@@ -1,4 +1,4 @@
-import { useState, type CSSProperties } from "react"
+import { useState } from "react"
 
 import { tokens } from "../../tokens"
 
@@ -7,6 +7,8 @@ import spaceTourismHero from "../../assets/projects/space-tourism-hero.webp"
 import { GithubIcon } from "../icons/GithubIcon"
 
 import { GlobeIcon } from "../icons/GlobeIcon"
+
+import { TagList } from "../shared/TagList"
 
 import { IconButton } from "./IconButton"
 
@@ -54,22 +56,6 @@ export function ProjectCard({
   mobileImageZoom,
 }: ProjectCardProps) {
   const [hovered, setHovered] = useState(false)
-
-  const [tagsExpanded, setTagsExpanded] = useState(false)
-
-  const hasCollapsibleTags = tags.length > 3
-
-  const tagStyle: CSSProperties = {
-    padding: `${tokens.spacing[4]}px 10px`,
-
-    borderRadius: `${tokens.radius.full}px`,
-
-    backgroundColor: "rgba(255,255,255,0.03)",
-
-    fontSize: "11px",
-
-    fontFamily: tokens.fonts.mono,
-  }
 
   return (
     <div
@@ -194,55 +180,7 @@ export function ProjectCard({
         className="flex flex-col items-start md:flex-row md:items-center md:justify-between"
         style={{ gap: `${tokens.spacing[16]}px`, marginTop: "auto" }}
       >
-        <div
-          style={{
-            display: "flex",
-            gap: `${tokens.spacing[8]}px`,
-            flexWrap: "wrap",
-          }}
-        >
-          {(hasCollapsibleTags ? tags.slice(0, 2) : tags).map((tag) => (
-            <span
-              key={tag}
-              style={{
-                ...tagStyle,
-                border: `1px solid ${tokens.colors.border}`,
-                color: tokens.colors.textSecondary,
-              }}
-            >
-              {tag}
-            </span>
-          ))}
-          {hasCollapsibleTags && (
-            <button
-              type="button"
-              onClick={() => setTagsExpanded((expanded) => !expanded)}
-              aria-expanded={tagsExpanded}
-              aria-label={
-                tagsExpanded
-                  ? "Show fewer tags"
-                  : `Show ${tags.length - 2} more tags`
-              }
-              className="project-tag-toggle md:hidden"
-              style={{ ...tagStyle, cursor: "pointer" }}
-            >
-              {tagsExpanded ? "−" : `+${tags.length - 2}`}
-            </button>
-          )}
-          {hasCollapsibleTags && tags.slice(2).map((tag) => (
-              <span
-                key={tag}
-                className={tagsExpanded ? undefined : "hidden md:inline"}
-                style={{
-                  ...tagStyle,
-                  border: `1px solid ${tokens.colors.border}`,
-                  color: tokens.colors.textSecondary,
-                }}
-              >
-                {tag}
-              </span>
-            ))}
-        </div>
+        <TagList tags={tags} />
         <div style={{ display: "flex", gap: `${tokens.spacing[8]}px` }}>
           <IconButton
             href={liveUrl}
