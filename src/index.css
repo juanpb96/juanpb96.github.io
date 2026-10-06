@@ -292,6 +292,37 @@ section[tabindex="-1"]:focus {
   border-radius: 4px;
 }
 
+/* Hero "How this site gets built" collapse toggle. Layout (display,
+   padding) stays in Tailwind classes so its mdlg:hidden isn't overridden
+   by these unlayered rules. The ring is inset and follows the card's
+   radius, since the button spans the card's full width. */
+.build-card-toggle {
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+  border-radius: 20px;
+}
+
+.build-card-toggle svg {
+  color: var(--text-secondary);
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.build-card-toggle:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+}
+
+.build-card-toggle:focus-visible svg {
+  color: var(--accent);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .build-card-toggle:hover svg {
+    color: var(--accent);
+  }
+}
+
 /* Buttons (shared/Button: Hero "Get in touch", contact form submit, project
    links) — base colors live here (not inline style) so :hover/:focus-visible/
    :active can override them; an inline style attribute would always win over
