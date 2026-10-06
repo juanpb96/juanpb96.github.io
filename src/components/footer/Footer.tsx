@@ -4,7 +4,7 @@ import { ContentContainer } from "../layout/ContentContainer"
 
 import { GithubIcon } from "../icons/GithubIcon"
 
-import { IconButton } from "../projects/IconButton"
+import { IconButton } from "../shared/IconButton"
 
 import { LinkedinIcon } from "../icons/LinkedinIcon"
 
