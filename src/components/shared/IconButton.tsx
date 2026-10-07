@@ -24,7 +24,7 @@ export function IconButton({
       target="_blank"
       rel="noopener noreferrer"
       aria-label={ariaLabel}
-      className="project-icon-btn"
+      className="icon-button"
       style={{
         width: "44px",
 
@@ -34,7 +34,7 @@ export function IconButton({
       }}
     >
       {children}
-      <span className="project-icon-btn-tooltip" aria-hidden="true">
+      <span className="icon-button-tooltip" aria-hidden="true">
         {tooltip}
       </span>
     </a>

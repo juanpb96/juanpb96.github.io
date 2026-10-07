@@ -205,14 +205,14 @@ section[tabindex="-1"]:focus {
   to { opacity: 1; transform: translateY(0); visibility: visible; }
 }
 
-/* Project card icon buttons — live-site + GitHub links.
+/* Icon buttons (shared/IconButton: footer LinkedIn + GitHub links).
    Default state is icon-only (no background/border at all) — the circular
    backdrop is built from scratch on hover/focus by transitioning
    background-color/border-color from transparent, not swapped between two
    visible states. Base colors live in this stylesheet (not inline style) so
    :hover/:focus-visible below can actually override them — an inline style
    attribute would always win over these regardless of state. */
-.project-icon-btn {
+.icon-button {
   position: relative;
   display: flex;
   align-items: center;
@@ -225,36 +225,36 @@ section[tabindex="-1"]:focus {
   transition: background-color 0.2s, border-color 0.2s;
 }
 
-.project-icon-btn svg {
+.icon-button svg {
   background-color: transparent;
   transition: color 0.2s;
 }
 
-.project-icon-btn:focus-visible {
+.icon-button:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
   background-color: var(--accent-dim);
   border-color: var(--accent);
 }
 
-.project-icon-btn:focus-visible svg {
+.icon-button:focus-visible svg {
   color: var(--accent);
 }
 
 @media (hover: hover) and (pointer: fine) {
-  .project-icon-btn:hover {
+  .icon-button:hover {
     background-color: var(--accent-dim);
     border-color: var(--accent);
   }
-  .project-icon-btn:hover svg {
+  .icon-button:hover svg {
     color: var(--accent);
   }
 }
 
-/* Tag-collapse toggle ("+N") on mobile project cards — expands the hit area
+/* Tag-collapse toggle ("+N") in shared/TagList on mobile — expands the hit area
    to a 44×44px minimum tap target without affecting the pill's visual size,
    mirroring .nav-tap-target. */
-.project-tag-toggle {
+.tag-toggle {
   position: relative;
   font: inherit;
   color: var(--text-secondary);
@@ -262,7 +262,7 @@ section[tabindex="-1"]:focus {
   transition: color 0.2s, border-color 0.2s;
 }
 
-.project-tag-toggle::before {
+.tag-toggle::before {
   content: '';
   position: absolute;
   top: 50%;
@@ -272,7 +272,7 @@ section[tabindex="-1"]:focus {
   transform: translate(-50%, -50%);
 }
 
-.project-tag-toggle:focus-visible {
+.tag-toggle:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
   color: var(--accent);
@@ -280,7 +280,7 @@ section[tabindex="-1"]:focus {
 }
 
 @media (hover: hover) and (pointer: fine) {
-  .project-tag-toggle:hover {
+  .tag-toggle:hover {
     color: var(--accent);
     border-color: var(--accent);
   }
@@ -292,51 +292,195 @@ section[tabindex="-1"]:focus {
   border-radius: 4px;
 }
 
-/* Primary CTA button (Hero "Get in touch", contact form submit) — base
-   colors live here (not inline style) so :hover/:focus-visible can override
-   them; an inline style attribute would always win over these regardless
-   of state. Shared by both instances so their hover/focus behavior stays
-   identical by construction rather than by copy-paste. */
-.cta-button {
-  /* Neutralizes native OS/browser widget theming on <button> (the Hero
-     link never had any, since <a> has no native appearance). Without
-     this, Chrome keeps rendering its own control chrome underneath our
-     border/background overrides, which is what was producing the
-     downward shift and distorted arrow on hover/focus/active. */
-  appearance: none;
-  -webkit-appearance: none;
-  margin: 0;
-  font: inherit;
-  border: 1px solid var(--border-strong);
-  background-color: transparent;
-  color: var(--text-primary);
-  transition: background-color 0.2s, border-color 0.2s;
+/* Hero "How this site gets built" collapse toggle. Layout (display,
+   padding) stays in Tailwind classes so its mdlg:hidden isn't overridden
+   by these unlayered rules. The ring is inset and follows the card's
+   radius, since the button spans the card's full width. */
+.build-card-toggle {
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+  border-radius: 20px;
 }
 
-.cta-button-arrow {
-  display: inline-block;
-  transition: transform 0.2s ease, color 0.2s ease;
+.build-card-toggle svg {
+  color: var(--text-secondary);
+  transition: color 0.2s ease, transform 0.2s ease;
 }
 
-.cta-button:focus-visible {
+.build-card-toggle:focus-visible {
   outline: 2px solid var(--accent);
-  outline-offset: 2px;
-  background-color: var(--accent-dim);
-  border-color: var(--accent);
+  outline-offset: -2px;
 }
-.cta-button:focus-visible .cta-button-arrow {
-  transform: translateX(4px);
+
+.build-card-toggle:focus-visible svg {
   color: var(--accent);
 }
 
 @media (hover: hover) and (pointer: fine) {
-  .cta-button:hover {
+  .build-card-toggle:hover svg {
+    color: var(--accent);
+  }
+}
+
+/* Buttons (shared/Button: Hero "Get in touch", contact form submit, project
+   links) — base colors live here (not inline style) so :hover/:focus-visible/
+   :active can override them; an inline style attribute would always win over
+   these regardless of state. Every instance goes through these classes so
+   their states stay identical by construction rather than by copy-paste. */
+.button {
+  /* Neutralizes native OS/browser widget theming on <button> (<a> has no
+     native appearance). Without this, Chrome keeps rendering its own
+     control chrome underneath our border/background overrides, which is
+     what was producing the downward shift and distorted arrow on
+     hover/focus/active. */
+  appearance: none;
+  -webkit-appearance: none;
+  margin: 0;
+  font: inherit;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: 1px solid transparent;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.2s, border-color 0.2s;
+}
+
+.button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* Trailing arrow icon. --arrow-shift is the hover/focus nudge: sideways for
+   →, diagonal for ↗ (.button-arrow-diagonal), so each moves the way it
+   points. Shared with .text-link below. */
+.button-arrow {
+  --arrow-shift: translateX(4px);
+  display: inline-block;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.button-arrow-diagonal {
+  --arrow-shift: translate(2px, -2px);
+}
+
+.button:focus-visible .button-arrow {
+  transform: var(--arrow-shift);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .button:hover .button-arrow {
+    transform: var(--arrow-shift);
+  }
+}
+
+/* Primary: solid light fill. Hover/press dim the fill by 10%/20% (mixed
+   toward black) instead of filter: brightness(), which would also dim the
+   label and the focus ring. */
+.button-primary {
+  background-color: var(--text-primary);
+  color: var(--bg);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .button-primary:hover {
+    background-color: color-mix(in srgb, var(--text-primary) 90%, black);
+  }
+}
+
+/* After the hover rule so a press wins while the pointer is still over it. */
+.button-primary:active {
+  background-color: color-mix(in srgb, var(--text-primary) 80%, black);
+}
+
+/* Secondary: outlined, picks up the accent on hover/focus. */
+.button-secondary {
+  border-color: var(--border-strong);
+  background-color: transparent;
+  color: var(--text-primary);
+}
+
+.button-secondary:focus-visible {
+  background-color: var(--accent-dim);
+  border-color: var(--accent);
+}
+
+.button-secondary:focus-visible .button-arrow {
+  color: var(--accent);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .button-secondary:hover {
     background-color: var(--accent-dim);
     border-color: var(--accent);
   }
-  .cta-button:hover .cta-button-arrow {
-    transform: translateX(4px);
+  .button-secondary:hover .button-arrow {
     color: var(--accent);
+  }
+}
+
+/* Project images link to the live site (ProjectCard's overlay link). Hover
+   dims the image through the overlay's background, which leaves the
+   image's own inline transform (imageScale) alone. "Also built" thumbnails
+   also take the accent border; their base border lives here, not inline,
+   so the hover rule can override it. */
+.project-image-link {
+  transition: background-color 0.2s;
+}
+
+.project-thumb {
+  border: 1px solid var(--border);
+  transition: border-color 0.2s;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .project-image-link:hover {
+    background-color: rgba(0, 0, 0, 0.2);
+  }
+  .project-thumb:hover {
+    border-color: var(--accent);
+  }
+}
+
+/* Standalone text links (project rows "View live site"/"View code"):
+   secondary text that takes the accent on hover/focus, with the same arrow
+   nudge as .button. The ::before pad grows the hit area to 44px tall without
+   moving anything, mirroring .nav-tap-target. */
+.text-link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.text-link::before {
+  content: '';
+  position: absolute;
+  inset: calc((100% - 44px) / 2) 0;
+}
+
+.text-link:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 2px;
+  color: var(--accent);
+}
+
+.text-link:focus-visible .button-arrow {
+  transform: var(--arrow-shift);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .text-link:hover {
+    color: var(--accent);
+  }
+  .text-link:hover .button-arrow {
+    transform: var(--arrow-shift);
   }
 }
 
@@ -363,7 +507,7 @@ section[tabindex="-1"]:focus {
 }
 
 /* Contact form fields — border/shadow live here so :focus can override the
-   base state, same reasoning as .cta-button above. */
+   base state, same reasoning as .button above. */
 .contact-form-field {
   border: 1px solid var(--border-strong);
   background-color: var(--surface);
@@ -388,7 +532,7 @@ section[tabindex="-1"]:focus {
   max-height: 280px;
 }
 
-.project-icon-btn-tooltip {
+.icon-button-tooltip {
   position: absolute;
   bottom: calc(100% + 8px);
   left: 50%;
@@ -407,13 +551,13 @@ section[tabindex="-1"]:focus {
   z-index: 10;
 }
 
-.project-icon-btn:focus-visible .project-icon-btn-tooltip {
+.icon-button:focus-visible .icon-button-tooltip {
   opacity: 1;
   transform: translateX(-50%) translateY(0);
 }
 
 @media (hover: hover) and (pointer: fine) {
-  .project-icon-btn:hover .project-icon-btn-tooltip {
+  .icon-button:hover .icon-button-tooltip {
     opacity: 1;
     transform: translateX(-50%) translateY(0);
   }

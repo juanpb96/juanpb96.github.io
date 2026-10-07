@@ -1,265 +1,207 @@
-import { useState, type CSSProperties } from "react"
-
+import type { CSSProperties } from "react"
+import type { Project } from "../../data/projects"
 import { tokens } from "../../tokens"
-
-import spaceTourismHero from "../../assets/projects/space-tourism-hero.webp"
-
+import { ArrowUpRightIcon } from "../icons/ArrowUpRightIcon"
 import { GithubIcon } from "../icons/GithubIcon"
-
-import { GlobeIcon } from "../icons/GlobeIcon"
-
-import { IconButton } from "./IconButton"
+import { Button } from "../shared/Button"
+import { TagList } from "../shared/TagList"
 
 interface ProjectCardProps {
   number: string
-
-  title: string
-
-  description: string
-
-  tags: string[]
-
+  project: Project
+  // Featured layout (image beside the copy, button links) instead of an
+  // "Also built" row (thumbnail, text links).
   large?: boolean
-
-  liveUrl?: string
-
-  githubUrl?: string
-
-  image?: string
-
-  imageAlt?: string
-
-  mobileImageZoom?: boolean
 }
 
-export function ProjectCard({
-  number,
+const numberStyle: CSSProperties = {
+  fontFamily: tokens.typography.metaTags.font,
+  fontSize: `${tokens.typography.metaTags.size}px`,
+  fontWeight: tokens.typography.metaTags.weight,
+  lineHeight: tokens.typography.metaTags.lineHeight,
+  letterSpacing: tokens.typography.metaTags.letterSpacing,
+}
 
-  title,
+const descriptionStyle: CSSProperties = {
+  fontSize: "14px",
+  color: tokens.colors.textSecondary,
+  lineHeight: 1.6,
+  margin: 0,
+}
 
-  description,
+function titleStyle(large?: boolean): CSSProperties {
+  const type = large
+    ? tokens.typography.cardTitleLarge
+    : tokens.typography.cardTitleDefault
+  return {
+    fontFamily: type.font,
+    fontSize: `${type.size}px`,
+    fontWeight: type.weight,
+    lineHeight: type.lineHeight,
+    letterSpacing: type.letterSpacing,
+    color: tokens.colors.textPrimary,
+    margin: 0,
+  }
+}
 
-  tags,
+export function ProjectCard({ number, project, large }: ProjectCardProps) {
+  const { title, description, tags, liveUrl, githubUrl } = project
 
-  large,
+  // Featured: bleeds to the card's edges (the card clips the corners). From
+  // lg it sits beside the copy: its 16:10 ratio sets the row height unless
+  // the copy is taller, in which case it stretches and the absolutely
+  // positioned image crops to fill. w-full pins the width to the column so a
+  // stretched height can't widen it back through the ratio. Rows: a framed
+  // 16:10 thumbnail (border in .project-thumb so hover can recolor it).
+  const image = (
+    <div
+      className={
+        large
+          ? "relative aspect-[16/10] w-full overflow-hidden lg:self-stretch"
+          : "project-thumb relative aspect-[16/10] overflow-hidden"
+      }
+      style={large ? undefined : { borderRadius: `${tokens.radius.sm}px` }}
+    >
+      <img
+        src={project.image}
+        alt={project.imageAlt}
+        loading="lazy"
+        className={large ? "absolute inset-0" : undefined}
+        style={{
+          width: "100%",
+          height: "100%",
+          objectFit: "cover",
+          transform: project.imageScale
+            ? `scale(${project.imageScale})`
+            : undefined,
+        }}
+      />
+      {/* Mouse/touch shortcut to the live site, laid over the image so its
+          alt stays exposed. Keyboard and screen reader users get the
+          labelled "View live site" link instead. */}
+      <a
+        href={liveUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        tabIndex={-1}
+        aria-hidden="true"
+        className="project-image-link absolute inset-0"
+      />
+    </div>
+  )
 
-  liveUrl = "#",
-
-  githubUrl = "#",
-
-  image,
-
-  imageAlt,
-
-  mobileImageZoom,
-}: ProjectCardProps) {
-  const [hovered, setHovered] = useState(false)
-
-  const [tagsExpanded, setTagsExpanded] = useState(false)
-
-  const hasCollapsibleTags = tags.length > 3
-
-  const tagStyle: CSSProperties = {
-    padding: `${tokens.spacing[4]}px 10px`,
-
-    borderRadius: `${tokens.radius.full}px`,
-
-    backgroundColor: "rgba(255,255,255,0.03)",
-
-    fontSize: "11px",
-
-    fontFamily: tokens.fonts.mono,
+  if (large) {
+    return (
+      <article
+        className="grid grid-cols-1 overflow-hidden lg:grid-cols-[minmax(0,5fr)_minmax(0,4fr)]"
+        style={{
+          backgroundColor: tokens.colors.surface,
+          border: `1px solid ${tokens.colors.border}`,
+          borderRadius: `${tokens.radius.lg}px`,
+        }}
+      >
+        {image}
+        <div
+          className="p-6 md:p-8 lg:self-center"
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            gap: `${tokens.spacing[20]}px`,
+          }}
+        >
+          <div className="flex flex-col items-start gap-2 md:flex-row md:items-baseline">
+            <span style={{ ...numberStyle, color: tokens.colors.accent }}>
+              {number}
+            </span>
+            <h3 style={titleStyle(true)}>{title}</h3>
+          </div>
+          <p style={descriptionStyle}>{description}</p>
+          <TagList tags={tags} />
+          <div className="flex flex-col gap-4 sm:flex-row">
+            <Button
+              variant="primary"
+              href={liveUrl}
+              external
+              className="w-full sm:w-auto"
+            >
+              View live site
+              <span className="sr-only">: {title}</span>
+              <ArrowUpRightIcon className="button-arrow button-arrow-diagonal" />
+            </Button>
+            <Button
+              variant="secondary"
+              href={githubUrl}
+              external
+              className="w-full sm:w-auto"
+            >
+              View code
+              <span className="sr-only">: {title}</span>
+              <GithubIcon size={16} />
+            </Button>
+          </div>
+        </div>
+      </article>
+    )
   }
 
+  // Row: stacked below sm; thumbnail beside the stacked copy from sm; one
+  // line of columns from lg, where the tags tuck under the title. Grid areas
+  // move the tags between those spots without duplicating them in the DOM.
   return (
-    <div
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      className={
-        large ? "px-6 pt-6 pb-6 lg:px-8 lg:pt-5 lg:pb-6" : "px-6 pt-6 pb-6"
-      }
-      style={{
-        borderRadius: `${tokens.radius.lg}px`,
-
-        backgroundColor: tokens.colors.surface,
-
-        border: `1px solid ${
-          hovered ? tokens.colors.borderStrong : tokens.colors.border
-        }`,
-
-        transition: "border-color 0.3s, box-shadow 0.3s",
-
-        boxShadow: hovered ? `0 0 40px ${tokens.colors.accentGlow}` : "none",
-
-        display: "flex",
-
-        flexDirection: "column",
-
-        gap: `${tokens.spacing[20]}px`,
-
-        height: "100%",
-      }}
-    >
-      {/* Header */}
-      <div
-        className="flex flex-col items-start sm:flex-row sm:items-baseline"
-        style={{ gap: `${tokens.spacing[16]}px` }}
-      >
-        <span
-          style={{
-            fontFamily: tokens.fonts.mono,
-            fontSize: "13px",
-            color: tokens.colors.textTertiary,
-          }}
-        >
-          {number}
-        </span>
-        <h3
-          style={{
-            fontFamily: tokens.fonts.display,
-
-            fontWeight: 700,
-
-            fontSize: large ? "28px" : "22px",
-
-            letterSpacing: "-0.02em",
-
-            color: tokens.colors.textPrimary,
-
-            margin: 0,
-          }}
-        >
-          {title}
-        </h3>
+    <article className="grid grid-cols-1 gap-y-2 sm:grid-cols-[180px_minmax(0,1fr)] sm:gap-x-6 sm:[grid-template-areas:'thumb_num'_'thumb_title'_'thumb_desc'_'thumb_tags'_'thumb_links'] lg:grid-cols-[180px_auto_minmax(0,1fr)_minmax(0,1.2fr)_auto] lg:gap-x-8 lg:[grid-template-areas:'thumb_num_title_desc_links'_'thumb_num_tags_desc_links']">
+      <div className="mb-2 sm:mb-0 sm:self-start sm:[grid-area:thumb] lg:self-center">
+        {image}
       </div>
-
-      {/* Mockup */}
-      {large ? (
-        <img
-          src={spaceTourismHero}
-          alt="Space Tourism Website landing page"
-          className="aspect-[4/3] md:aspect-[30/15] lg:aspect-[4/3]"
-          style={{
-            width: "100%",
-
-            objectFit: "cover",
-
-            borderRadius: `${tokens.radius.sm}px`,
-
-            border: `1px solid ${tokens.colors.border}`,
-          }}
-        />
-      ) : (
-        <div
-          className="aspect-[4/3] md:aspect-[30/15] lg:aspect-[51/10]"
-          style={{
-            width: "100%",
-
-            overflow: "hidden",
-
-            borderRadius: `${tokens.radius.sm}px`,
-
-            border: `1px solid ${tokens.colors.border}`,
-          }}
-        >
-          <img
-            src={image}
-            alt={imageAlt}
-            className={mobileImageZoom ? "scale-[1.8] md:scale-100" : undefined}
-            style={{
-              width: "100%",
-
-              height: "100%",
-
-              objectFit: "cover",
-            }}
-          />
-        </div>
-      )}
-
-      {/* Description */}
+      <span
+        className="sm:[grid-area:num] lg:self-center"
+        style={{ ...numberStyle, color: tokens.colors.textTertiary }}
+      >
+        {number}
+      </span>
+      <h3
+        className="sm:[grid-area:title] lg:self-end"
+        style={titleStyle(false)}
+      >
+        {title}
+      </h3>
       <p
-        style={{
-          fontSize: "14px",
-          color: tokens.colors.textSecondary,
-          margin: 0,
-          lineHeight: 1.6,
-        }}
+        className="mt-2 sm:[grid-area:desc] lg:mt-0 lg:self-center"
+        style={descriptionStyle}
       >
         {description}
       </p>
-
-      {/* Tags + CTA */}
-      <div
-        className="flex flex-col items-start md:flex-row md:items-center md:justify-between"
-        style={{ gap: `${tokens.spacing[16]}px`, marginTop: "auto" }}
-      >
-        <div
-          style={{
-            display: "flex",
-            gap: `${tokens.spacing[8]}px`,
-            flexWrap: "wrap",
-          }}
-        >
-          {(hasCollapsibleTags ? tags.slice(0, 2) : tags).map((tag) => (
-            <span
-              key={tag}
-              style={{
-                ...tagStyle,
-                border: `1px solid ${tokens.colors.border}`,
-                color: tokens.colors.textSecondary,
-              }}
-            >
-              {tag}
-            </span>
-          ))}
-          {hasCollapsibleTags && (
-            <button
-              type="button"
-              onClick={() => setTagsExpanded((expanded) => !expanded)}
-              aria-expanded={tagsExpanded}
-              aria-label={
-                tagsExpanded
-                  ? "Show fewer tags"
-                  : `Show ${tags.length - 2} more tags`
-              }
-              className="project-tag-toggle md:hidden"
-              style={{ ...tagStyle, cursor: "pointer" }}
-            >
-              {tagsExpanded ? "−" : `+${tags.length - 2}`}
-            </button>
-          )}
-          {hasCollapsibleTags && tags.slice(2).map((tag) => (
-              <span
-                key={tag}
-                className={tagsExpanded ? undefined : "hidden md:inline"}
-                style={{
-                  ...tagStyle,
-                  border: `1px solid ${tokens.colors.border}`,
-                  color: tokens.colors.textSecondary,
-                }}
-              >
-                {tag}
-              </span>
-            ))}
-        </div>
-        <div style={{ display: "flex", gap: `${tokens.spacing[8]}px` }}>
-          <IconButton
-            href={liveUrl}
-            ariaLabel="View live site"
-            tooltip="Live site"
-          >
-            <GlobeIcon />
-          </IconButton>
-          <IconButton
-            href={githubUrl}
-            ariaLabel="View source code on GitHub"
-            tooltip="GitHub"
-          >
-            <GithubIcon />
-          </IconButton>
-        </div>
+      <div className="mt-2 sm:[grid-area:tags] lg:mt-0 lg:self-start">
+        <TagList tags={tags} />
       </div>
-    </div>
+      <div
+        className="mt-2 flex gap-6 sm:[grid-area:links] lg:mt-0 lg:self-center"
+        style={{
+          fontFamily: tokens.fonts.body,
+          fontSize: "14px",
+          fontWeight: 500,
+        }}
+      >
+        <a
+          href={liveUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-link"
+        >
+          View live site
+          <span className="sr-only">: {title} (opens in new tab)</span>
+          <ArrowUpRightIcon className="button-arrow button-arrow-diagonal" />
+        </a>
+        <a
+          href={githubUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-link"
+        >
+          View code
+          <span className="sr-only">: {title} (opens in new tab)</span>
+          <GithubIcon size={14} />
+        </a>
+      </div>
+    </article>
   )
 }
