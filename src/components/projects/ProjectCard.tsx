@@ -140,37 +140,37 @@ export function ProjectCard({ number, project, large }: ProjectCardProps) {
     )
   }
 
-  // Row: stacked below md; thumbnail beside the stacked copy from md; one
+  // Row: stacked below sm; thumbnail beside the stacked copy from sm; one
   // line of columns from lg, where the tags tuck under the title. Grid areas
   // move the tags between those spots without duplicating them in the DOM.
   return (
-    <article className="grid grid-cols-1 gap-y-2 md:grid-cols-[180px_minmax(0,1fr)] md:gap-x-6 md:[grid-template-areas:'thumb_num'_'thumb_title'_'thumb_desc'_'thumb_tags'_'thumb_links'] lg:grid-cols-[180px_auto_minmax(0,1fr)_minmax(0,1.2fr)_auto] lg:gap-x-8 lg:[grid-template-areas:'thumb_num_title_desc_links'_'thumb_num_tags_desc_links']">
-      <div className="mb-2 md:mb-0 md:self-start md:[grid-area:thumb] lg:self-center">
+    <article className="grid grid-cols-1 gap-y-2 sm:grid-cols-[180px_minmax(0,1fr)] sm:gap-x-6 sm:[grid-template-areas:'thumb_num'_'thumb_title'_'thumb_desc'_'thumb_tags'_'thumb_links'] lg:grid-cols-[180px_auto_minmax(0,1fr)_minmax(0,1.2fr)_auto] lg:gap-x-8 lg:[grid-template-areas:'thumb_num_title_desc_links'_'thumb_num_tags_desc_links']">
+      <div className="mb-2 sm:mb-0 sm:self-start sm:[grid-area:thumb] lg:self-center">
         {image}
       </div>
       <span
-        className="md:[grid-area:num] lg:self-center"
+        className="sm:[grid-area:num] lg:self-center"
         style={{ ...numberStyle, color: tokens.colors.textTertiary }}
       >
         {number}
       </span>
       <h3
-        className="md:[grid-area:title] lg:self-end"
+        className="sm:[grid-area:title] lg:self-end"
         style={titleStyle(false)}
       >
         {title}
       </h3>
       <p
-        className="mt-2 md:[grid-area:desc] lg:mt-0 lg:self-center"
+        className="mt-2 sm:[grid-area:desc] lg:mt-0 lg:self-center"
         style={descriptionStyle}
       >
         {description}
       </p>
-      <div className="mt-2 md:[grid-area:tags] lg:mt-0 lg:self-start">
+      <div className="mt-2 sm:[grid-area:tags] lg:mt-0 lg:self-start">
         <TagList tags={tags} />
       </div>
       <div
-        className="mt-2 flex gap-6 md:[grid-area:links] lg:mt-0 lg:self-center"
+        className="mt-2 flex gap-6 sm:[grid-area:links] lg:mt-0 lg:self-center"
         style={{
           fontFamily: tokens.fonts.body,
           fontSize: "14px",

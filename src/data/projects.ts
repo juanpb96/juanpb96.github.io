@@ -42,7 +42,7 @@ export const projects: Project[] = [
   {
     title: "Creative Agency Single Page Site",
     description:
-      "Layered landing page with an image carousel built with proper ARIA roles.",
+      "Branding agency landing page with layered visual design and an image carousel built with proper ARIA roles.",
     tags: ["HTML5", "Tailwind", "JavaScript"],
     liveUrl: "/FEM_creative-single-page-site/",
     githubUrl: "https://github.com/juanpb96/FEM_creative-single-page-site",
