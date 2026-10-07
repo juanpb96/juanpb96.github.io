@@ -98,6 +98,12 @@ html {
   scroll-behavior: smooth;
 }
 
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
 *, *::before, *::after {
   box-sizing: border-box;
 }
@@ -133,11 +139,33 @@ section {
   scroll-margin-top: 64px;
 }
 
-/* Sections only receive programmatic focus (a temporary tabindex="-1" set
-   after mobile nav navigation) to move the Tab starting point, not as an
-   interactive target, so they don't get a focus ring. */
-section[tabindex="-1"]:focus {
+/* Sections and <main> only receive programmatic focus (a temporary
+   tabindex="-1" set by moveFocus after mobile nav navigation or the skip
+   link) to move the Tab starting point, not as an interactive target, so
+   they don't get a focus ring. */
+section[tabindex="-1"]:focus,
+main[tabindex="-1"]:focus {
   outline: none;
+}
+
+/* Skip link — visually hidden (but still announced) until focused, then
+   shown above the fixed nav. Colors live here so :focus-visible can
+   override them; layout/typography tokens are inline in SkipLink.tsx. */
+.skip-link {
+  background-color: var(--surface-raised);
+  border: 1px solid var(--border-strong);
+  color: var(--text-primary);
+  text-decoration: none;
+}
+
+.skip-link:not(:focus) {
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.skip-link:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
 }
 
 /* Nav — logo, hamburger, overlay links */

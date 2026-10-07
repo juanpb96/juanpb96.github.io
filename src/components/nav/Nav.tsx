@@ -4,30 +4,13 @@ import { createPortal } from "react-dom"
 
 import { tokens } from "../../tokens"
 
+import { moveFocus } from "../../utils/moveFocus"
+
 import { ContentContainer } from "../layout/ContentContainer"
 
 const links = ["Projects", "Experience", "Contact"]
 
 const CLOSE_ANIMATION_MS = 260
-
-// Moves focus to where the user should continue from after the overlay
-// closes. A section target (overlay link) isn't focusable on its own, so it
-// gets a temporary tabindex="-1", removed on blur so clicks inside the
-// section don't keep focusing it. preventScroll leaves the anchor's own
-// smooth scroll alone.
-function restoreFocus(target: HTMLElement | null) {
-  if (!target) return
-
-  if (!target.hasAttribute("tabindex")) {
-    target.tabIndex = -1
-
-    target.addEventListener("blur", () => target.removeAttribute("tabindex"), {
-      once: true,
-    })
-  }
-
-  target.focus({ preventScroll: true })
-}
 
 export function Nav() {
   const [scrolled, setScrolled] = useState(false)
@@ -202,7 +185,7 @@ export function Nav() {
       })
 
       // After the background is un-inerted, or focusing a section would fail.
-      restoreFocus(restoreFocusRef.current ?? hamburgerButton)
+      moveFocus(restoreFocusRef.current ?? hamburgerButton)
 
       restoreFocusRef.current = null
     }

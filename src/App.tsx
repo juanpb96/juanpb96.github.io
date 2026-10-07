@@ -12,19 +12,24 @@ import { SectionDivider } from "./components/layout/SectionDivider"
 
 import { Nav } from "./components/nav/Nav"
 
+import { MAIN_CONTENT_ID, SkipLink } from "./components/nav/SkipLink"
+
 import { ProjectsSection } from "./components/projects/ProjectsSection"
 
 export function App() {
   return (
     <PageShell>
+      <SkipLink />
       <Nav />
-      <HeroSection />
-      <SectionDivider />
-      <ProjectsSection />
-      <SectionDivider />
-      <ExperienceSection />
-      <SectionDivider />
-      <ContactSection />
+      <main id={MAIN_CONTENT_ID}>
+        <HeroSection />
+        <SectionDivider />
+        <ProjectsSection />
+        <SectionDivider />
+        <ExperienceSection />
+        <SectionDivider />
+        <ContactSection />
+      </main>
       <Footer />
     </PageShell>
   )

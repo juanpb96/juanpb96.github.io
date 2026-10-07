@@ -164,6 +164,8 @@ const zIndex = {
   overlay: 90,
 
   nav: 100,
+
+  skipLink: 110,
 } as const
 
 export const tokens = {
