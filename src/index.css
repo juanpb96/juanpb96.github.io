@@ -421,6 +421,29 @@ section[tabindex="-1"]:focus {
   }
 }
 
+/* Project images link to the live site (ProjectCard's overlay link). Hover
+   dims the image through the overlay's background, which leaves the
+   image's own inline transform (imageScale) alone. "Also built" thumbnails
+   also take the accent border; their base border lives here, not inline,
+   so the hover rule can override it. */
+.project-image-link {
+  transition: background-color 0.2s;
+}
+
+.project-thumb {
+  border: 1px solid var(--border);
+  transition: border-color 0.2s;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .project-image-link:hover {
+    background-color: rgba(0, 0, 0, 0.2);
+  }
+  .project-thumb:hover {
+    border-color: var(--accent);
+  }
+}
+
 /* Standalone text links (project rows "View live site"/"View code"):
    secondary text that takes the accent on hover/focus, with the same arrow
    nudge as .button. The ::before pad grows the hit area to 44px tall without

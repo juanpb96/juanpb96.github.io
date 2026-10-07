@@ -52,22 +52,15 @@ export function ProjectCard({ number, project, large }: ProjectCardProps) {
   // the copy is taller, in which case it stretches and the absolutely
   // positioned image crops to fill. w-full pins the width to the column so a
   // stretched height can't widen it back through the ratio. Rows: a framed
-  // 16:10 thumbnail.
+  // 16:10 thumbnail (border in .project-thumb so hover can recolor it).
   const image = (
     <div
       className={
         large
           ? "relative aspect-[16/10] w-full overflow-hidden lg:self-stretch"
-          : "aspect-[16/10] overflow-hidden"
+          : "project-thumb relative aspect-[16/10] overflow-hidden"
       }
-      style={
-        large
-          ? undefined
-          : {
-              borderRadius: `${tokens.radius.sm}px`,
-              border: `1px solid ${tokens.colors.border}`,
-            }
-      }
+      style={large ? undefined : { borderRadius: `${tokens.radius.sm}px` }}
     >
       <img
         src={project.image}
@@ -82,6 +75,17 @@ export function ProjectCard({ number, project, large }: ProjectCardProps) {
             ? `scale(${project.imageScale})`
             : undefined,
         }}
+      />
+      {/* Mouse/touch shortcut to the live site, laid over the image so its
+          alt stays exposed. Keyboard and screen reader users get the
+          labelled "View live site" link instead. */}
+      <a
+        href={liveUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        tabIndex={-1}
+        aria-hidden="true"
+        className="project-image-link absolute inset-0"
       />
     </div>
   )
