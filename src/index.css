@@ -168,7 +168,9 @@ main[tabindex="-1"]:focus {
   outline-offset: 2px;
 }
 
-/* Nav — logo, hamburger, overlay links */
+/* Nav — logo, hamburger, overlay links (desktop links use .text-link below).
+   Every control shares the same hover color (accent, fine pointers only) and
+   mirrors it on :focus-visible with the site-wide focus ring. */
 .nav-logo,
 .nav-overlay-link {
   color: var(--text-primary);
@@ -208,10 +210,21 @@ main[tabindex="-1"]:focus {
   }
 }
 
-.nav-overlay-link:focus-visible {
+.nav-logo:focus-visible,
+.nav-overlay-link:focus-visible,
+.nav-hamburger:focus-visible {
   outline: 2px solid var(--accent);
-  outline-offset: 4px;
-  border-radius: 4px;
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+.nav-logo:focus-visible,
+.nav-overlay-link:focus-visible {
+  color: var(--accent);
+}
+
+.nav-hamburger:focus-visible .nav-hamburger-line {
+  background-color: var(--accent);
 }
 
 /* Mobile nav overlay */
@@ -472,7 +485,8 @@ main[tabindex="-1"]:focus {
   }
 }
 
-/* Standalone text links (project rows "View live site"/"View code"):
+/* Standalone text links (desktop nav links, project rows "View live
+   site"/"View code"):
    secondary text that takes the accent on hover/focus, with the same arrow
    nudge as .button. The ::before pad grows the hit area to 44px tall without
    moving anything, mirroring .nav-tap-target. */
