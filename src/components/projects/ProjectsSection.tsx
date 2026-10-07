@@ -63,16 +63,15 @@ export function ProjectsSection() {
             listStyle: "none",
             margin: 0,
             padding: 0,
-            borderBottom: `1px solid ${tokens.colors.border}`,
           }}
         >
+          {/* Dividers only between rows: the last row ends straight into
+              the section's bottom padding, ahead of the SectionDivider. */}
           {others.map((project, index) => (
             <li
               key={project.title}
-              style={{
-                borderTop: `1px solid ${tokens.colors.border}`,
-                padding: `${tokens.spacing[24]}px 0`,
-              }}
+              className="py-6 last:pb-0"
+              style={{ borderTop: `1px solid ${tokens.colors.border}` }}
             >
               <ProjectCard number={formatNumber(index + 1)} project={project} />
             </li>

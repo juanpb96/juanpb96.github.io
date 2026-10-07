@@ -113,12 +113,12 @@ export function ProjectCard({ number, project, large }: ProjectCardProps) {
           </div>
           <p style={descriptionStyle}>{description}</p>
           <TagList tags={tags} />
-          <div className="flex flex-col gap-4 md:flex-row">
+          <div className="flex flex-col gap-4 sm:flex-row">
             <Button
               variant="primary"
               href={liveUrl}
               external
-              className="w-full md:w-auto"
+              className="w-full sm:w-auto"
             >
               View live site
               <span className="sr-only">: {title}</span>
@@ -128,7 +128,7 @@ export function ProjectCard({ number, project, large }: ProjectCardProps) {
               variant="secondary"
               href={githubUrl}
               external
-              className="w-full md:w-auto"
+              className="w-full sm:w-auto"
             >
               View code
               <span className="sr-only">: {title}</span>

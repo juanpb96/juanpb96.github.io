@@ -10,7 +10,10 @@ export function HeroSection() {
       id="hero"
       className="grid grid-cols-1 items-center px-container-mobile md:px-container-desktop mdlg:min-h-screen mdlg:grid-cols-2"
       style={{
-        gap: "clamp(48px, 8vw, 80px)",
+        // Columns sit apart beside each other at mdlg+; stacked below it, the
+        // card follows the CTA at the same rhythm as the copy above.
+        columnGap: "clamp(48px, 8vw, 80px)",
+        rowGap: `${tokens.spacing[32]}px`,
         // The nav is fixed, so the top padding clears its height first.
         paddingTop: `calc(${tokens.spacing[64]}px + clamp(32px, 6vw, 64px))`,
         paddingBottom: "clamp(32px, 6vw, 64px)",
@@ -87,7 +90,7 @@ export function HeroSection() {
           the design decisions, the accessibility and the final review.
         </p>
 
-        <Button variant="primary" href="#contact" className="w-full md:w-auto">
+        <Button variant="primary" href="#contact" className="w-full sm:w-auto">
           Get in touch
           <ArrowRightIcon className="button-arrow" />
         </Button>

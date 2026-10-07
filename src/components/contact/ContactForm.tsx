@@ -164,7 +164,11 @@ export function ContactForm() {
           required
         />
 
-        <Button variant="primary" type="submit" className="self-start">
+        <Button
+          variant="primary"
+          type="submit"
+          className="w-full self-start sm:w-auto"
+        >
           Send message
           <ArrowRightIcon className="button-arrow" />
         </Button>
