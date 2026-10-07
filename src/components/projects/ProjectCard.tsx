@@ -47,18 +47,33 @@ function titleStyle(large?: boolean): CSSProperties {
 export function ProjectCard({ number, project, large }: ProjectCardProps) {
   const { title, description, tags, liveUrl, githubUrl } = project
 
+  // Featured: bleeds to the card's edges (the card clips the corners). From
+  // lg it sits beside the copy: its 16:10 ratio sets the row height unless
+  // the copy is taller, in which case it stretches and the absolutely
+  // positioned image crops to fill. w-full pins the width to the column so a
+  // stretched height can't widen it back through the ratio. Rows: a framed
+  // 16:10 thumbnail.
   const image = (
     <div
-      className="aspect-[16/10] overflow-hidden"
-      style={{
-        borderRadius: `${large ? tokens.radius.md : tokens.radius.sm}px`,
-        border: `1px solid ${tokens.colors.border}`,
-      }}
+      className={
+        large
+          ? "relative aspect-[16/10] w-full overflow-hidden lg:self-stretch"
+          : "aspect-[16/10] overflow-hidden"
+      }
+      style={
+        large
+          ? undefined
+          : {
+              borderRadius: `${tokens.radius.sm}px`,
+              border: `1px solid ${tokens.colors.border}`,
+            }
+      }
     >
       <img
         src={project.image}
         alt={project.imageAlt}
         loading="lazy"
+        className={large ? "absolute inset-0" : undefined}
         style={{
           width: "100%",
           height: "100%",
@@ -73,9 +88,17 @@ export function ProjectCard({ number, project, large }: ProjectCardProps) {
 
   if (large) {
     return (
-      <article className="grid grid-cols-1 items-center gap-6 lg:grid-cols-[3fr_2fr] lg:gap-12">
+      <article
+        className="grid grid-cols-1 overflow-hidden lg:grid-cols-[minmax(0,5fr)_minmax(0,4fr)]"
+        style={{
+          backgroundColor: tokens.colors.surface,
+          border: `1px solid ${tokens.colors.border}`,
+          borderRadius: `${tokens.radius.lg}px`,
+        }}
+      >
         {image}
         <div
+          className="p-6 md:p-8 lg:self-center"
           style={{
             display: "flex",
             flexDirection: "column",
