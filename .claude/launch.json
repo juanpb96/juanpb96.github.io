@@ -5,7 +5,8 @@
       "name": "dev",
       "runtimeExecutable": "pnpm",
       "runtimeArgs": ["run", "dev"],
-      "port": 8443
+      "port": 8443,
+      "autoPort": true
     }
   ]
 }

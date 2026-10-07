@@ -65,8 +65,9 @@ export function ProjectsSection() {
             padding: 0,
           }}
         >
-          {/* Dividers only between rows: the last row ends straight into
-              the section's bottom padding, ahead of the SectionDivider. */}
+          {/* A divider above each row, none after the last: it ends
+              straight into the section's bottom padding, ahead of the
+              SectionDivider. */}
           {others.map((project, index) => (
             <li
               key={project.title}

@@ -21,11 +21,6 @@ const PRINTABLE_ASCII = String.fromCharCode(
 )
 const FORM_INPUT_CHARS = `${PRINTABLE_ASCII}ÁÉÍÓÚÜÑáéíóúüñ¡¿`
 
-// Glyphs the site renders from a system font today (outside the Google
-// Fonts "latin" subset the site used to load); kept out so they don't
-// silently switch to the web font's design.
-const EXCLUDED_CHARS = "✓"
-
 const FONTS = [
   {
     output: "instrument-sans",
@@ -131,8 +126,6 @@ await mkdir(OUTPUT_DIR, { recursive: true })
 
 for (const font of FONTS) {
   const chars = new Set([...siteChars, ...font.extraChars])
-
-  for (const char of EXCLUDED_CHARS) chars.delete(char)
 
   const text = [...chars].sort().join("")
 
