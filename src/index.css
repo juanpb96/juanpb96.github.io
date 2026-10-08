@@ -89,6 +89,9 @@
   --accent-dim: rgba(77, 156, 248, 0.18);
   --accent-glow: rgba(77, 156, 248, 0.10);
   --accent-border: rgba(77, 156, 248, 0.3);
+  --error: #d96565;
+  --error-bg: rgba(217, 101, 101, 0.10);
+  --error-border: rgba(217, 101, 101, 0.3);
   --font-display: 'Instrument Sans', 'Instrument Sans Fallback', sans-serif;
   --font-body: 'Inter', 'Inter Fallback', sans-serif;
   --font-mono: 'JetBrains Mono', 'JetBrains Mono Fallback', monospace;
@@ -566,6 +569,35 @@ main[tabindex="-1"]:focus {
   outline: none;
   border-color: var(--accent);
   box-shadow: 0 0 0 3px var(--accent-glow);
+}
+
+/* Read-only only while a message is being sent: values dim to show they
+   can't be edited (text-secondary keeps them above 4.5:1). */
+.contact-form-field:read-only {
+  color: var(--text-secondary);
+}
+
+/* The success heading only receives programmatic focus (moveFocus, after
+   the panel hides the button that held it), not as an interactive target,
+   so it gets no focus ring — same as sections and <main>. */
+.contact-form-success-heading[tabindex="-1"]:focus {
+  outline: none;
+}
+
+/* In-progress indicator (icons/SpinnerIcon). Under reduced motion it stays
+   still: the "Sending…" label already carries the state. */
+@keyframes spinner-rotate {
+  to { transform: rotate(360deg); }
+}
+
+.spinner {
+  animation: spinner-rotate 0.8s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .spinner {
+    animation: none;
+  }
 }
 
 .contact-form-textarea {
