@@ -1,3 +1,5 @@
+/// <reference types="vitest/config" />
+
 import { defineConfig } from "vite"
 
 import react from "@vitejs/plugin-react"
@@ -29,5 +31,13 @@ export default defineConfig({
     host: "0.0.0.0",
 
     port: parseInt(process.env.PORT || "8443"),
+  },
+
+  // Component tests (pnpm test) render in jsdom; src/test/setup.ts adds
+  // the jest-dom matchers and unmounts between tests.
+  test: {
+    environment: "jsdom",
+
+    setupFiles: ["./src/test/setup.ts"],
   },
 })
