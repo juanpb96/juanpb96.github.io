@@ -45,14 +45,14 @@ function readStoredExpanded() {
 // Same type as the active Experience stepper label.
 const labelStyle: CSSProperties = {
   fontFamily: tokens.fonts.body,
-  fontSize: "14px",
+  fontSize: "0.875rem",
   fontWeight: 500,
   color: tokens.colors.textPrimary,
 }
 
 const metaTagsStyle: CSSProperties = {
   fontFamily: tokens.typography.metaTags.font,
-  fontSize: `${tokens.typography.metaTags.size}px`,
+  fontSize: tokens.typography.metaTags.size,
   fontWeight: tokens.typography.metaTags.weight,
   lineHeight: tokens.typography.metaTags.lineHeight,
   letterSpacing: tokens.typography.metaTags.letterSpacing,
@@ -161,7 +161,7 @@ export function BuildProcessCard() {
                   <p
                     style={{
                       fontFamily: tokens.typography.body.font,
-                      fontSize: `${tokens.typography.body.size}px`,
+                      fontSize: tokens.typography.body.size,
                       fontWeight: tokens.typography.body.weight,
                       lineHeight: tokens.typography.body.lineHeight,
                       letterSpacing: tokens.typography.body.letterSpacing,

@@ -40,7 +40,7 @@ export function ContactSection() {
             style={{
               fontFamily: tokens.fonts.display,
               fontWeight: 700,
-              fontSize: `clamp(${tokens.typography.sectionTitle.sizeMobile}px, 5vw, ${tokens.typography.sectionTitle.size}px)`,
+              fontSize: `clamp(${tokens.typography.sectionTitle.sizeMobile}, 5vw, ${tokens.typography.sectionTitle.size})`,
               letterSpacing: "-0.03em",
               lineHeight: 1.05,
               color: tokens.colors.textPrimary,
@@ -51,7 +51,7 @@ export function ContactSection() {
           </h2>
           <p
             style={{
-              fontSize: "15px",
+              fontSize: "0.9375rem",
               color: tokens.colors.textSecondary,
               lineHeight: 1.7,
               marginBottom: "12px",
@@ -76,7 +76,7 @@ export function ContactSection() {
           </p>
           <p
             style={{
-              fontSize: "12px",
+              fontSize: "0.75rem",
               color: tokens.colors.textTertiary,
               lineHeight: 1.7,
               maxWidth: "420px",

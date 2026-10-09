@@ -16,7 +16,7 @@ export function Footer() {
     <footer
       style={{
         borderTop: `1px solid ${tokens.colors.border}`,
-        fontSize: "13px",
+        fontSize: "0.8125rem",
         color: tokens.colors.textTertiary,
         width: "100vw",
         marginLeft: "calc(50% - 50vw)",

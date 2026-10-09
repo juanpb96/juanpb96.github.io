@@ -15,7 +15,7 @@ const COLLAPSED_COUNT = 2
 const tagStyle: CSSProperties = {
   padding: `${tokens.spacing[4]}px 10px`,
   borderRadius: `${tokens.radius.full}px`,
-  fontSize: "11px",
+  fontSize: "0.6875rem",
   fontFamily: tokens.fonts.mono,
 }
 

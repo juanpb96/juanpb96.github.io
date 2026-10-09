@@ -258,7 +258,7 @@ export function Nav() {
             style={{
               fontFamily: tokens.fonts.display,
               fontWeight: 700,
-              fontSize: "18px",
+              fontSize: "1.125rem",
               letterSpacing: "-0.02em",
             }}
           >
@@ -277,7 +277,7 @@ export function Nav() {
                 className="text-link"
                 style={{
                   fontFamily: tokens.typography.navigation.font,
-                  fontSize: `${tokens.typography.navigation.size}px`,
+                  fontSize: tokens.typography.navigation.size,
                   fontWeight: tokens.typography.navigation.weight,
                   lineHeight: tokens.typography.navigation.lineHeight,
                   letterSpacing: tokens.typography.navigation.letterSpacing,
@@ -381,7 +381,7 @@ export function Nav() {
                     }
                     style={{
                       fontFamily: tokens.typography.cardTitleLarge.font,
-                      fontSize: `${tokens.typography.cardTitleLarge.size}px`,
+                      fontSize: tokens.typography.cardTitleLarge.size,
                       fontWeight: tokens.typography.cardTitleLarge.weight,
                       lineHeight: tokens.typography.cardTitleLarge.lineHeight,
                       letterSpacing:

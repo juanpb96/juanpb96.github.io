@@ -55,7 +55,7 @@ export function HeroSection() {
           style={{
             fontFamily: tokens.typography.heroTitle.font,
             fontWeight: tokens.typography.heroTitle.weight,
-            fontSize: `clamp(${tokens.typography.heroTitle.sizeMobile}px, 6vw, ${tokens.typography.heroTitle.size}px)`,
+            fontSize: `clamp(${tokens.typography.heroTitle.sizeMobile}, 6vw, ${tokens.typography.heroTitle.size})`,
             lineHeight: tokens.typography.heroTitle.lineHeight,
             letterSpacing: tokens.typography.heroTitle.letterSpacing,
             color: tokens.colors.textPrimary,
@@ -77,7 +77,7 @@ export function HeroSection() {
         <p
           style={{
             fontFamily: tokens.typography.body.font,
-            fontSize: `${tokens.typography.body.size}px`,
+            fontSize: tokens.typography.body.size,
             fontWeight: tokens.typography.body.weight,
             lineHeight: tokens.typography.body.lineHeight,
             letterSpacing: tokens.typography.body.letterSpacing,

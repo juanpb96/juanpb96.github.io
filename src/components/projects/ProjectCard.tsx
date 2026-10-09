@@ -16,14 +16,14 @@ interface ProjectCardProps {
 
 const numberStyle: CSSProperties = {
   fontFamily: tokens.typography.metaTags.font,
-  fontSize: `${tokens.typography.metaTags.size}px`,
+  fontSize: tokens.typography.metaTags.size,
   fontWeight: tokens.typography.metaTags.weight,
   lineHeight: tokens.typography.metaTags.lineHeight,
   letterSpacing: tokens.typography.metaTags.letterSpacing,
 }
 
 const descriptionStyle: CSSProperties = {
-  fontSize: "14px",
+  fontSize: "0.875rem",
   color: tokens.colors.textSecondary,
   lineHeight: 1.6,
   margin: 0,
@@ -35,7 +35,7 @@ function titleStyle(large?: boolean): CSSProperties {
     : tokens.typography.cardTitleDefault
   return {
     fontFamily: type.font,
-    fontSize: `${type.size}px`,
+    fontSize: type.size,
     fontWeight: type.weight,
     lineHeight: type.lineHeight,
     letterSpacing: type.letterSpacing,
@@ -177,7 +177,7 @@ export function ProjectCard({ number, project, large }: ProjectCardProps) {
         className="mt-2 flex gap-6 sm:[grid-area:links] lg:mt-0 lg:self-center"
         style={{
           fontFamily: tokens.fonts.body,
-          fontSize: "14px",
+          fontSize: "0.875rem",
           fontWeight: 500,
         }}
       >
