@@ -12,6 +12,10 @@ interface IconButtonProps {
   children: ReactNode
 }
 
+/* The circle is the 1.125rem glyph plus 13px of inset on each side: 44px at
+   the default size (the tap target minimum), growing with the glyph. */
+const BUTTON_SIZE = "calc(1.125rem + 26px)"
+
 export function IconButton({
   href,
   ariaLabel,
@@ -26,8 +30,8 @@ export function IconButton({
       aria-label={ariaLabel}
       className="icon-button"
       style={{
-        width: "44px",
-        height: "44px",
+        width: BUTTON_SIZE,
+        height: BUTTON_SIZE,
         borderRadius: `${tokens.radius.full}px`,
       }}
     >
