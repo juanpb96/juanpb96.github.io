@@ -1,9 +1,9 @@
 interface GithubIconProps {
-  /* Any CSS length: rem beside text, px for a glyph in a fixed-size target. */
+  /* Any CSS length; rem so the glyph scales with the text around it. */
   size?: string
 }
 
-export function GithubIcon({ size = "18px" }: GithubIconProps) {
+export function GithubIcon({ size = "1.125rem" }: GithubIconProps) {
   return (
     <svg
       style={{ width: size, height: size }}
