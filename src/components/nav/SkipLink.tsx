@@ -15,29 +15,17 @@ export function SkipLink() {
       onClick={() => moveFocus(document.getElementById(MAIN_CONTENT_ID))}
       style={{
         position: "fixed",
-
         top: `${tokens.spacing[8]}px`,
-
         zIndex: tokens.zIndex.skipLink,
-
         display: "inline-flex",
-
         alignItems: "center",
-
         minHeight: "44px",
-
         padding: `0 ${tokens.spacing[16]}px`,
-
         borderRadius: `${tokens.radius.sm}px`,
-
         fontFamily: tokens.typography.navigation.font,
-
         fontSize: `${tokens.typography.navigation.size}px`,
-
         fontWeight: tokens.typography.navigation.weight,
-
         lineHeight: tokens.typography.navigation.lineHeight,
-
         letterSpacing: tokens.typography.navigation.letterSpacing,
       }}
     >

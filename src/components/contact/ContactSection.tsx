@@ -9,11 +9,8 @@ export function ContactSection() {
       className="px-container-mobile md:px-container-desktop"
       style={{
         paddingTop: "clamp(64px, 10vw, 120px)",
-
         paddingBottom: "clamp(64px, 10vw, 120px)",
-
         position: "relative",
-
         overflow: "hidden",
       }}
     >
@@ -32,11 +29,8 @@ export function ContactSection() {
         className="grid grid-cols-1 mdlg:grid-cols-2"
         style={{
           gap: "clamp(48px, 8vw, 80px)",
-
           alignItems: "center",
-
           position: "relative",
-
           zIndex: 1,
         }}
       >
@@ -45,17 +39,11 @@ export function ContactSection() {
           <h2
             style={{
               fontFamily: tokens.fonts.display,
-
               fontWeight: 700,
-
               fontSize: `clamp(${tokens.typography.sectionTitle.sizeMobile}px, 5vw, ${tokens.typography.sectionTitle.size}px)`,
-
               letterSpacing: "-0.03em",
-
               lineHeight: 1.05,
-
               color: tokens.colors.textPrimary,
-
               margin: `0 0 ${tokens.spacing[24]}px 0`,
             }}
           >
@@ -64,13 +52,9 @@ export function ContactSection() {
           <p
             style={{
               fontSize: "15px",
-
               color: tokens.colors.textSecondary,
-
               lineHeight: 1.7,
-
               marginBottom: "12px",
-
               maxWidth: "420px",
             }}
           >
@@ -93,11 +77,8 @@ export function ContactSection() {
           <p
             style={{
               fontSize: "12px",
-
               color: tokens.colors.textTertiary,
-
               lineHeight: 1.7,
-
               maxWidth: "420px",
             }}
           >

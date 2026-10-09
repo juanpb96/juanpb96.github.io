@@ -37,13 +37,9 @@ function FormField({
 
   const fieldStyle = {
     width: "100%",
-
     padding: "12px 14px",
-
     borderRadius: `${tokens.radius.sm}px`,
-
     fontSize: "14px",
-
     fontFamily: tokens.fonts.body,
   }
 
@@ -95,26 +91,18 @@ export function ContactForm() {
     <div
       style={{
         border: `1px solid ${tokens.colors.borderStrong}`,
-
         borderRadius: `${tokens.radius.lg}px`,
-
         backgroundColor: tokens.colors.surface,
-
         padding: `${tokens.spacing[32]}px`,
       }}
     >
       <h3
         style={{
           fontFamily: tokens.fonts.display,
-
           fontWeight: 600,
-
           fontSize: "18px",
-
           color: tokens.colors.textPrimary,
-
           lineHeight: 1.4,
-
           margin: `0 0 ${tokens.spacing[24]}px 0`,
         }}
       >

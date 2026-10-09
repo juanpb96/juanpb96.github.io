@@ -27,9 +27,7 @@ export function IconButton({
       className="icon-button"
       style={{
         width: "44px",
-
         height: "44px",
-
         borderRadius: `${tokens.radius.full}px`,
       }}
     >
