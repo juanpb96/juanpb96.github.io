@@ -1,6 +1,7 @@
 import { projects } from "../../data/projects"
 import { tokens } from "../../tokens"
 import { ProjectCard } from "./ProjectCard"
+import { SoftHyphenWord } from "../shared/SoftHyphenWord"
 
 const formatNumber = (index: number) => String(index + 1).padStart(2, "0")
 
@@ -41,7 +42,7 @@ export function ProjectsSection() {
             lineHeight: 1.05,
           }}
         >
-          Projects
+          <SoftHyphenWord>Pro&shy;jects</SoftHyphenWord>
         </h2>
 
         <ProjectCard number={formatNumber(0)} project={featured} large />

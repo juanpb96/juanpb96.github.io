@@ -7,6 +7,7 @@ import { tokens } from "../../tokens"
 import { WeightTransitionText } from "../shared/WeightTransitionText"
 
 import { ExperienceCard } from "./ExperienceCard"
+import { SoftHyphenWord } from "../shared/SoftHyphenWord"
 
 // Created once and reused: the MediaQueryList's .matches stays live, so
 // hover handlers skip a matchMedia call per event while still reflecting a
@@ -115,7 +116,7 @@ export function ExperienceSection() {
               lineHeight: 1.05,
             }}
           >
-            Experience
+            <SoftHyphenWord>Ex&shy;pe&shy;ri&shy;ence</SoftHyphenWord>
           </h2>
           <p
             style={{

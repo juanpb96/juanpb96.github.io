@@ -53,7 +53,7 @@ export function TagList({ tags, variant = "neutral", style }: TagListProps) {
         return (
           <Fragment key={tag}>
             {collapsible && index === COLLAPSED_COUNT && (
-              <li className="md:hidden">
+              <li className="flex md:hidden">
                 <button
                   type="button"
                   onClick={() => setExpanded((prev) => !prev)}

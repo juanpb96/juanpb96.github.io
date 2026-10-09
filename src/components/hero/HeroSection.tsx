@@ -3,6 +3,7 @@ import { ArrowRightIcon } from "../icons/ArrowRightIcon"
 import { Button } from "../shared/Button"
 import { TagList } from "../shared/TagList"
 import { BuildProcessCard } from "./BuildProcessCard"
+import { SoftHyphenWord } from "../shared/SoftHyphenWord"
 
 export function HeroSection() {
   return (
@@ -62,9 +63,11 @@ export function HeroSection() {
             margin: 0,
           }}
         >
-          <span className="block">Juan Bonilla</span>{" "}
+          <span className="block">
+            Juan <SoftHyphenWord>Bo&shy;nil&shy;la</SoftHyphenWord>
+          </span>{" "}
           <span className="block" style={{ color: tokens.colors.textTertiary }}>
-            Front-End Engineer
+            Front-End <SoftHyphenWord>En&shy;gi&shy;neer</SoftHyphenWord>
           </span>
         </h1>
 

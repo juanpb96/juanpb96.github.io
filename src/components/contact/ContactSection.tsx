@@ -1,6 +1,7 @@
 import { tokens } from "../../tokens"
 
 import { ContactForm } from "./ContactForm"
+import { SoftHyphenWord } from "../shared/SoftHyphenWord"
 
 export function ContactSection() {
   return (
@@ -47,7 +48,8 @@ export function ContactSection() {
               margin: `0 0 ${tokens.spacing[24]}px 0`,
             }}
           >
-            Let's create something exceptional.
+            Let's create <SoftHyphenWord>some&shy;thing</SoftHyphenWord>{" "}
+            <SoftHyphenWord>ex&shy;cep&shy;tion&shy;al</SoftHyphenWord>.
           </h2>
           <p
             style={{
