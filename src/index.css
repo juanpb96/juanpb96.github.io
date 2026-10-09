@@ -71,6 +71,9 @@
 }
 
 @theme {
+  /* Tailwind spacing/sizing utilities (p-6, gap-4, top-24…) in px, like the
+     inline paddings elsewhere, so cards don't grow with the root font size. */
+  --spacing: 4px;
   --spacing-container-mobile: 32px;
   --spacing-container-desktop: 48px;
   --breakpoint-mdlg: 56.25rem;
@@ -119,7 +122,6 @@ body {
   margin: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  overflow-x: hidden;
 }
 
 /* Hide scrollbar while keeping functionality */
