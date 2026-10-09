@@ -187,8 +187,6 @@ export const ExperienceCard = forwardRef<HTMLDivElement, ExperienceCardProps>(
 
             lineHeight: 1.7,
 
-            marginBottom: "16px",
-
             margin: "0 0 16px 0",
           }}
         >
