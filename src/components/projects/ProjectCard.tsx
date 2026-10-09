@@ -136,7 +136,7 @@ export function ProjectCard({ number, project, large }: ProjectCardProps) {
             >
               View code
               <span className="sr-only">: {title}</span>
-              <GithubIcon size={16} />
+              <GithubIcon size="1rem" />
             </Button>
           </div>
         </div>
@@ -199,7 +199,7 @@ export function ProjectCard({ number, project, large }: ProjectCardProps) {
         >
           View code
           <span className="sr-only">: {title} (opens in new tab)</span>
-          <GithubIcon size={14} />
+          <GithubIcon size="0.875rem" />
         </a>
       </div>
     </article>
