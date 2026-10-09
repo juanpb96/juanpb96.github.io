@@ -73,15 +73,15 @@ export function ExperienceSection() {
       />
 
       {/* Vertical separator line, centered in the column gap: left padding
-          (48px) + first column + half the gap. The first column is
+          (--spacing-container-desktop, 48px) + first column + half the gap. The first column is
           proportional (42%) in the md-mdlg range and a fixed 340px at mdlg+,
           matching the grid-cols breakpoints below exactly. Grid percentage
           tracks resolve against the full content box (section width minus
-          2 × 48px padding, gap included). The gap is read from the same
+          2 × that padding, gap included). The gap is read from the same
           --experience-gap the grid uses, so the line follows its 8vw growth
           instead of assuming a fixed value. */}
       <div
-        className="hidden md:block md:left-[calc(48px_+_(100%_-_96px)_*_0.42_+_var(--experience-gap)_/_2)] mdlg:left-[calc(48px_+_340px_+_var(--experience-gap)_/_2)]"
+        className="hidden md:block md:left-[calc(var(--spacing-container-desktop)_+_(100%_-_2_*_var(--spacing-container-desktop))_*_0.42_+_var(--experience-gap)_/_2)] mdlg:left-[calc(var(--spacing-container-desktop)_+_340px_+_var(--experience-gap)_/_2)]"
         style={{
           position: "absolute",
           top: "clamp(64px, 10vw, 120px)",
