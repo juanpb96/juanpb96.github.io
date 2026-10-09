@@ -145,63 +145,66 @@ export function ProjectCard({ number, project, large }: ProjectCardProps) {
   }
 
   // Row: stacked below sm; thumbnail beside the stacked copy from sm; one
-  // line of columns from lg, where the tags tuck under the title. Grid areas
+  // line of columns once the row itself is 58rem wide (a container query, so
+  // it follows the text size rather than the viewport), where the tags tuck under the title. Grid areas
   // move the tags between those spots without duplicating them in the DOM.
   return (
-    <article className="grid grid-cols-1 gap-y-2 sm:grid-cols-[180px_minmax(0,1fr)] sm:gap-x-6 sm:[grid-template-areas:'thumb_num'_'thumb_title'_'thumb_desc'_'thumb_tags'_'thumb_links'] lg:grid-cols-[180px_auto_minmax(0,1fr)_minmax(0,1.2fr)_auto] lg:gap-x-8 lg:[grid-template-areas:'thumb_num_title_desc_links'_'thumb_num_tags_desc_links']">
-      <div className="mb-2 sm:mb-0 sm:self-start sm:[grid-area:thumb] lg:self-center">
-        {image}
-      </div>
-      <span
-        className="sm:[grid-area:num] lg:self-center"
-        style={{ ...numberStyle, color: tokens.colors.textTertiary }}
-      >
-        {number}
-      </span>
-      <h3
-        className="sm:[grid-area:title] lg:self-end"
-        style={titleStyle(false)}
-      >
-        {title}
-      </h3>
-      <p
-        className="mt-2 sm:[grid-area:desc] lg:mt-0 lg:self-center"
-        style={descriptionStyle}
-      >
-        {description}
-      </p>
-      <div className="mt-2 sm:[grid-area:tags] lg:mt-0 lg:self-start">
-        <TagList tags={tags} />
-      </div>
-      <div
-        className="mt-2 flex gap-6 sm:[grid-area:links] lg:mt-0 lg:self-center"
-        style={{
-          fontFamily: tokens.fonts.body,
-          fontSize: "0.875rem",
-          fontWeight: 500,
-        }}
-      >
-        <a
-          href={liveUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-link"
+    <div className="@container">
+      <article className="grid grid-cols-1 gap-y-2 sm:grid-cols-[180px_minmax(0,1fr)] sm:gap-x-6 sm:[grid-template-areas:'thumb_num'_'thumb_title'_'thumb_desc'_'thumb_tags'_'thumb_links'] @min-[58rem]:grid-cols-[180px_auto_minmax(0,1fr)_minmax(0,1.2fr)_auto] @min-[58rem]:gap-x-8 @min-[58rem]:[grid-template-areas:'thumb_num_title_desc_links'_'thumb_num_tags_desc_links']">
+        <div className="mb-2 sm:mb-0 sm:self-start sm:[grid-area:thumb] @min-[58rem]:self-center">
+          {image}
+        </div>
+        <span
+          className="sm:[grid-area:num] @min-[58rem]:self-center"
+          style={{ ...numberStyle, color: tokens.colors.textTertiary }}
         >
-          View live site
-          <span className="sr-only">: {title} (opens in new tab)</span>
-          <ArrowUpRightIcon className="button-arrow button-arrow-diagonal" />
-        </a>
-        <a
-          href={githubUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-link"
+          {number}
+        </span>
+        <h3
+          className="sm:[grid-area:title] @min-[58rem]:self-end"
+          style={titleStyle(false)}
         >
-          View code
-          <span className="sr-only">: {title} (opens in new tab)</span>
-          <GithubIcon size="0.875rem" />
-        </a>
-      </div>
-    </article>
+          {title}
+        </h3>
+        <p
+          className="mt-2 sm:[grid-area:desc] @min-[58rem]:mt-0 @min-[58rem]:self-center"
+          style={descriptionStyle}
+        >
+          {description}
+        </p>
+        <div className="mt-2 sm:[grid-area:tags] @min-[58rem]:mt-0 @min-[58rem]:self-start">
+          <TagList tags={tags} />
+        </div>
+        <div
+          className="mt-2 flex gap-6 sm:[grid-area:links] @min-[58rem]:mt-0 @min-[58rem]:self-center"
+          style={{
+            fontFamily: tokens.fonts.body,
+            fontSize: "0.875rem",
+            fontWeight: 500,
+          }}
+        >
+          <a
+            href={liveUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-link"
+          >
+            View live site
+            <span className="sr-only">: {title} (opens in new tab)</span>
+            <ArrowUpRightIcon className="button-arrow button-arrow-diagonal" />
+          </a>
+          <a
+            href={githubUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-link"
+          >
+            View code
+            <span className="sr-only">: {title} (opens in new tab)</span>
+            <GithubIcon size="0.875rem" />
+          </a>
+        </div>
+      </article>
+    </div>
   )
 }
