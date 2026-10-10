@@ -11,10 +11,14 @@ interface ButtonLinkProps extends ButtonBaseProps {
   href: string
   external?: boolean
   type?: never
+  ariaDisabled?: never
+  onClick?: never
 }
 
 interface ButtonElementProps extends ButtonBaseProps {
   type: "button" | "submit"
+  ariaDisabled?: boolean
+  onClick?: () => void
   href?: never
   external?: never
 }
@@ -30,6 +34,8 @@ export function Button({
   href,
   external,
   type,
+  ariaDisabled,
+  onClick,
 }: ButtonProps) {
   const classes = `button button-${variant}${className ? ` ${className}` : ""}`
   const style = {
@@ -41,8 +47,17 @@ export function Button({
   }
 
   if (href === undefined) {
+    /* ariaDisabled maps to aria-disabled rather than disabled: the button
+       stays focusable, so focus isn't dropped to <body> while it's
+       unavailable. The caller must still ignore activations itself. */
     return (
-      <button type={type} className={classes} style={style}>
+      <button
+        type={type}
+        aria-disabled={ariaDisabled || undefined}
+        onClick={onClick}
+        className={classes}
+        style={style}
+      >
         {children}
       </button>
     )

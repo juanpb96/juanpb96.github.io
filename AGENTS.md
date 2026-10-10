@@ -18,14 +18,16 @@ This is the canonical project structure. Start with task-relevant files below. O
 - `src/data/experiences.ts` - Experience entries and the `Experience` interface (`role`, `company`, `period`, `location`, `description`, `achievements`, `tags`, `active`)
 - `src/components/` - One folder per page section, one file per component, no barrel `index.ts` files. Folders: `layout/`, `nav/`, `hero/`, `projects/`, `experience/`, `contact/`, `footer/`, plus `icons/` for SVG icon components (import icons from there, not from a section folder) and `shared/` for small presentational primitives reused across sections (e.g. `Button` for primary/secondary CTAs, `TagList`, `IconButton`, `WeightTransitionText`). Components use named exports (`export function X`), imported as `import { X } from './X'`
 - `src/components/nav/SkipLink.tsx` - "Skip to main content" link, visually hidden until focused (`.skip-link` in `src/index.css`); exports `MAIN_CONTENT_ID`
-- `src/utils/moveFocus.ts` - Moves focus to an in-page target (section or `<main>`) via a temporary `tabindex="-1"` removed on blur. Shared by the mobile nav overlay and the skip link
+- `src/utils/moveFocus.ts` - Moves focus to an in-page target (section or `<main>`) via a temporary `tabindex="-1"` removed on blur. Shared by the mobile nav overlay, the skip link, and the contact form success message
+- `src/components/contact/ContactForm.tsx` - Contact form, submitted with `fetch` to Netlify Forms so the visitor stays on the page; owns the sending/error/success states. `index.html` carries a hidden static replica of the form for Netlify's build-time detection — keep its name and field names in sync
+- `src/test/setup.ts` - Vitest setup: jest-dom matchers and Testing Library cleanup. Tests sit next to the component they cover, as `X.test.tsx`
 - `src/components/projects/ProjectCard.tsx` - Single component for both project layouts; optional `large` prop switches the featured layout (image beside the copy, button links) and the "Also built" row (thumbnail, text links). Do not split into separate default/large components
 - `src/index.css` - Global CSS entrypoint and Tailwind CSS v4 import
 - `public/fonts/` - Self-hosted Instrument Sans and Inter variable fonts (woff2, subset to the site's characters) with their OFL licenses; declared in `src/index.css` and preloaded in `index.html`. Generated — don't edit by hand
 - `scripts/subset-fonts.mjs` - Regenerates `public/fonts/` from pinned upstream Google Fonts sources (`pnpm run fonts`). Re-run it when new copy introduces characters outside the current subset
 - `index.html` - Vite HTML shell containing the `#root` element and loading `src/main.tsx`
-- `package.json` - Project dependencies and the Vite build, development, preview, formatting, and lint scripts
-- `vite.config.ts` - Vite configuration with the React plugin, Tailwind CSS v4 plugin, and the `@` alias for `src`
+- `package.json` - Project dependencies and the Vite build, development, preview, test, formatting, and lint scripts
+- `vite.config.ts` - Vite configuration with the React plugin, Tailwind CSS v4 plugin, the `@` alias for `src`, and the Vitest `test` config (jsdom environment)
 - `.oxlintrc.json` - oxlint configuration: enabled plugins (`typescript`, `unicorn`, `oxc`, `react`, `jsx-a11y`) and the `correctness` rule category
 
 ## Dependencies
@@ -33,6 +35,7 @@ This is the canonical project structure. Start with task-relevant files below. O
 - Runtime: React 19 and React DOM 19
 - Styling: Tailwind CSS v4 with the `@tailwindcss/vite` plugin
 - Build tooling: Vite 8, TypeScript 7, and `@vitejs/plugin-react`
+- Testing: Vitest with jsdom, React Testing Library, `@testing-library/user-event`, and jest-dom. Run `pnpm test` (or `pnpm run test:watch`)
 - Formatting: oxfmt
 - Linting: oxlint, including the native `jsx-a11y` plugin for accessibility rules. Run `pnpm run lint`
 

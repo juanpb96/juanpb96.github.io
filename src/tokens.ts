@@ -13,6 +13,9 @@ const colors = {
   accentDim: "rgba(77,156,248,0.18)",
   accentGlow: "rgba(77,156,248,0.10)",
   accentBorder: "rgba(77,156,248,0.3)",
+  error: "#d96565",
+  errorBg: "rgba(217,101,101,0.10)",
+  errorBorder: "rgba(217,101,101,0.3)",
 } as const
 
 const fonts = {
