@@ -16,7 +16,7 @@ export function Footer() {
     <footer
       style={{
         borderTop: `1px solid ${tokens.colors.border}`,
-        fontSize: "13px",
+        fontSize: "0.8125rem",
         color: tokens.colors.textTertiary,
         width: "100vw",
         marginLeft: "calc(50% - 50vw)",
@@ -37,10 +37,10 @@ export function Footer() {
               Juan Bonilla
             </span>
           </span>
-          {/* Each IconButton is a 44px tap target around an 18px glyph, so
-              the first glyph sits (44 - 18) / 2 = 13px in from the button's
-              edge. In the stacked mobile layout, pull the row back by that
-              inset so the glyph lines up with the copy above it. */}
+          {/* Each IconButton is a circle with 13px of inset around its glyph, so the
+              first glyph sits 13px in from the button's edge. In the stacked
+              mobile layout, pull the row back by that inset so the glyph lines
+              up with the copy above it. */}
           <div className="flex items-center gap-2 -ml-[13px] md:ml-0">
             <IconButton
               href="https://www.linkedin.com/in/juanpablobonilla"

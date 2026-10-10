@@ -84,7 +84,7 @@ export const ExperienceCard = forwardRef<HTMLDivElement, ExperienceCardProps>(
               justifyContent: "center",
               fontFamily: tokens.fonts.display,
               fontWeight: 700,
-              fontSize: "14px",
+              fontSize: "0.875rem",
               color: highlighted
                 ? tokens.colors.accent
                 : tokens.colors.textSecondary,
@@ -112,7 +112,7 @@ export const ExperienceCard = forwardRef<HTMLDivElement, ExperienceCardProps>(
               style={{
                 fontFamily: tokens.fonts.display,
                 fontWeight: 600,
-                fontSize: "16px",
+                fontSize: "1rem",
                 color: tokens.colors.textPrimary,
                 marginBottom: "2px",
               }}
@@ -121,7 +121,7 @@ export const ExperienceCard = forwardRef<HTMLDivElement, ExperienceCardProps>(
             </div>
             <div
               style={{
-                fontSize: "13px",
+                fontSize: "0.8125rem",
                 color: tokens.colors.textSecondary,
                 marginBottom: "2px",
               }}
@@ -131,7 +131,7 @@ export const ExperienceCard = forwardRef<HTMLDivElement, ExperienceCardProps>(
             </div>
             <div
               style={{
-                fontSize: "12px",
+                fontSize: "0.75rem",
                 color: tokens.colors.textTertiary,
                 fontFamily: tokens.fonts.mono,
               }}
@@ -144,7 +144,7 @@ export const ExperienceCard = forwardRef<HTMLDivElement, ExperienceCardProps>(
         {/* Description + achievements */}
         <p
           style={{
-            fontSize: "14px",
+            fontSize: "0.875rem",
             color: tokens.colors.textSecondary,
             lineHeight: 1.7,
             margin: "0 0 16px 0",
@@ -161,7 +161,7 @@ export const ExperienceCard = forwardRef<HTMLDivElement, ExperienceCardProps>(
             <div
               key={a}
               style={{
-                fontSize: "13px",
+                fontSize: "0.8125rem",
                 color: tokens.colors.textSecondary,
                 display: "flex",
                 gap: `${tokens.spacing[8]}px`,
@@ -200,7 +200,7 @@ export const ExperienceCard = forwardRef<HTMLDivElement, ExperienceCardProps>(
                 backgroundColor: highlighted
                   ? "rgba(77,156,248,0.08)"
                   : "rgba(255,255,255,0.03)",
-                fontSize: "11px",
+                fontSize: "0.6875rem",
                 color: highlighted
                   ? tokens.colors.accent
                   : tokens.colors.textSecondary,

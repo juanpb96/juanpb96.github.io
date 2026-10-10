@@ -78,7 +78,7 @@ function FormField({
     width: "100%",
     padding: "12px 14px",
     borderRadius: `${tokens.radius.sm}px`,
-    fontSize: "14px",
+    fontSize: "0.875rem",
     fontFamily: tokens.fonts.body,
   }
 
@@ -86,7 +86,7 @@ function FormField({
     <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
       <label
         htmlFor={id}
-        style={{ fontSize: "13px", fontFamily: tokens.fonts.display }}
+        style={{ fontSize: "0.8125rem", fontFamily: tokens.fonts.display }}
       >
         <WeightTransitionText
           active={focused}
@@ -217,7 +217,7 @@ export function ContactForm() {
           style={{
             fontFamily: tokens.fonts.display,
             fontWeight: 600,
-            fontSize: "18px",
+            fontSize: "1.125rem",
             color: tokens.colors.textPrimary,
             lineHeight: 1.4,
             margin: `0 0 ${tokens.spacing[24]}px 0`,
@@ -303,7 +303,7 @@ export function ContactForm() {
                 <p
                   style={{
                     margin: `0 0 ${tokens.spacing[4]}px 0`,
-                    fontSize: "14px",
+                    fontSize: "0.875rem",
                     fontWeight: 500,
                     lineHeight: 1.6,
                     color: tokens.colors.textPrimary,
@@ -314,7 +314,7 @@ export function ContactForm() {
                 <p
                   style={{
                     margin: 0,
-                    fontSize: "13px",
+                    fontSize: "0.8125rem",
                     lineHeight: 1.6,
                     color: tokens.colors.textSecondary,
                   }}
@@ -379,7 +379,7 @@ export function ContactForm() {
             style={{
               fontFamily: tokens.typography.cardTitleDefault.font,
               fontWeight: tokens.typography.cardTitleDefault.weight,
-              fontSize: `${tokens.typography.cardTitleDefault.size}px`,
+              fontSize: tokens.typography.cardTitleDefault.size,
               lineHeight: tokens.typography.cardTitleDefault.lineHeight,
               letterSpacing: tokens.typography.cardTitleDefault.letterSpacing,
               color: tokens.colors.textPrimary,
@@ -391,7 +391,7 @@ export function ContactForm() {
           <p
             style={{
               margin: `0 0 ${tokens.spacing[24]}px 0`,
-              fontSize: "14px",
+              fontSize: "0.875rem",
               lineHeight: 1.7,
               color: tokens.colors.textSecondary,
               overflowWrap: "anywhere",

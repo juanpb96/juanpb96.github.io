@@ -3,6 +3,7 @@ import { ArrowRightIcon } from "../icons/ArrowRightIcon"
 import { Button } from "../shared/Button"
 import { TagList } from "../shared/TagList"
 import { BuildProcessCard } from "./BuildProcessCard"
+import { SoftHyphenWord } from "../shared/SoftHyphenWord"
 
 export function HeroSection() {
   return (
@@ -55,16 +56,18 @@ export function HeroSection() {
           style={{
             fontFamily: tokens.typography.heroTitle.font,
             fontWeight: tokens.typography.heroTitle.weight,
-            fontSize: `clamp(${tokens.typography.heroTitle.sizeMobile}px, 6vw, ${tokens.typography.heroTitle.size}px)`,
+            fontSize: `clamp(${tokens.typography.heroTitle.sizeMobile}, 6vw, ${tokens.typography.heroTitle.size})`,
             lineHeight: tokens.typography.heroTitle.lineHeight,
             letterSpacing: tokens.typography.heroTitle.letterSpacing,
             color: tokens.colors.textPrimary,
             margin: 0,
           }}
         >
-          <span className="block">Juan Bonilla</span>{" "}
+          <span className="block">
+            Juan <SoftHyphenWord>Bo&shy;nil&shy;la</SoftHyphenWord>
+          </span>{" "}
           <span className="block" style={{ color: tokens.colors.textTertiary }}>
-            Front-End Engineer
+            Front-End <SoftHyphenWord>En&shy;gi&shy;neer</SoftHyphenWord>
           </span>
         </h1>
 
@@ -77,7 +80,7 @@ export function HeroSection() {
         <p
           style={{
             fontFamily: tokens.typography.body.font,
-            fontSize: `${tokens.typography.body.size}px`,
+            fontSize: tokens.typography.body.size,
             fontWeight: tokens.typography.body.weight,
             lineHeight: tokens.typography.body.lineHeight,
             letterSpacing: tokens.typography.body.letterSpacing,

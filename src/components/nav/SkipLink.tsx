@@ -23,7 +23,7 @@ export function SkipLink() {
         padding: `0 ${tokens.spacing[16]}px`,
         borderRadius: `${tokens.radius.sm}px`,
         fontFamily: tokens.typography.navigation.font,
-        fontSize: `${tokens.typography.navigation.size}px`,
+        fontSize: tokens.typography.navigation.size,
         fontWeight: tokens.typography.navigation.weight,
         lineHeight: tokens.typography.navigation.lineHeight,
         letterSpacing: tokens.typography.navigation.letterSpacing,

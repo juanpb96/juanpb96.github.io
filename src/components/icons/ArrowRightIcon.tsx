@@ -11,8 +11,7 @@ export function ArrowRightIcon({ className }: ArrowRightIconProps) {
   return (
     <svg
       className={className}
-      width="16"
-      height="16"
+      style={{ width: "1rem", height: "1rem" }}
       viewBox="0 0 16 16"
       fill="none"
       stroke="currentColor"

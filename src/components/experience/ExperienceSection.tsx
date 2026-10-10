@@ -7,6 +7,7 @@ import { tokens } from "../../tokens"
 import { WeightTransitionText } from "../shared/WeightTransitionText"
 
 import { ExperienceCard } from "./ExperienceCard"
+import { SoftHyphenWord } from "../shared/SoftHyphenWord"
 
 // Created once and reused: the MediaQueryList's .matches stays live, so
 // hover handlers skip a matchMedia call per event while still reflecting a
@@ -108,18 +109,18 @@ export function ExperienceSection() {
             style={{
               fontFamily: tokens.fonts.display,
               fontWeight: 700,
-              fontSize: `clamp(${tokens.typography.sectionTitle.sizeMobile}px, 5vw, ${tokens.typography.sectionTitle.size}px)`,
+              fontSize: `clamp(${tokens.typography.sectionTitle.sizeMobile}, 5vw, ${tokens.typography.sectionTitle.size})`,
               letterSpacing: "-0.03em",
               color: tokens.colors.textPrimary,
               margin: `0 0 ${tokens.spacing[20]}px 0`,
               lineHeight: 1.05,
             }}
           >
-            Experience
+            <SoftHyphenWord>Ex&shy;pe&shy;ri&shy;ence</SoftHyphenWord>
           </h2>
           <p
             style={{
-              fontSize: "15px",
+              fontSize: "0.9375rem",
               color: tokens.colors.textSecondary,
               lineHeight: 1.7,
               margin: 0,
@@ -218,14 +219,14 @@ export function ExperienceSection() {
                       active={highlighted}
                       color={tokens.colors.textSecondary}
                       activeColor={tokens.colors.textPrimary}
-                      style={{ fontSize: "14px" }}
+                      style={{ fontSize: "0.875rem" }}
                     >
                       {exp.company}
                     </WeightTransitionText>
                     <span
                       style={{
                         display: "block",
-                        fontSize: "12px",
+                        fontSize: "0.75rem",
                         color: highlighted
                           ? tokens.colors.textSecondary
                           : tokens.colors.textTertiary,

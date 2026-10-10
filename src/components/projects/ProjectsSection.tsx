@@ -1,6 +1,7 @@
 import { projects } from "../../data/projects"
 import { tokens } from "../../tokens"
 import { ProjectCard } from "./ProjectCard"
+import { SoftHyphenWord } from "../shared/SoftHyphenWord"
 
 const formatNumber = (index: number) => String(index + 1).padStart(2, "0")
 
@@ -34,14 +35,14 @@ export function ProjectsSection() {
           style={{
             fontFamily: tokens.fonts.display,
             fontWeight: 700,
-            fontSize: `clamp(${tokens.typography.sectionTitle.sizeMobile}px, 5vw, ${tokens.typography.sectionTitle.size}px)`,
+            fontSize: `clamp(${tokens.typography.sectionTitle.sizeMobile}, 5vw, ${tokens.typography.sectionTitle.size})`,
             letterSpacing: "-0.03em",
             color: tokens.colors.textPrimary,
             margin: "0 0 clamp(32px, 6vw, 64px) 0",
             lineHeight: 1.05,
           }}
         >
-          Projects
+          <SoftHyphenWord>Pro&shy;jects</SoftHyphenWord>
         </h2>
 
         <ProjectCard number={formatNumber(0)} project={featured} large />
@@ -50,7 +51,7 @@ export function ProjectsSection() {
         <p
           id="projects-also-built"
           style={{
-            fontSize: "14px",
+            fontSize: "0.875rem",
             color: tokens.colors.textSecondary,
             margin: `clamp(48px, 8vw, 80px) 0 ${tokens.spacing[16]}px`,
           }}

@@ -1,12 +1,12 @@
 interface GithubIconProps {
-  size?: number
+  /* Any CSS length; rem so the glyph scales with the text around it. */
+  size?: string
 }
 
-export function GithubIcon({ size = 18 }: GithubIconProps) {
+export function GithubIcon({ size = "1.125rem" }: GithubIconProps) {
   return (
     <svg
-      width={size}
-      height={size}
+      style={{ width: size, height: size }}
       viewBox="0 0 24 24"
       fill="currentColor"
       xmlns="http://www.w3.org/2000/svg"

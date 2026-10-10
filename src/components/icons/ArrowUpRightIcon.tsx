@@ -7,8 +7,7 @@ export function ArrowUpRightIcon({ className }: ArrowUpRightIconProps) {
   return (
     <svg
       className={className}
-      width="14"
-      height="14"
+      style={{ width: "0.875rem", height: "0.875rem" }}
       viewBox="0 0 16 16"
       fill="none"
       stroke="currentColor"

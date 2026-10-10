@@ -1,6 +1,7 @@
 import { tokens } from "../../tokens"
 
 import { ContactForm } from "./ContactForm"
+import { SoftHyphenWord } from "../shared/SoftHyphenWord"
 
 export function ContactSection() {
   return (
@@ -40,18 +41,19 @@ export function ContactSection() {
             style={{
               fontFamily: tokens.fonts.display,
               fontWeight: 700,
-              fontSize: `clamp(${tokens.typography.sectionTitle.sizeMobile}px, 5vw, ${tokens.typography.sectionTitle.size}px)`,
+              fontSize: `clamp(${tokens.typography.sectionTitle.sizeMobile}, 5vw, ${tokens.typography.sectionTitle.size})`,
               letterSpacing: "-0.03em",
               lineHeight: 1.05,
               color: tokens.colors.textPrimary,
               margin: `0 0 ${tokens.spacing[24]}px 0`,
             }}
           >
-            Let's create something exceptional.
+            Let's create <SoftHyphenWord>some&shy;thing</SoftHyphenWord>{" "}
+            <SoftHyphenWord>ex&shy;cep&shy;tion&shy;al</SoftHyphenWord>.
           </h2>
           <p
             style={{
-              fontSize: "15px",
+              fontSize: "0.9375rem",
               color: tokens.colors.textSecondary,
               lineHeight: 1.7,
               marginBottom: "12px",
@@ -76,7 +78,7 @@ export function ContactSection() {
           </p>
           <p
             style={{
-              fontSize: "12px",
+              fontSize: "0.75rem",
               color: tokens.colors.textTertiary,
               lineHeight: 1.7,
               maxWidth: "420px",

@@ -15,7 +15,7 @@ const COLLAPSED_COUNT = 2
 const tagStyle: CSSProperties = {
   padding: `${tokens.spacing[4]}px 10px`,
   borderRadius: `${tokens.radius.full}px`,
-  fontSize: "11px",
+  fontSize: "0.6875rem",
   fontFamily: tokens.fonts.mono,
 }
 
@@ -53,7 +53,7 @@ export function TagList({ tags, variant = "neutral", style }: TagListProps) {
         return (
           <Fragment key={tag}>
             {collapsible && index === COLLAPSED_COUNT && (
-              <li className="md:hidden">
+              <li className="flex md:hidden">
                 <button
                   type="button"
                   onClick={() => setExpanded((prev) => !prev)}

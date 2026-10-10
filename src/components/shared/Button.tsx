@@ -41,7 +41,7 @@ export function Button({
   const style = {
     padding: "13px 28px",
     borderRadius: `${tokens.radius.sm}px`,
-    fontSize: "15px",
+    fontSize: "0.9375rem",
     fontWeight: 500,
     fontFamily: tokens.fonts.display,
   }
