@@ -379,7 +379,7 @@ export function ContactForm() {
             style={{
               fontFamily: tokens.typography.cardTitleDefault.font,
               fontWeight: tokens.typography.cardTitleDefault.weight,
-              fontSize: `${tokens.typography.cardTitleDefault.size}px`,
+              fontSize: tokens.typography.cardTitleDefault.size,
               lineHeight: tokens.typography.cardTitleDefault.lineHeight,
               letterSpacing: tokens.typography.cardTitleDefault.letterSpacing,
               color: tokens.colors.textPrimary,
