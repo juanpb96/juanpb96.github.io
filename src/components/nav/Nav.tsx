@@ -160,9 +160,7 @@ export function Nav() {
     document.body.style.overflow = "hidden"
 
     // Reinforce the trap: make everything outside Nav/overlay unreachable,
-
     // in case focus or assistive tech ever slips past the keydown handler.
-
     const backgroundSiblings = navRef.current?.parentElement
       ? Array.from(navRef.current.parentElement.children).filter(
           (el) => el !== navRef.current,
@@ -200,17 +198,11 @@ export function Nav() {
 
     return {
       position: "absolute",
-
       left: 0,
-
       top: iconOpen ? "8px" : `${closedTop}px`,
-
       width: "24px",
-
       height: iconOpen ? "3px" : "2px",
-
       borderRadius: "2px",
-
       transform: iconOpen
         ? index === 0
           ? "rotate(45deg)"
@@ -218,13 +210,9 @@ export function Nav() {
             ? "rotate(-45deg)"
             : "scaleX(0)"
         : "rotate(0deg)",
-
       opacity: iconOpen && index === 1 ? 0 : 1,
-
       transitionProperty: "transform, opacity, top, height",
-
       transitionDuration: "0.35s",
-
       transitionTimingFunction: open
         ? "cubic-bezier(0.4, 0, 0.2, 1)"
         : "cubic-bezier(0.34, 1.56, 0.64, 1)",
@@ -236,25 +224,16 @@ export function Nav() {
       ref={navRef}
       style={{
         position: "fixed",
-
         top: 0,
-
         left: 0,
-
         right: 0,
-
         zIndex: tokens.zIndex.nav,
-
         backdropFilter: "blur(20px)",
-
         WebkitBackdropFilter: "blur(20px)",
-
         backgroundColor: scrolled ? "rgba(10,11,13,0.85)" : "transparent",
-
         borderBottom: scrolled
           ? `1px solid ${tokens.colors.border}`
           : "1px solid transparent",
-
         transition: "background-color 0.3s ease, border-color 0.3s ease",
       }}
     >
@@ -263,11 +242,8 @@ export function Nav() {
           className="px-container-mobile md:px-container-desktop"
           style={{
             display: "flex",
-
             alignItems: "center",
-
             justifyContent: "space-between",
-
             height: `${tokens.spacing[64]}px`,
           }}
         >
@@ -281,11 +257,8 @@ export function Nav() {
             }}
             style={{
               fontFamily: tokens.fonts.display,
-
               fontWeight: 700,
-
               fontSize: "18px",
-
               letterSpacing: "-0.02em",
             }}
           >
@@ -304,13 +277,9 @@ export function Nav() {
                 className="text-link"
                 style={{
                   fontFamily: tokens.typography.navigation.font,
-
                   fontSize: `${tokens.typography.navigation.size}px`,
-
                   fontWeight: tokens.typography.navigation.weight,
-
                   lineHeight: tokens.typography.navigation.lineHeight,
-
                   letterSpacing: tokens.typography.navigation.letterSpacing,
                 }}
               >
@@ -329,17 +298,11 @@ export function Nav() {
             onClick={toggleMenu}
             style={{
               position: "relative",
-
               width: "24px",
-
               height: "18px",
-
               background: "none",
-
               border: "none",
-
               padding: 0,
-
               cursor: "pointer",
             }}
           >
@@ -368,46 +331,27 @@ export function Nav() {
             aria-modal="true"
             style={{
               position: "fixed",
-
               top: `${tokens.spacing[64]}px`,
-
               left: 0,
-
               right: 0,
-
               bottom: 0,
-
               // Reset UA <dialog> defaults (fit-content sizing, max sizes,
               // margin/padding/border, Canvas colors) so the overlay fills
               // the area defined by its offsets.
               width: "auto",
-
               height: "auto",
-
               maxWidth: "none",
-
               maxHeight: "none",
-
               margin: 0,
-
               padding: 0,
-
               border: "none",
-
               color: "inherit",
-
               zIndex: tokens.zIndex.overlay,
-
               backdropFilter: "blur(20px)",
-
               WebkitBackdropFilter: "blur(20px)",
-
               backgroundColor: "rgba(10,11,13,0.85)",
-
               display: "flex",
-
               alignItems: "center",
-
               animation: closing
                 ? "nav-overlay-fade-out 0.25s ease forwards"
                 : "nav-overlay-curtain 0.4s ease forwards",
@@ -417,15 +361,10 @@ export function Nav() {
               className="px-container-mobile md:px-container-desktop"
               style={{
                 listStyle: "none",
-
                 margin: 0,
-
                 display: "flex",
-
                 flexDirection: "column",
-
                 gap: `${tokens.spacing[32]}px`,
-
                 width: "100%",
               }}
             >
@@ -442,29 +381,20 @@ export function Nav() {
                     }
                     style={{
                       fontFamily: tokens.typography.cardTitleLarge.font,
-
                       fontSize: `${tokens.typography.cardTitleLarge.size}px`,
-
                       fontWeight: tokens.typography.cardTitleLarge.weight,
-
                       lineHeight: tokens.typography.cardTitleLarge.lineHeight,
-
                       letterSpacing:
                         tokens.typography.cardTitleLarge.letterSpacing,
-
                       display: "inline-block",
-
                       // Hidden (and so unfocusable) through the animation
                       // delay; nav-link-in makes it visible from its first
                       // frame. While closing, the animation is dropped.
                       visibility: closing ? "visible" : "hidden",
-
                       opacity: closing ? 1 : 0,
-
                       animation: closing
                         ? "none"
                         : "nav-link-in 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards",
-
                       animationDelay: closing
                         ? undefined
                         : `${400 + index * 70}ms`,
@@ -476,7 +406,6 @@ export function Nav() {
               ))}
             </ul>
           </dialog>,
-
           document.body,
         )}
     </nav>

@@ -32,9 +32,7 @@ async function submitToNetlify(form: HTMLFormElement) {
 
   const response = await fetch("/", {
     method: "POST",
-
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
-
     body: body.toString(),
   })
 
@@ -78,13 +76,9 @@ function FormField({
 
   const fieldStyle = {
     width: "100%",
-
     padding: "12px 14px",
-
     borderRadius: `${tokens.radius.sm}px`,
-
     fontSize: "14px",
-
     fontFamily: tokens.fonts.body,
   }
 
@@ -199,13 +193,9 @@ export function ContactForm() {
     <div
       style={{
         border: `1px solid ${tokens.colors.borderStrong}`,
-
         borderRadius: `${tokens.radius.lg}px`,
-
         backgroundColor: tokens.colors.surface,
-
         padding: `${tokens.spacing[32]}px`,
-
         // The form and the success panel share one grid cell, so the card
         // keeps the form's height (which varies with viewport width and the
         // resizable textarea) when the panel replaces it, and the layout
@@ -220,22 +210,16 @@ export function ContactForm() {
         inert={sent}
         style={{
           gridArea: "1 / 1",
-
           visibility: sent ? "hidden" : undefined,
         }}
       >
         <h3
           style={{
             fontFamily: tokens.fonts.display,
-
             fontWeight: 600,
-
             fontSize: "18px",
-
             color: tokens.colors.textPrimary,
-
             lineHeight: 1.4,
-
             margin: `0 0 ${tokens.spacing[24]}px 0`,
           }}
         >
@@ -301,24 +285,17 @@ export function ContactForm() {
               role="alert"
               style={{
                 display: "flex",
-
                 gap: `${tokens.spacing[16]}px`,
-
                 padding: `${tokens.spacing[16]}px`,
-
                 border: `1px solid ${tokens.colors.errorBorder}`,
-
                 borderRadius: `${tokens.radius.sm}px`,
-
                 backgroundColor: tokens.colors.errorBg,
               }}
             >
               <ErrorIcon
                 style={{
                   flexShrink: 0,
-
                   marginTop: "3px",
-
                   color: tokens.colors.error,
                 }}
               />
@@ -326,13 +303,9 @@ export function ContactForm() {
                 <p
                   style={{
                     margin: `0 0 ${tokens.spacing[4]}px 0`,
-
                     fontSize: "14px",
-
                     fontWeight: 500,
-
                     lineHeight: 1.6,
-
                     color: tokens.colors.textPrimary,
                   }}
                 >
@@ -341,11 +314,8 @@ export function ContactForm() {
                 <p
                   style={{
                     margin: 0,
-
                     fontSize: "13px",
-
                     lineHeight: 1.6,
-
                     color: tokens.colors.textSecondary,
                   }}
                 >
@@ -397,13 +367,9 @@ export function ContactForm() {
         <div
           style={{
             gridArea: "1 / 1",
-
             display: "flex",
-
             flexDirection: "column",
-
             justifyContent: "center",
-
             alignItems: "flex-start",
           }}
         >
@@ -412,17 +378,11 @@ export function ContactForm() {
             className="contact-form-success-heading"
             style={{
               fontFamily: tokens.typography.cardTitleDefault.font,
-
               fontWeight: tokens.typography.cardTitleDefault.weight,
-
               fontSize: `${tokens.typography.cardTitleDefault.size}px`,
-
               lineHeight: tokens.typography.cardTitleDefault.lineHeight,
-
               letterSpacing: tokens.typography.cardTitleDefault.letterSpacing,
-
               color: tokens.colors.textPrimary,
-
               margin: `0 0 ${tokens.spacing[8]}px 0`,
             }}
           >
@@ -431,13 +391,9 @@ export function ContactForm() {
           <p
             style={{
               margin: `0 0 ${tokens.spacing[24]}px 0`,
-
               fontSize: "14px",
-
               lineHeight: 1.7,
-
               color: tokens.colors.textSecondary,
-
               overflowWrap: "anywhere",
             }}
           >

@@ -16,15 +16,10 @@ export function Footer() {
     <footer
       style={{
         borderTop: `1px solid ${tokens.colors.border}`,
-
         fontSize: "13px",
-
         color: tokens.colors.textTertiary,
-
         width: "100vw",
-
         marginLeft: "calc(50% - 50vw)",
-
         marginRight: "calc(50% - 50vw)",
       }}
     >
@@ -33,7 +28,6 @@ export function Footer() {
           className="px-container-mobile md:px-container-desktop flex flex-col gap-2 md:flex-row md:items-center md:justify-between"
           style={{
             paddingTop: `${tokens.spacing[24]}px`,
-
             paddingBottom: `${tokens.spacing[24]}px`,
           }}
         >

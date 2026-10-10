@@ -60,9 +60,7 @@ describe("ContactForm", () => {
 
     expect(fetchMock).toHaveBeenCalledWith("/", {
       method: "POST",
-
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
-
       body: "form-name=contact&name=Ana+Torres&email=ana%40studio.co&message=Hi+Juan",
     })
 

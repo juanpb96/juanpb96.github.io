@@ -23,13 +23,9 @@ function supportsHoverPointer() {
 
 export function ExperienceSection() {
   // Hover is transient (fine-pointer only, per the media-query gating used for
-
   // conditional hover styles elsewhere in the site). A click/tap/keyboard
-
   // activation pins the selection so it survives the mouseleave that scrolling
-
   // to a card can trigger when the pointer ends up over different content.
-
   const [hoverIndex, setHoverIndex] = useState<number | null>(null)
 
   const [pinnedIndex, setPinnedIndex] = useState<number | null>(null)
@@ -77,28 +73,22 @@ export function ExperienceSection() {
       />
 
       {/* Vertical separator line, centered in the column gap: left padding
-          (48px) + first column + half the gap. The first column is
+          (--spacing-container-desktop, 48px) + first column + half the gap. The first column is
           proportional (42%) in the md-mdlg range and a fixed 340px at mdlg+,
           matching the grid-cols breakpoints below exactly. Grid percentage
           tracks resolve against the full content box (section width minus
-          2 × 48px padding, gap included). The gap is read from the same
+          2 × that padding, gap included). The gap is read from the same
           --experience-gap the grid uses, so the line follows its 8vw growth
           instead of assuming a fixed value. */}
       <div
-        className="hidden md:block md:left-[calc(48px_+_(100%_-_96px)_*_0.42_+_var(--experience-gap)_/_2)] mdlg:left-[calc(48px_+_340px_+_var(--experience-gap)_/_2)]"
+        className="hidden md:block md:left-[calc(var(--spacing-container-desktop)_+_(100%_-_2_*_var(--spacing-container-desktop))_*_0.42_+_var(--experience-gap)_/_2)] mdlg:left-[calc(var(--spacing-container-desktop)_+_340px_+_var(--experience-gap)_/_2)]"
         style={{
           position: "absolute",
-
           top: "clamp(64px, 10vw, 120px)",
-
           bottom: "clamp(64px, 10vw, 120px)",
-
           width: "1px",
-
           transform: "translateX(-50%)",
-
           backgroundColor: tokens.colors.border,
-
           pointerEvents: "none",
         }}
       />
@@ -107,11 +97,8 @@ export function ExperienceSection() {
         className="grid grid-cols-1 md:grid-cols-[42%_1fr] mdlg:grid-cols-[340px_1fr]"
         style={{
           gap: "var(--experience-gap)",
-
           alignItems: "start",
-
           position: "relative",
-
           zIndex: 1,
         }}
       >
@@ -120,17 +107,11 @@ export function ExperienceSection() {
           <h2
             style={{
               fontFamily: tokens.fonts.display,
-
               fontWeight: 700,
-
               fontSize: `clamp(${tokens.typography.sectionTitle.sizeMobile}px, 5vw, ${tokens.typography.sectionTitle.size}px)`,
-
               letterSpacing: "-0.03em",
-
               color: tokens.colors.textPrimary,
-
               margin: `0 0 ${tokens.spacing[20]}px 0`,
-
               lineHeight: 1.05,
             }}
           >
@@ -164,15 +145,10 @@ export function ExperienceSection() {
             <div
               style={{
                 position: "absolute",
-
                 left: "5px",
-
                 top: "6px",
-
                 bottom: "6px",
-
                 width: "1px",
-
                 backgroundColor: tokens.colors.border,
               }}
             />
@@ -198,44 +174,28 @@ export function ExperienceSection() {
                   onClick={() => handleActivate(i)}
                   style={{
                     display: "flex",
-
                     alignItems: "center",
-
                     gap: `${tokens.spacing[16]}px`,
-
                     padding: "12px 0",
-
                     position: "relative",
-
                     width: "100%",
-
                     background: "none",
-
                     border: "none",
-
                     textAlign: "left",
-
                     cursor: "pointer",
-
                     font: "inherit",
-
                     color: "inherit",
                   }}
                 >
                   <span
                     style={{
                       display: "block",
-
                       width: "11px",
-
                       height: "11px",
-
                       borderRadius: "50%",
-
                       backgroundColor: isActive
                         ? tokens.colors.accent
                         : tokens.colors.surface,
-
                       border: `1px solid ${
                         isActive
                           ? tokens.colors.accent
@@ -243,17 +203,13 @@ export function ExperienceSection() {
                             ? tokens.colors.accentBorder
                             : tokens.colors.borderStrong
                       }`,
-
                       boxShadow: isActive
                         ? `0 0 12px ${tokens.colors.accent}`
                         : selected
                           ? `inset 0 0 6px ${tokens.colors.accentGlow}, inset 0 0 0 1px ${tokens.colors.accentBorder}`
                           : "none",
-
                       transition: "all 0.2s ease",
-
                       flexShrink: 0,
-
                       zIndex: 1,
                     }}
                   />
@@ -269,15 +225,11 @@ export function ExperienceSection() {
                     <span
                       style={{
                         display: "block",
-
                         fontSize: "12px",
-
                         color: highlighted
                           ? tokens.colors.textSecondary
                           : tokens.colors.textTertiary,
-
                         fontFamily: tokens.fonts.mono,
-
                         transition: "color 0.2s ease",
                       }}
                     >
