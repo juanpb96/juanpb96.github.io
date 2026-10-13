@@ -1,26 +1,16 @@
 import colcanLogo from "../assets/experience/colcan.png"
-
 import globantLogo from "../assets/experience/globant.png"
-
 import monksLogo from "../assets/experience/monks.png"
 
 export interface Experience {
   role: string
-
   company: string
-
   formerName?: string
-
   period: string
-
   description: string
-
   achievements: string[]
-
   tags: string[]
-
   logo?: string
-
   /* Marks the role currently held. It's normal for no entry to set it (e.g.
      between jobs); the current-role highlight then simply stays off. When
      set, also end `period` with "Present". */
