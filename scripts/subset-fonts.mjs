@@ -3,6 +3,7 @@
 // Run `pnpm run fonts` after changing copy that introduces new characters.
 import { mkdir, readdir, readFile, writeFile } from "node:fs/promises"
 import path from "node:path"
+import { parseSync } from "oxc-parser"
 import subsetFont from "subset-font"
 
 const ROOT = path.resolve(import.meta.dirname, "..")
@@ -62,39 +63,25 @@ async function download(file) {
   }
 }
 
-// Drops // and /* */ comments (including JSX {/* */}) so characters that
-// only appear in code comments don't end up in the subset. Strings end at
-// a newline, which also contains stray apostrophes in JSX text.
-function stripComments(code) {
-  let result = ""
-  let quote = null
+// Drops comments (including JSX {/* */}) so characters that only appear in
+// code comments don't end up in the subset. Uses a real parser, so "//" or
+// "/*" inside strings or JSX text (URLs, copy) is kept as visible text.
+function stripComments(code, file) {
+  const { comments, errors } = parseSync(file, code)
 
-  for (let i = 0; i < code.length; i++) {
-    const char = code[i]
-    const next = code[i + 1]
-
-    if (quote) {
-      result += char
-
-      if (char === "\\") {
-        result += next ?? ""
-        i++
-      } else if (char === quote || (char === "\n" && quote !== "`")) {
-        quote = null
-      }
-    } else if (char === "/" && next === "/") {
-      while (i < code.length && code[i] !== "\n") i++
-      result += "\n"
-    } else if (char === "/" && next === "*") {
-      const end = code.indexOf("*/", i + 2)
-      i = end === -1 ? code.length : end + 1
-    } else {
-      if (char === '"' || char === "'" || char === "`") quote = char
-      result += char
-    }
+  if (errors.length > 0) {
+    throw new Error(`Failed to parse ${file}: ${errors[0].message}`)
   }
 
-  return result
+  let result = ""
+  let last = 0
+
+  for (const { start, end } of comments) {
+    result += code.slice(last, start)
+    last = end
+  }
+
+  return result + code.slice(last)
 }
 
 async function collectSourceFiles(dir) {
@@ -110,7 +97,7 @@ async function collectSiteChars() {
   const chars = new Set()
 
   for (const file of files) {
-    const code = stripComments(await readFile(file, "utf8"))
+    const code = stripComments(await readFile(file, "utf8"), file)
 
     for (const char of code) {
       if (char.codePointAt(0) >= 0x20) chars.add(char)

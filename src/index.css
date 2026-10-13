@@ -637,3 +637,39 @@ main[tabindex="-1"]:focus {
     transform: translateX(-50%) translateY(0);
   }
 }
+
+/* Cross-fades a regular and a medium copy of the text instead of animating
+   font-weight, which would reflow the layout on every frame. Both copies
+   share one grid cell, so the wider (500) one sets the box size. The medium
+   copy is generated content (empty alt text) so it is not read twice. */
+.weight-transition {
+  display: grid;
+}
+
+.weight-transition-text,
+.weight-transition::after {
+  grid-area: 1 / 1;
+  transition:
+    opacity 0.2s ease,
+    color 0.2s ease;
+}
+
+.weight-transition-text {
+  font-weight: 400;
+  color: var(--weight-color);
+}
+
+.weight-transition::after {
+  content: attr(data-text) / "";
+  font-weight: 500;
+  color: var(--weight-active-color);
+  opacity: 0;
+}
+
+.weight-transition[data-active="true"] .weight-transition-text {
+  opacity: 0;
+}
+
+.weight-transition[data-active="true"]::after {
+  opacity: 1;
+}
