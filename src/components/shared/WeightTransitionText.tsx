@@ -1,17 +1,16 @@
-import type { CSSProperties, ReactNode } from "react"
+import type { CSSProperties } from "react"
 
 interface WeightTransitionTextProps {
-  children: ReactNode
+  children: string
   active: boolean
   color: string
   activeColor: string
   style?: CSSProperties
 }
 
-/* Transitions weight (400 -> 500) and color together. Instrument Sans and
-   Inter are self-hosted as variable fonts whose @font-face declares a
-   weight range, so font-weight interpolates smoothly instead of snapping
-   between static faces. */
+/* Cross-fades between a regular (400) and a medium (500) copy of the text
+   rather than animating font-weight, which would reflow the layout on every
+   frame. See `.weight-transition` in src/index.css. */
 export function WeightTransitionText({
   children,
   active,
@@ -21,15 +20,18 @@ export function WeightTransitionText({
 }: WeightTransitionTextProps) {
   return (
     <span
-      style={{
-        ...style,
-        display: "block",
-        fontWeight: active ? 500 : 400,
-        color: active ? activeColor : color,
-        transition: "font-weight 0.2s ease, color 0.2s ease",
-      }}
+      className="weight-transition"
+      data-text={children}
+      data-active={active}
+      style={
+        {
+          ...style,
+          "--weight-color": color,
+          "--weight-active-color": activeColor,
+        } as CSSProperties
+      }
     >
-      {children}
+      <span className="weight-transition-text">{children}</span>
     </span>
   )
 }

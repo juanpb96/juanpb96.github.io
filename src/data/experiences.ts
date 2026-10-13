@@ -20,10 +20,15 @@ export interface Experience {
   tags: string[]
 
   logo?: string
+
+  /* Marks the role currently held. It's normal for no entry to set it (e.g.
+     between jobs); the current-role highlight then simply stays off. When
+     set, also end `period` with "Present". */
+  current?: boolean
 }
 
 export function isCurrentExperience(exp: Experience): boolean {
-  return exp.period.toLowerCase().includes("present")
+  return exp.current === true
 }
 
 export const experiences: Experience[] = [
