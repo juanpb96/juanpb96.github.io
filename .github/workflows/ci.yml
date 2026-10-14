@@ -1,49 +1,199 @@
-name: PR Checks
+name: CI
+
+# Every job is filtered by the `changes` job and aggregated into `ci-ok`,
+# the single required status check. Filtering per job (not with a top-level
+# `paths:` filter) keeps the required check from staying "pending" forever.
+# Add the `full-check` label to a PR, or run the workflow manually, to run
+# every job regardless of the changed paths.
+#
+# Local setup action: `./.github/actions/setup` is used instead of the newer
+# `$/` self-repository syntax because actionlint does not understand `$/` yet.
+# It runs right after checkout, before any step that could write to the
+# workspace, so it always loads the action from the checked-out commit.
 
 on:
   pull_request:
-    types: [opened, synchronize, reopened]
+    types: [opened, synchronize, reopened, labeled]
     branches: [main]
+  workflow_dispatch:
 
 permissions:
   contents: read
 
 concurrency:
-  group: pr-checks-${{ github.event.pull_request.number }}
+  group: ci-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
 
 jobs:
-  checks:
-    name: ${{ matrix.check.name }}
+  changes:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        check:
-          - name: typecheck
-            run: pnpm exec tsc --noEmit
-          - name: lint
-            run: pnpm run lint
-          - name: format
-            run: pnpm exec oxfmt --check
-          - name: test
-            run: pnpm test
+    outputs:
+      code: ${{ steps.filter.outputs.code }}
+      ui: ${{ steps.filter.outputs.ui }}
+      deps: ${{ steps.filter.outputs.deps }}
+      workflows: ${{ steps.filter.outputs.workflows }}
+      scripts: ${{ steps.filter.outputs.scripts }}
+      links: ${{ steps.filter.outputs.links }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Detect changed paths
+        id: filter
+        env:
+          FULL: ${{ github.event_name == 'workflow_dispatch' || contains(github.event.pull_request.labels.*.name, 'full-check') }}
+        run: |
+          if [ "$FULL" = true ] || [ -z "${GITHUB_BASE_REF:-}" ]; then
+            export FULL=true
+            git ls-files
+          else
+            git diff --name-only "origin/${GITHUB_BASE_REF}...HEAD"
+          fi | bash .github/scripts/ci-changes.sh
+          cat "$GITHUB_OUTPUT"
+
+  static:
+    needs: changes
+    if: needs.changes.outputs.code == 'true'
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
         with:
           persist-credentials: false
 
-      - name: Enable corepack
-        run: corepack enable
+      - name: Setup
+        uses: ./.github/actions/setup # zizmor: ignore[self-repository] -- see note at top
 
-      - name: Setup Node
-        uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5.0.0
+      # Exact versions only (see "Dependency policy" in AGENTS.md).
+      - name: No version ranges in package.json
+        run: |
+          ! grep -nE '"[\^~][0-9]' package.json
+
+      - name: Typecheck
+        run: pnpm exec tsc --noEmit
+
+      - name: Lint
+        run: pnpm run lint
+
+      - name: Format
+        run: pnpm exec oxfmt --check
+
+      - name: Test
+        run: pnpm test
+
+  build:
+    needs: changes
+    if: needs.changes.outputs.ui == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
         with:
-          node-version: "26"
-          cache: pnpm
+          persist-credentials: false
 
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+      - name: Setup
+        uses: ./.github/actions/setup # zizmor: ignore[self-repository] -- see note at top
 
-      - name: Run ${{ matrix.check.name }}
-        run: ${{ matrix.check.run }}
+      - name: Build
+        run: pnpm build
+
+      - name: Upload dist
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: dist
+          path: dist/
+          if-no-files-found: error
+          retention-days: 7
+
+  dependency-review:
+    needs: changes
+    if: needs.changes.outputs.deps == 'true' && github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
+        with:
+          persist-credentials: false
+
+      - name: Dependency review
+        uses: actions/dependency-review-action@a1d282b36b6f3519aa1f3fc636f609c47dddb294 # v5.0.0
+        with:
+          fail-on-severity: high
+
+  zizmor:
+    needs: changes
+    if: needs.changes.outputs.workflows == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
+        with:
+          persist-credentials: false
+
+      - name: Audit workflows
+        run: pipx run zizmor==1.30.1 --format=github .github
+
+  codeql:
+    needs: changes
+    if: needs.changes.outputs.scripts == 'true'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read # checkout
+      security-events: write # upload CodeQL results to code scanning
+    steps:
+      - name: Checkout
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
+        with:
+          persist-credentials: false
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@24c54180a607b1449ed407dd24f251e4e9147c8d # v4.38.3
+        with:
+          languages: javascript-typescript
+          build-mode: none
+
+      - name: Analyze
+        uses: github/codeql-action/analyze@24c54180a607b1449ed407dd24f251e4e9147c8d # v4.38.3
+        with:
+          category: /language:javascript-typescript
+
+  links:
+    needs: changes
+    if: needs.changes.outputs.links != ''
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
+        with:
+          persist-credentials: false
+
+      # `links` only holds paths limited to [A-Za-z0-9._/@+-] by
+      # ci-changes.sh, because lychee-action evals its args.
+      - name: Check links
+        uses: lycheeverse/lychee-action@e7477775783ea5526144ba13e8db5eec57747ce8 # v2.9.0
+        with:
+          args: >-
+            --no-progress
+            --base-url https://juanbonilla.me
+            --exclude linkedin\.com
+            ${{ needs.changes.outputs.links }}
+          failIfEmpty: false
+
+  ci-ok:
+    needs: [changes, static, build, dependency-review, zizmor, codeql, links]
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check needed job results
+        env:
+          NEEDS: ${{ toJSON(needs) }}
+        run: |
+          echo "$NEEDS" | jq -r 'to_entries[] | "\(.key): \(.value.result)"'
+          failed=$(echo "$NEEDS" | jq -r '[to_entries[] | select(.value.result == "failure" or .value.result == "cancelled") | .key] | join(", ")')
+          if [ -n "$failed" ]; then
+            echo "::error::Failed or cancelled jobs: $failed"
+            exit 1
+          fi
