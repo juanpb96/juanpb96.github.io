@@ -41,6 +41,15 @@ This is the canonical project structure. Start with task-relevant files below. O
 - Formatting: oxfmt
 - Linting: oxlint, including the native `jsx-a11y` plugin for accessibility rules. Run `pnpm run lint`
 
+### Dependency policy
+
+Supply-chain settings live in `pnpm-workspace.yaml`:
+
+- Exact versions only: `saveExact: true` makes `pnpm add` write `1.2.3`, not `^1.2.3`. Don't hand-write ranges in `package.json`.
+- `pnpm-lock.yaml` is committed; CI installs with `pnpm install --frozen-lockfile`, so commit the lockfile alongside any `package.json` change.
+- Release-age quarantine: `minimumReleaseAge: 4320` (minutes, 3 days) refuses versions published more recently. For an urgent security patch, add the package name to `minimumReleaseAgeExclude` with a comment linking the advisory, and remove the entry once the version is older than 3 days.
+- `trustPolicy: no-downgrade` fails install if a package's publish trust (trusted publisher / provenance) is weaker than an earlier version's. Only after confirming the release is legitimate, add the narrowest exclusion — `trustPolicyExclude: ["pkg@1.2.3"]` — with a comment explaining why.
+
 ## Styling
 
 This project uses **Tailwind CSS v4** through the `@tailwindcss/vite` plugin configured in `vite.config.ts`. `src/index.css` imports Tailwind with `@import 'tailwindcss';`. Use Tailwind utility classes directly in JSX and put global CSS or Tailwind v4 theme customization in `src/index.css`. This scaffold does not need a Tailwind config file or PostCSS config.

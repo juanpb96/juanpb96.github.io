@@ -3,3 +3,8 @@ packages:
 
 overrides:
   "@types/react-dom>@types/react": 19.0.0
+
+# Supply-chain policy (see "Dependency policy" in AGENTS.md)
+minimumReleaseAge: 4320 # 3 days; use minimumReleaseAgeExclude for urgent security patches
+trustPolicy: no-downgrade
+saveExact: true
