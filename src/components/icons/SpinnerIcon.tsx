@@ -9,14 +9,13 @@ export function SpinnerIcon({ className }: SpinnerIconProps) {
   return (
     <svg
       className={className}
-      width="16"
-      height="16"
       viewBox="0 0 16 16"
       fill="none"
       stroke="currentColor"
       strokeWidth="1.5"
       strokeLinecap="round"
       aria-hidden="true"
+      style={{ width: "1rem", height: "1rem" }}
     >
       <path d="M8 2a6 6 0 1 0 6 6" />
     </svg>
