@@ -4,7 +4,9 @@ React + Vite + Tailwind CSS personal portfolio site.
 
 ## Development Server
 
-Run `pnpm run dev` to start the Vite dev server (default port `8443`, overridable via `$PORT`).
+Run `pnpm run dev` to start the Vite dev server (default port `8443`, overridable via `$PORT`). It binds to `localhost` only (as does `pnpm run preview`); set `$VITE_HOST` to bind elsewhere.
+
+To test on a phone or another device on the same network, run `pnpm run dev:lan` instead — it exposes the server on all interfaces and prints a Network URL to open on the device.
 
 ## Project Structure
 
