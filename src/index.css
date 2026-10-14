@@ -109,9 +109,23 @@ html {
   scroll-padding-top: 80px;
 }
 
+/* Reduced motion: scrolling jumps, and every animation/transition finishes
+   at once. !important is needed to beat the Nav's inline animation styles.
+   Animations are shortened rather than removed (no `animation: none`): the
+   mobile overlay links start hidden and only nav-link-in's forwards fill
+   reveals them, so they must still run to their end state. */
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-delay: 0s !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0s !important;
   }
 }
 
