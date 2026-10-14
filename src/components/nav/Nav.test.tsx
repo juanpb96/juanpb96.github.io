@@ -30,7 +30,10 @@ function Page({ withNav = true }: { withNav?: boolean }) {
   )
 }
 
-let breakpointListener: ((e: MediaQueryListEvent) => void) | null
+// Nav only reads `matches` from the change event, so the stub passes just that.
+type BreakpointListener = (e: Pick<MediaQueryListEvent, "matches">) => void
+
+let breakpointListener: BreakpointListener | null
 
 // Answer for "(prefers-reduced-motion: reduce)"; the stub below derives
 // "(prefers-reduced-motion: no-preference)" (which gates the overlay
@@ -47,9 +50,17 @@ function mediaQueryMatches(query: string) {
   return false
 }
 
+// Narrows a query result without a non-null assertion; a missing element
+// fails the test with a readable message instead of a later TypeError.
+function required<T>(value: T | null, what: string): T {
+  if (value === null) throw new Error(`Missing ${what}`)
+
+  return value
+}
+
 function crossBreakpoint(matches: boolean) {
   act(() => {
-    breakpointListener?.({ matches } as MediaQueryListEvent)
+    breakpointListener?.({ matches })
   })
 }
 
@@ -68,11 +79,13 @@ async function openMenu(user: User) {
 function overlayLinks() {
   const dialog = screen.getByRole("dialog", { name: "Site menu" })
 
-  return ["Projects", "Experience", "Contact"].map(
-    (name) =>
+  return ["Projects", "Experience", "Contact"].map((name) =>
+    required(
       dialog.querySelector<HTMLAnchorElement>(
         `a[href="#${name.toLowerCase()}"]`,
-      )!,
+      ),
+      `${name} overlay link`,
+    ),
   )
 }
 
@@ -107,10 +120,7 @@ beforeEach(() => {
       matches: mediaQueryMatches(query),
       media: query,
       onchange: null,
-      addEventListener: (
-        _type: string,
-        listener: (e: MediaQueryListEvent) => void,
-      ) => {
+      addEventListener: (_type: string, listener: BreakpointListener) => {
         breakpointListener = listener
       },
       removeEventListener: () => {
@@ -163,7 +173,7 @@ describe("Nav mobile overlay", () => {
 
     const main = screen.getByRole("main")
 
-    const footer = container.querySelector("footer")!
+    const footer = required(container.querySelector("footer"), "footer")
 
     const nav = screen.getByRole("navigation")
 
@@ -392,7 +402,10 @@ describe("Nav mobile overlay", () => {
 
     expect(screen.queryByRole("dialog")).not.toBeInTheDocument()
 
-    const section = container.querySelector<HTMLElement>("#experience")!
+    const section = required(
+      container.querySelector<HTMLElement>("#experience"),
+      "#experience",
+    )
 
     expect(section).toHaveFocus()
 

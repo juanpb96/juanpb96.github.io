@@ -152,9 +152,10 @@ export function Nav() {
 
       if (focusables.length === 0) return
 
-      const currentIndex = focusables.indexOf(
-        document.activeElement as HTMLElement,
-      )
+      const active = document.activeElement
+
+      const currentIndex =
+        active instanceof HTMLElement ? focusables.indexOf(active) : -1
 
       const lastIndex = focusables.length - 1
 
