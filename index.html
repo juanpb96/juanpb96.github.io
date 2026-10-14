@@ -44,10 +44,18 @@
       to it. This hidden replica exists purely so Netlify's build-time scan
       can register the form name and field names; it mirrors
       src/components/contact/ContactForm.tsx and must be kept in sync with
-      it (name="contact" and the name/email/message fields).
+      it (name="contact", netlify-honeypot="bot-field", and the
+      bot-field/name/email/message fields). bot-field is a spam honeypot:
+      Netlify drops any submission where it isn't empty.
     -->
-    <form name="contact" data-netlify="true" hidden>
+    <form
+      name="contact"
+      data-netlify="true"
+      netlify-honeypot="bot-field"
+      hidden
+    >
       <input type="hidden" name="form-name" value="contact" />
+      <input name="bot-field" />
       <input type="text" name="name" />
       <input type="email" name="email" />
       <textarea name="message"></textarea>

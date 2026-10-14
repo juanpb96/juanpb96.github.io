@@ -58,6 +58,10 @@ interface FormFieldProps {
 
   readOnly?: boolean
 
+  autoComplete?: string
+
+  maxLength?: number
+
   inputRef?: Ref<HTMLInputElement>
 }
 
@@ -70,6 +74,8 @@ function FormField({
   multiline,
   required,
   readOnly,
+  autoComplete,
+  maxLength,
   inputRef,
 }: FormFieldProps) {
   const [focused, setFocused] = useState(false)
@@ -103,6 +109,8 @@ function FormField({
           placeholder={placeholder}
           required={required}
           readOnly={readOnly}
+          autoComplete={autoComplete}
+          maxLength={maxLength}
           rows={4}
           onFocus={() => setFocused(true)}
           onBlur={() => setFocused(false)}
@@ -118,6 +126,8 @@ function FormField({
           placeholder={placeholder}
           required={required}
           readOnly={readOnly}
+          autoComplete={autoComplete}
+          maxLength={maxLength}
           onFocus={() => setFocused(true)}
           onBlur={() => setFocused(false)}
           className="contact-form-field"
@@ -234,11 +244,15 @@ export function ContactForm() {
             form (same name + field names) purely so Netlify's build-time
             scan can register it. Submission itself goes through
             handleSubmit, so the visitor stays on the page instead of landing
-            on Netlify's default thank-you page. */}
+            on Netlify's default thank-you page.
+            bot-field is a spam honeypot: hidden from people (and from the
+            accessibility tree and tab order), so only bots fill it, and
+            Netlify drops any submission where it isn't empty. */}
         <form
           name="contact"
           method="POST"
           data-netlify="true"
+          netlify-honeypot="bot-field"
           onSubmit={handleSubmit}
           style={{
             display: "flex",
@@ -247,12 +261,20 @@ export function ContactForm() {
           }}
         >
           <input type="hidden" name="form-name" value="contact" />
+          <p hidden>
+            <label>
+              Leave this empty:{" "}
+              <input name="bot-field" tabIndex={-1} autoComplete="off" />
+            </label>
+          </p>
 
           <FormField
             id="contact-name"
             name="name"
             label="Name"
             placeholder="Your name"
+            autoComplete="name"
+            maxLength={100}
             required
             readOnly={submitting}
             inputRef={nameInputRef}
@@ -263,6 +285,8 @@ export function ContactForm() {
             label="Email"
             type="email"
             placeholder="you@example.com"
+            autoComplete="email"
+            maxLength={254}
             required
             readOnly={submitting}
           />
@@ -272,6 +296,7 @@ export function ContactForm() {
             label="Message"
             placeholder="What would you like to discuss?"
             multiline
+            maxLength={5000}
             required
             readOnly={submitting}
           />
