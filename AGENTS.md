@@ -55,7 +55,7 @@ Supply-chain settings live in `pnpm-workspace.yaml`:
 `.github/workflows/ci.yml` runs on PRs to `main` and on manual dispatch. The `changes` job feeds the changed paths to `.github/scripts/ci-changes.sh`, which decides which jobs run; the rest are skipped:
 
 - `static` (source, config, `.github/`): typecheck, lint, format check, tests, and a guard against `^`/`~` ranges in `package.json`
-- `build` (anything that ships in `dist/`): `pnpm build`, uploads `dist/` as an artifact
+- `build` (anything that ships in `dist/`): `pnpm build`
 - `dependency-review` (`package.json`, `pnpm-*`): fails on high-severity advisories
 - `zizmor` (`.github/`): audits workflows, actions and Dependabot config
 - `codeql` (`src/`, `netlify/`, `scripts/`): JavaScript/TypeScript analysis
