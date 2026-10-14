@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react"
 import type { FormEvent, Ref } from "react"
 import { flushSync } from "react-dom"
+
 import { ArrowRightIcon } from "../icons/ArrowRightIcon"
 import { ErrorIcon } from "../icons/ErrorIcon"
 import { SpinnerIcon } from "../icons/SpinnerIcon"

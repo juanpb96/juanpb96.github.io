@@ -1,4 +1,5 @@
 import type { CSSProperties } from "react"
+
 import type { Project } from "../../data/projects"
 import { tokens } from "../../tokens"
 import { ArrowUpRightIcon } from "../icons/ArrowUpRightIcon"
