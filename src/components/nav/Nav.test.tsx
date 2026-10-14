@@ -211,7 +211,9 @@ describe("Nav mobile overlay", () => {
 
     const close = screen.getByRole("button", { name: "Close menu" })
 
-    const logo = screen.getByRole("link", { name: "JB" })
+    const logo = screen.getByRole("link", {
+      name: "JB, Juan Bonilla, back to top",
+    })
 
     for (const expected of [...links, logo, close]) {
       await user.tab()
@@ -231,7 +233,9 @@ describe("Nav mobile overlay", () => {
 
     const close = screen.getByRole("button", { name: "Close menu" })
 
-    const logo = screen.getByRole("link", { name: "JB" })
+    const logo = screen.getByRole("link", {
+      name: "JB, Juan Bonilla, back to top",
+    })
 
     for (const expected of [logo, ...[...links].reverse(), close]) {
       await user.tab({ shift: true })
@@ -259,7 +263,9 @@ describe("Nav mobile overlay", () => {
 
     await user.tab()
 
-    expect(screen.getByRole("link", { name: "JB" })).toHaveFocus()
+    expect(
+      screen.getByRole("link", { name: "JB, Juan Bonilla, back to top" }),
+    ).toHaveFocus()
 
     expect(experience).not.toHaveFocus()
 
@@ -283,7 +289,9 @@ describe("Nav mobile overlay", () => {
 
     const close = screen.getByRole("button", { name: "Close menu" })
 
-    const logo = screen.getByRole("link", { name: "JB" })
+    const logo = screen.getByRole("link", {
+      name: "JB, Juan Bonilla, back to top",
+    })
 
     for (const expected of [...links, logo, close]) {
       await user.tab()
@@ -382,7 +390,9 @@ describe("Nav mobile overlay", () => {
 
     expect(screen.queryByRole("dialog")).not.toBeInTheDocument()
 
-    expect(screen.getByRole("link", { name: "JB" })).toHaveFocus()
+    expect(
+      screen.getByRole("link", { name: "JB, Juan Bonilla, back to top" }),
+    ).toHaveFocus()
 
     expect(breakpointListener).toBeNull()
   })
@@ -423,7 +433,9 @@ describe("Nav mobile overlay", () => {
 
     await openMenu(user)
 
-    const logo = screen.getByRole("link", { name: "JB" })
+    const logo = screen.getByRole("link", {
+      name: "JB, Juan Bonilla, back to top",
+    })
 
     await user.click(logo)
 
@@ -482,6 +494,8 @@ describe("Nav mobile overlay", () => {
 
     await user.tab()
 
-    expect(screen.getByRole("link", { name: "JB" })).toHaveFocus()
+    expect(
+      screen.getByRole("link", { name: "JB, Juan Bonilla, back to top" }),
+    ).toHaveFocus()
   })
 })

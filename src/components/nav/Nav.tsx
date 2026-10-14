@@ -279,6 +279,7 @@ export function Nav() {
           <a
             ref={logoRef}
             href="#hero"
+            aria-label="JB, Juan Bonilla, back to top"
             className="nav-logo nav-tap-target"
             onClick={() => {
               if (open) closeMenu(logoRef.current)
