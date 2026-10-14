@@ -74,6 +74,8 @@ This project uses **Tailwind CSS v4** through the `@tailwindcss/vite` plugin con
 - Use double quotes for strings, matching `oxfmt`'s default (enforced by `pnpm run format` and the CI format check).
 - Ensure JSX tags are closed and braces are balanced.
 - Export components as named exports (`export function X`), not default exports.
+- Avoid type assertions (`x as T`, `<T>x`, non-null `!`). Narrow instead: `instanceof`/type guards, typed refs (`useRef<HTMLButtonElement>(null)`), `satisfies` for object literals, and module augmentation for custom CSS properties (see `src/react-css-properties.d.ts`). `as const` is fine. If an assertion is truly unavoidable (e.g. a DOM API typed too loosely), keep it local and add a one-line comment saying why.
+- Avoid `!important` in CSS. Fix specificity or cascade order instead, or apply the style conditionally (e.g. motion classes only under `prefers-reduced-motion: no-preference`, as in `src/index.css`). Inline `style` can't be beaten without `!important`, so move styles that need overriding into classes. If one is truly unavoidable (e.g. overriding third-party CSS), comment why next to it.
 - Linter is oxlint (`pnpm run lint`), with the `jsx-a11y` plugin enabled — keep interactive JSX accessible (keyboard handlers alongside click handlers, semantic roles, labelled controls, etc.). Suppress a rule with `// oxlint-disable-next-line <rule>` or `// oxlint-disable-line <rule>` (not the ESLint `// eslint-disable-next-line` syntax) — prefer `-disable-line` on a trailing JSX attribute/tag comment, since `oxfmt` inserts a blank line after a leading `-next-line` comment in JSX and breaks the suppression.
 
 ## Responsive conventions
