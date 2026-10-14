@@ -26,6 +26,60 @@
       crossorigin
     />
     <title>Juan Bonilla · Front-End Engineer</title>
+    <!--
+      Static metadata for search engines and link previews. The page is
+      client-rendered, so scrapers (LinkedIn, Slack, X) only ever see what is
+      in this file. Keep sameAs in sync with Footer.tsx / ContactSection.tsx.
+    -->
+    <meta
+      name="description"
+      content="Juan Bonilla, front-end engineer in Bogotá building accessible, pixel-precise React and TypeScript interfaces. Projects, experience and contact."
+    />
+    <link rel="canonical" href="https://juanbonilla.me/" />
+    <meta name="theme-color" content="#0a0b0d" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Juan Bonilla" />
+    <meta property="og:title" content="Juan Bonilla · Front-End Engineer" />
+    <meta
+      property="og:description"
+      content="Accessible, pixel-precise React and TypeScript interfaces. Projects, experience and contact."
+    />
+    <meta property="og:url" content="https://juanbonilla.me/" />
+    <meta property="og:image" content="https://juanbonilla.me/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="Juan Bonilla, Front-End Engineer. juanbonilla.me"
+    />
+    <meta property="og:locale" content="en_US" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Juan Bonilla",
+        "alternateName": "Juan Pablo Bonilla",
+        "url": "https://juanbonilla.me/",
+        "jobTitle": "Front-End Engineer",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Bogotá",
+          "addressCountry": "CO"
+        },
+        "image": "https://juanbonilla.me/og-image.png",
+        "knowsAbout": [
+          "React",
+          "TypeScript",
+          "Accessibility",
+          "Front-end development"
+        ],
+        "sameAs": [
+          "https://www.linkedin.com/in/juanpablobonilla",
+          "https://github.com/juanpb96"
+        ]
+      }
+    </script>
   </head>
   <body>
     <div id="root"></div>
