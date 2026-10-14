@@ -1,10 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap');
 @import 'tailwindcss';
 
 /* Self-hosted variable fonts, subset to the site's characters by
-   scripts/subset-fonts.mjs (`pnpm run fonts`) and preloaded in index.html.
-   The weight ranges cover every weight the site uses, so font-weight can
-   also be transitioned smoothly. */
+   scripts/subset-fonts.mjs (`pnpm run fonts`); the two above-the-fold
+   families are preloaded in index.html. The weight ranges cover every
+   weight the site uses, so font-weight can also be transitioned smoothly. */
 @font-face {
   font-family: 'Instrument Sans';
   src: url('/fonts/instrument-sans.woff2') format('woff2');
@@ -21,6 +20,16 @@
   font-display: swap;
 }
 
+/* Not preloaded: mono text (meta tags, dates, tooltips) is never the LCP
+   element, so it shouldn't compete with the hero fonts. */
+@font-face {
+  font-family: 'JetBrains Mono';
+  src: url('/fonts/jetbrains-mono.woff2') format('woff2');
+  font-weight: 400 500;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* Metric-matched fallbacks. With display=swap, text paints in a local system
    font if a web font isn't ready yet and reflows when it arrives; these
    faces scale the local font toward the web font's glyph widths
@@ -30,7 +39,10 @@
    fallback and web font across 360-1920px viewports; no single value
    removes every re-wrap (Arial and Inter differ per glyph), so these
    minimize it. Instrument Sans needs two faces because its width relative
-   to Arial differs between regular and bold weights. */
+   to Arial differs between regular and bold weights. JetBrains Mono and
+   Courier New are both monospaced with a 0.6em advance (600/1000 vs
+   1229/2048), so its fallback needs no size-adjust and matches every line
+   exactly; ascent/descent are JetBrains Mono's 1020/300 per 1000 units. */
 @font-face {
   font-family: 'Instrument Sans Fallback';
   src: local('Arial'), local('ArialMT');
