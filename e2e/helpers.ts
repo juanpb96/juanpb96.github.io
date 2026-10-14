@@ -1,7 +1,5 @@
 import AxeBuilder from "@axe-core/playwright"
-
 import { expect, type Page } from "@playwright/test"
-
 import path from "node:path"
 
 // The footer prints the current year; freeze the clock so its snapshot does
