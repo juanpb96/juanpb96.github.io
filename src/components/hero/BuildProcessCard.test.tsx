@@ -1,7 +1,5 @@
 import { render, screen } from "@testing-library/react"
-
 import userEvent from "@testing-library/user-event"
-
 import { beforeEach, describe, expect, it } from "vitest"
 
 import { BuildProcessCard } from "./BuildProcessCard"
@@ -15,7 +13,6 @@ describe("BuildProcessCard", () => {
 
   it("renders the title once, in the heading", () => {
     const { container } = render(<BuildProcessCard />)
-
     const heading = screen.getByRole("heading", { level: 2 })
     expect(heading.textContent).toBe(TITLE)
     expect(container.textContent?.split(TITLE)).toHaveLength(2)

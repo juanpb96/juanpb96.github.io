@@ -1,13 +1,9 @@
 import { useRef, useState } from "react"
 
 import { experiences, isCurrentExperience } from "../../data/experiences"
-
 import { tokens } from "../../tokens"
-
 import { moveFocus } from "../../utils/moveFocus"
-
 import { WeightTransitionText } from "../shared/WeightTransitionText"
-
 import { ExperienceCard } from "./ExperienceCard"
 import { SoftHyphenWord } from "../shared/SoftHyphenWord"
 
@@ -30,9 +26,7 @@ export function ExperienceSection() {
   // activation pins the selection so it survives the mouseleave that scrolling
   // to a card can trigger when the pointer ends up over different content.
   const [hoverIndex, setHoverIndex] = useState<number | null>(null)
-
   const [pinnedIndex, setPinnedIndex] = useState<number | null>(null)
-
   const cardRefs = useRef<(HTMLDivElement | null)[]>([])
 
   const handleMouseEnter = (i: number) => {
@@ -167,11 +161,8 @@ export function ExperienceSection() {
             />
             {experiences.map((exp, i) => {
               const isActive = isCurrentExperience(exp)
-
               const selected = hoverIndex === i || pinnedIndex === i
-
               const highlighted = isActive || selected
-
               const currentRoleId = `experience-current-role-${i}`
 
               return (

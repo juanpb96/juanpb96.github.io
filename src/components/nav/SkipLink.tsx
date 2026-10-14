@@ -1,5 +1,4 @@
 import { tokens } from "../../tokens"
-
 import { moveFocus } from "../../utils/moveFocus"
 
 export const MAIN_CONTENT_ID = "main-content"

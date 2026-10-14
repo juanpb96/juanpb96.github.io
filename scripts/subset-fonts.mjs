@@ -123,7 +123,6 @@ await mkdir(OUTPUT_DIR, { recursive: true })
 
 for (const font of FONTS) {
   const chars = new Set([...siteChars, ...font.extraChars])
-
   const text = [...chars].sort().join("")
 
   const woff2 = await subsetFont(await download(font.source), text, {

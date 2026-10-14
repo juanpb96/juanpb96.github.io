@@ -1,11 +1,7 @@
 import { tokens } from "../../tokens"
-
 import { ContentContainer } from "../layout/ContentContainer"
-
 import { GithubIcon } from "../icons/GithubIcon"
-
 import { IconButton } from "../shared/IconButton"
-
 import { LinkedinIcon } from "../icons/LinkedinIcon"
 
 // Read once at module load rather than during render (react/purity).
