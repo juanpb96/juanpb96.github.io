@@ -23,7 +23,7 @@ export const projects: Project[] = [
     description:
       "Multi-page space tourism site: home, destination, crew, and technology, with client-side routing and Storybook-driven component development. Animated with Framer Motion.",
     tags: ["React", "TypeScript", "Framer Motion", "React Router", "Storybook"],
-    liveUrl: "/FEM_space-tourism-website/home",
+    liveUrl: "/FEM_space-tourism-website/",
     githubUrl: "https://github.com/juanpb96/FEM_space-tourism-website",
     image: spaceTourismHero,
     imageAlt: "Space Tourism Website landing page",
