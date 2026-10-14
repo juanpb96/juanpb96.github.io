@@ -23,6 +23,7 @@ This is the canonical project structure. Start with task-relevant files below. O
 - `src/utils/moveFocus.ts` - Moves focus to an in-page target (section or `<main>`) via a temporary `tabindex="-1"` removed on blur. Shared by the mobile nav overlay, the skip link, and the contact form success message
 - `src/components/contact/ContactForm.tsx` - Contact form, submitted with `fetch` to Netlify Forms so the visitor stays on the page; owns the sending/error/success states. `index.html` carries a hidden static replica of the form for Netlify's build-time detection — keep its name and field names in sync
 - `src/test/setup.ts` - Vitest setup: jest-dom matchers and Testing Library cleanup. Tests sit next to the component they cover, as `X.test.tsx`
+- `e2e/` - Playwright browser checks, one spec per section (`nav`, `hero`, `projects`, `experience`, `contact`, `footer`), each tagged `@<section>` in its title: axe (WCAG 2.2 AA tags) on the section plus `toHaveScreenshot()` at 375×812 and 1440×900 (`playwright.config.ts`). Baselines live in `e2e/<section>.spec.ts-snapshots/` and are exempt from LFS. See "Browser checks" below
 - `src/components/projects/ProjectCard.tsx` - Single component for both project layouts; optional `large` prop switches the featured layout (image beside the copy, button links) and the "Also built" row (thumbnail, text links). Do not split into separate default/large components
 - `src/index.css` - Global CSS entrypoint and Tailwind CSS v4 import
 - `public/fonts/` - Self-hosted Instrument Sans, Inter and JetBrains Mono variable fonts (woff2, subset to the site's characters) with their OFL licenses; declared in `src/index.css`. Instrument Sans and Inter are preloaded in `index.html`; JetBrains Mono is not (mono text is never the LCP element). Generated — don't edit by hand
@@ -37,7 +38,8 @@ This is the canonical project structure. Start with task-relevant files below. O
 - Runtime: React 19 and React DOM 19
 - Styling: Tailwind CSS v4 with the `@tailwindcss/vite` plugin
 - Build tooling: Vite 8, TypeScript 7, and `@vitejs/plugin-react`
-- Testing: Vitest with jsdom, React Testing Library, `@testing-library/user-event`, and jest-dom. Run `pnpm test` (or `pnpm run test:watch`)
+- Testing: Vitest with jsdom, React Testing Library, `@testing-library/user-event`, and jest-dom. Run `pnpm test` (or `pnpm run test:watch`). Vitest only picks up `src/**/*.test.ts(x)`
+- Browser checks: Playwright with `@axe-core/playwright`. Run `pnpm run e2e` (builds, serves with `vite preview` on port 4173, then tests)
 - Formatting: oxfmt
 - Linting: oxlint, including the native `jsx-a11y` plugin for accessibility rules. Run `pnpm run lint`
 
@@ -75,6 +77,22 @@ This project uses **Tailwind CSS v4** through the `@tailwindcss/vite` plugin con
 - Ensure JSX tags are closed and braces are balanced.
 - Export components as named exports (`export function X`), not default exports.
 - Linter is oxlint (`pnpm run lint`), with the `jsx-a11y` plugin enabled — keep interactive JSX accessible (keyboard handlers alongside click handlers, semantic roles, labelled controls, etc.). Suppress a rule with `// oxlint-disable-next-line <rule>` or `// oxlint-disable-line <rule>` (not the ESLint `// eslint-disable-next-line` syntax) — prefer `-disable-line` on a trailing JSX attribute/tag comment, since `oxfmt` inserts a blank line after a leading `-next-line` comment in JSX and breaks the suppression.
+
+## Browser checks
+
+CI runs the `e2e` job only for the sections a PR can affect (`src/components/<section>/**` → `@<section>`, `src/data/projects.ts` → `@projects`, `src/data/experiences.ts` → `@experience`); shared code, global CSS, tokens, `index.html`, `public/`, deps and workflows run every tag, as do the `full-check` label and a manual run. The mapping is in `.github/scripts/ci-changes.sh`.
+
+Screenshots differ between operating systems and browser builds, so baselines are only valid from the Playwright Docker image pinned in the `e2e` job. Locally, `pnpm run e2e` is reliable for the axe checks; a snapshot mismatch there does not mean CI will fail. To run against a Chromium you already have, set `PLAYWRIGHT_CHROMIUM_PATH`.
+
+To update the baselines after an intended visual change:
+
+1. Push the branch, then run the CI workflow manually on it (Actions → CI → Run workflow, pick the branch, tick `update-snapshots`).
+2. Download the `playwright-snapshots` artifact and unzip it over `e2e/`, so each `<section>.spec.ts-snapshots/` folder is replaced.
+3. Look at the new images, then commit them.
+
+Alternatively, run the tests inside the same image: `docker run --rm -v "$PWD":/work -w /work mcr.microsoft.com/playwright:v1.64.0-noble sh -c "corepack enable && pnpm install --frozen-lockfile && pnpm exec playwright test --update-snapshots"`.
+
+When bumping `@playwright/test`, bump the image tag and digest in `.github/workflows/ci.yml` to the same version and regenerate the baselines in the same PR.
 
 ## Responsive conventions
 
