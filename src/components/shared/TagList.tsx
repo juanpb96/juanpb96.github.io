@@ -58,11 +58,6 @@ export function TagList({ tags, variant = "neutral", style }: TagListProps) {
                   type="button"
                   onClick={() => setExpanded((prev) => !prev)}
                   aria-expanded={expanded}
-                  aria-label={
-                    expanded
-                      ? "Show fewer tags"
-                      : `Show ${hiddenCount} more tags`
-                  }
                   className="tag-toggle"
                   style={{
                     ...tagStyle,
@@ -70,7 +65,19 @@ export function TagList({ tags, variant = "neutral", style }: TagListProps) {
                     cursor: "pointer",
                   }}
                 >
-                  {expanded ? "−" : `+${hiddenCount}`}
+                  {expanded ? (
+                    <>
+                      <span aria-hidden="true">−</span>
+                      <span className="sr-only">Show fewer tags</span>
+                    </>
+                  ) : (
+                    <>
+                      {/* The space sits outside the sr-only span so every
+                          name computation keeps it; as trailing whitespace
+                          it doesn't widen the pill. */}
+                      +{hiddenCount} <span className="sr-only">more tags</span>
+                    </>
+                  )}
                 </button>
               </li>
             )}

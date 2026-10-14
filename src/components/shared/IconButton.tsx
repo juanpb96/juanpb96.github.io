@@ -27,7 +27,7 @@ export function IconButton({
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      aria-label={ariaLabel}
+      aria-label={`${ariaLabel} (opens in new tab)`}
       className="icon-button"
       style={{
         width: BUTTON_SIZE,

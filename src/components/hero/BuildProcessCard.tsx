@@ -61,6 +61,7 @@ const metaTagsStyle: CSSProperties = {
 export function BuildProcessCard() {
   const [expanded, setExpanded] = useState(readStoredExpanded)
   const contentId = useId()
+  const titleId = useId()
 
   const toggle = () => {
     const next = !expanded
@@ -82,22 +83,31 @@ export function BuildProcessCard() {
       }}
     >
       {/* Collapsible below mdlg, where the card stacks under the intro and
-          would push Projects down; always open beside it at mdlg+. */}
-      <h2 style={{ ...labelStyle, margin: 0 }}>
+          would push Projects down; always open beside it at mdlg+. The title
+          is rendered once, in the heading; below mdlg the toggle is laid over
+          the whole header (named by the heading) so it stays the tap target,
+          and is removed at mdlg+. */}
+      <div className="relative">
+        <h2
+          id={titleId}
+          className="py-5 pr-10 pl-6 mdlg:px-8 mdlg:pt-8 mdlg:pb-0"
+          style={{ ...labelStyle, margin: 0 }}
+        >
+          {TITLE}
+        </h2>
         <button
           type="button"
           onClick={toggle}
+          aria-labelledby={titleId}
           aria-expanded={expanded}
           aria-controls={contentId}
-          className="build-card-toggle flex w-full items-center justify-between px-6 py-5 mdlg:hidden"
+          className="build-card-toggle absolute inset-0 flex items-center justify-end px-6 mdlg:hidden"
         >
-          {TITLE}
           <ChevronDownIcon
             style={{ transform: expanded ? "rotate(180deg)" : "none" }}
           />
         </button>
-        <span className="hidden px-8 pt-8 mdlg:block">{TITLE}</span>
-      </h2>
+      </div>
 
       <div
         id={contentId}
