@@ -224,15 +224,7 @@ export function BuildProcessCard() {
                 </span>
                 <span>
                   {issue}
-                  {/* The arrow alone is in Inter: Google's JetBrains Mono
-                      subsets don't include →, which would fall back to
-                      Courier New. The spaces stay mono-width. */}
-                  <span aria-hidden="true">
-                    {" "}
-                    <span style={{ fontFamily: tokens.fonts.body }}>
-                      →
-                    </span>{" "}
-                  </span>
+                  <span aria-hidden="true"> → </span>
                   <span className="sr-only">, fixed with: </span>
                   <span style={{ color: tokens.colors.textPrimary }}>
                     {fix}
