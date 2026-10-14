@@ -129,9 +129,11 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Hide scrollbar while keeping functionality */
-::-webkit-scrollbar { width: 0; }
-* { scrollbar-width: none; }
+/* Hide the page scrollbar while keeping functionality. Scoped to the root
+   scroller so overflowing controls (the contact message textarea) still show
+   theirs. */
+html::-webkit-scrollbar { width: 0; }
+html { scrollbar-width: none; }
 
 /* Architectural grid texture */
 .grid-texture {
