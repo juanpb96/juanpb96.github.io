@@ -13,11 +13,11 @@ export function HeroSection() {
       style={{
         // Columns sit apart beside each other at mdlg+; stacked below it, the
         // card follows the CTA at the same rhythm as the copy above.
-        columnGap: "clamp(48px, 8vw, 80px)",
+        columnGap: `clamp(${tokens.spacing[48]}px, 8vw, ${tokens.spacing[80]}px)`,
         rowGap: `${tokens.spacing[32]}px`,
         // The nav is fixed, so the top padding clears its height first.
-        paddingTop: `calc(${tokens.spacing[64]}px + clamp(32px, 6vw, 64px))`,
-        paddingBottom: "clamp(32px, 6vw, 64px)",
+        paddingTop: `calc(${tokens.spacing[64]}px + clamp(${tokens.spacing[32]}px, 6vw, ${tokens.spacing[64]}px))`,
+        paddingBottom: `clamp(${tokens.spacing[32]}px, 6vw, ${tokens.spacing[64]}px)`,
         position: "relative",
         overflow: "hidden",
       }}

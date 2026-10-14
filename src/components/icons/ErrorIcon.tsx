@@ -9,8 +9,6 @@ interface ErrorIconProps {
 export function ErrorIcon({ style }: ErrorIconProps) {
   return (
     <svg
-      width="16"
-      height="16"
       viewBox="0 0 16 16"
       fill="none"
       stroke="currentColor"
@@ -18,7 +16,7 @@ export function ErrorIcon({ style }: ErrorIconProps) {
       strokeLinecap="round"
       strokeLinejoin="round"
       aria-hidden="true"
-      style={style}
+      style={{ width: "1rem", height: "1rem", ...style }}
     >
       <circle cx="8" cy="8" r="6.25" />
       <path d="M8 5v3.5" />
