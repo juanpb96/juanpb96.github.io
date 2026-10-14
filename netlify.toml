@@ -1,3 +1,14 @@
+# Build settings live here (not only in the Netlify UI) so they are reviewed
+# and versioned with the code. Netlify runs `pnpm install --frozen-lockfile`
+# automatically because pnpm-lock.yaml is present; NODE_VERSION matches the
+# "engines" range in package.json and CI's setup-node version.
+[build]
+command = "pnpm build"
+publish = "dist"
+
+[build.environment]
+NODE_VERSION = "26"
+
 # /FEM_weather-app itself is served by netlify/edge-functions/weather-app.ts
 [[redirects]]
 from = "/FEM_weather-app/*"

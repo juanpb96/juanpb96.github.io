@@ -10,7 +10,7 @@ const ROOT = path.resolve(import.meta.dirname, "..")
 const OUTPUT_DIR = path.join(ROOT, "public", "fonts")
 const CACHE_DIR = path.join(ROOT, "node_modules", ".cache", "fonts")
 
-// Pinned so regenerating is reproducible. Both families are SIL OFL 1.1,
+// Pinned so regenerating is reproducible. All families are SIL OFL 1.1,
 // which allows self-hosting and subsetting; the license ships alongside.
 const GOOGLE_FONTS_COMMIT = "23e54b51ddffbc7713c583748e3bd86f62b1fa4a"
 const GOOGLE_FONTS_RAW = `https://raw.githubusercontent.com/google/fonts/${GOOGLE_FONTS_COMMIT}/ofl`
@@ -39,6 +39,16 @@ const FONTS = [
     // Google Fonts served, so glyph shapes stay as they were.
     axes: { wght: { min: 400, max: 500 }, opsz: 14 },
     extraChars: FORM_INPUT_CHARS,
+  },
+  {
+    output: "jetbrains-mono",
+    source: "jetbrainsmono/JetBrainsMono[wght].ttf",
+    license: "jetbrainsmono/OFL.txt",
+    // Weights used on the site (meta tags, tag pills, dates, tooltips).
+    axes: { wght: { min: 400, max: 500 } },
+    // Separator in the hero's "caught in review" list; Google's own
+    // JetBrains Mono subsets lacked it.
+    extraChars: "→",
   },
 ]
 
