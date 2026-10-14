@@ -144,6 +144,10 @@ body {
 /* Section transitions — continuous canvas feel */
 section {
   position: relative;
+  /* Cancels the 16px breathing room from html's scroll-padding-top so nav
+     links and #hash jumps land a section flush under the 64px nav, keeping
+     its top divider line hidden behind the nav. */
+  scroll-margin-top: -16px;
 }
 
 /* Sections and <main> only receive programmatic focus (a temporary
