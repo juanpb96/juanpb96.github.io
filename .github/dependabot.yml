@@ -1,0 +1,19 @@
+version: 2
+updates:
+  - package-ecosystem: "npm" # pnpm is detected from pnpm-lock.yaml
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    # Match the minimumReleaseAge quarantine in pnpm-workspace.yaml so
+    # Dependabot does not propose versions pnpm install would refuse.
+    cooldown:
+      default-days: 3
+    groups:
+      dev-dependencies-minor-patch:
+        dependency-type: "development"
+        update-types: ["minor", "patch"]
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
