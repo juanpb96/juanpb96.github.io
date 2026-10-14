@@ -1,15 +1,11 @@
 import { useEffect, useId, useRef, useState, type CSSProperties } from "react"
-
 import { createPortal } from "react-dom"
 
 import { tokens } from "../../tokens"
-
 import { moveFocus } from "../../utils/moveFocus"
-
 import { ContentContainer } from "../layout/ContentContainer"
 
 const links = ["Projects", "Experience", "Contact"]
-
 const CLOSE_ANIMATION_MS = 260
 
 // Must match the media query that gates the overlay animations in index.css.
@@ -17,9 +13,7 @@ const MOTION_OK_QUERY = "(prefers-reduced-motion: no-preference)"
 
 export function Nav() {
   const [scrolled, setScrolled] = useState(false)
-
   const [open, setOpen] = useState(false)
-
   const [closing, setClosing] = useState(false)
 
   // Overlay links whose entry animation has started (see nav-link-in). Until
@@ -32,13 +26,9 @@ export function Nav() {
   )
 
   const dialogId = useId()
-
   const navRef = useRef<HTMLElement>(null)
-
   const logoRef = useRef<HTMLAnchorElement>(null)
-
   const hamburgerRef = useRef<HTMLButtonElement>(null)
-
   const linkRefs = useRef<(HTMLAnchorElement | null)[]>([])
 
   // Pending close timer. Its presence doubles as the "already closing" guard:
@@ -74,7 +64,6 @@ export function Nav() {
     }
 
     setOpen(true)
-
     setClosing(false)
 
     // Links replay their entry animation on every open.
@@ -92,7 +81,6 @@ export function Nav() {
       closeTimerRef.current = null
 
       setOpen(false)
-
       setClosing(false)
     }, CLOSE_ANIMATION_MS)
   }

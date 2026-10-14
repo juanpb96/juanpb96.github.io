@@ -1,11 +1,8 @@
 import { act, fireEvent, render, screen } from "@testing-library/react"
-
 import userEvent from "@testing-library/user-event"
-
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest"
 
 import { Nav } from "./Nav"
-
 import { MAIN_CONTENT_ID, SkipLink } from "./SkipLink"
 
 // Mirrors the CLOSE_ANIMATION_MS delay in Nav.tsx.
@@ -66,7 +63,6 @@ function crossBreakpoint(matches: boolean) {
 
 function setup() {
   const user = userEvent.setup({ advanceTimers: vi.advanceTimersByTime })
-
   const view = render(<Page />)
 
   return { user, ...view }
@@ -135,7 +131,6 @@ beforeEach(() => {
 
 afterEach(() => {
   vi.unstubAllGlobals()
-
   vi.useRealTimers()
 
   document.body.style.overflow = ""
@@ -144,7 +139,6 @@ afterEach(() => {
 describe("Nav mobile overlay", () => {
   it("opens a dialog named Site menu with focus on the close button and scroll locked", async () => {
     const { user } = setup()
-
     const toggle = screen.getByRole("button", { name: "Open menu" })
 
     expect(toggle).toHaveAttribute("aria-expanded", "false")
@@ -158,33 +152,23 @@ describe("Nav mobile overlay", () => {
     const close = screen.getByRole("button", { name: "Close menu" })
 
     expect(close).toHaveAttribute("aria-expanded", "true")
-
     expect(close).toHaveAttribute("aria-controls", dialog.id)
-
     expect(close).toHaveFocus()
-
     expect(document.body.style.overflow).toBe("hidden")
   })
 
   it("makes the skip link, main and footer inert while open, but not the nav, and restores them on close", async () => {
     const { user, container } = setup()
-
     const skipLink = screen.getByRole("link", { name: "Skip to main content" })
-
     const main = screen.getByRole("main")
-
     const footer = required(container.querySelector("footer"), "footer")
-
     const nav = screen.getByRole("navigation")
 
     await openMenu(user)
 
     expect(skipLink).toHaveAttribute("inert")
-
     expect(main).toHaveAttribute("inert")
-
     expect(footer).toHaveAttribute("inert")
-
     expect(nav).not.toHaveAttribute("inert")
 
     await user.click(screen.getByRole("button", { name: "Close menu" }))
@@ -192,11 +176,8 @@ describe("Nav mobile overlay", () => {
     finishClose()
 
     expect(skipLink).not.toHaveAttribute("inert")
-
     expect(main).not.toHaveAttribute("inert")
-
     expect(footer).not.toHaveAttribute("inert")
-
     expect(document.body.style.overflow).toBe("")
   })
 
@@ -210,7 +191,6 @@ describe("Nav mobile overlay", () => {
     revealLinks(links)
 
     const close = screen.getByRole("button", { name: "Close menu" })
-
     const logo = screen.getByRole("link", {
       name: "JB, Juan Bonilla, back to top",
     })
@@ -232,7 +212,6 @@ describe("Nav mobile overlay", () => {
     revealLinks(links)
 
     const close = screen.getByRole("button", { name: "Close menu" })
-
     const logo = screen.getByRole("link", {
       name: "JB, Juan Bonilla, back to top",
     })
@@ -268,7 +247,6 @@ describe("Nav mobile overlay", () => {
     ).toHaveFocus()
 
     expect(experience).not.toHaveFocus()
-
     expect(contact).not.toHaveFocus()
   })
 
@@ -288,7 +266,6 @@ describe("Nav mobile overlay", () => {
     }
 
     const close = screen.getByRole("button", { name: "Close menu" })
-
     const logo = screen.getByRole("link", {
       name: "JB, Juan Bonilla, back to top",
     })
@@ -304,7 +281,6 @@ describe("Nav mobile overlay", () => {
     const { user } = setup()
 
     await openMenu(user)
-
     await user.keyboard("{Escape}")
 
     // Still mounted while the fade-out runs.
@@ -329,7 +305,6 @@ describe("Nav mobile overlay", () => {
     const toggle = screen.getByRole("button", { name: "Open menu" })
 
     expect(toggle).toHaveAttribute("aria-expanded", "false")
-
     expect(toggle).toHaveFocus()
   })
 
@@ -337,7 +312,6 @@ describe("Nav mobile overlay", () => {
     const { user } = setup()
 
     await openMenu(user)
-
     await user.keyboard("{Escape}")
 
     act(() => {
@@ -362,9 +336,7 @@ describe("Nav mobile overlay", () => {
     })
 
     expect(screen.queryByRole("dialog")).not.toBeInTheDocument()
-
     expect(screen.getByRole("button", { name: "Open menu" })).toHaveFocus()
-
     expect(document.body.style.overflow).toBe("")
   })
 
@@ -389,7 +361,6 @@ describe("Nav mobile overlay", () => {
     finishClose()
 
     expect(screen.queryByRole("dialog")).not.toBeInTheDocument()
-
     expect(
       screen.getByRole("link", { name: "JB, Juan Bonilla, back to top" }),
     ).toHaveFocus()
@@ -418,7 +389,6 @@ describe("Nav mobile overlay", () => {
     )
 
     expect(section).toHaveFocus()
-
     expect(section).toHaveAttribute("tabindex", "-1")
 
     act(() => {
@@ -442,7 +412,6 @@ describe("Nav mobile overlay", () => {
     finishClose()
 
     expect(screen.queryByRole("dialog")).not.toBeInTheDocument()
-
     expect(logo).toHaveFocus()
   })
 
@@ -454,15 +423,12 @@ describe("Nav mobile overlay", () => {
     const main = screen.getByRole("main")
 
     expect(main).toHaveAttribute("inert")
-
     expect(document.body.style.overflow).toBe("hidden")
 
     rerender(<Page withNav={false} />)
 
     expect(screen.queryByRole("dialog")).not.toBeInTheDocument()
-
     expect(main).not.toHaveAttribute("inert")
-
     expect(
       screen.getByRole("link", { name: "Skip to main content" }),
     ).not.toHaveAttribute("inert")
