@@ -211,17 +211,13 @@ export function Nav() {
             : "scaleX(0)"
         : "rotate(0deg)",
       opacity: iconOpen && index === 1 ? 0 : 1,
-      transitionProperty: "transform, opacity, top, height",
-      transitionDuration: "0.35s",
-      transitionTimingFunction: open
-        ? "cubic-bezier(0.4, 0, 0.2, 1)"
-        : "cubic-bezier(0.34, 1.56, 0.64, 1)",
     }
   }
 
   return (
     <nav
       ref={navRef}
+      className="site-nav"
       style={{
         position: "fixed",
         top: 0,
@@ -234,7 +230,6 @@ export function Nav() {
         borderBottom: scrolled
           ? `1px solid ${tokens.colors.border}`
           : "1px solid transparent",
-        transition: "background-color 0.3s ease, border-color 0.3s ease",
       }}
     >
       <ContentContainer>
@@ -295,6 +290,7 @@ export function Nav() {
             className="md:hidden nav-hamburger nav-tap-target"
             aria-label={iconOpen ? "Close menu" : "Open menu"}
             aria-expanded={iconOpen}
+            data-menu-open={open}
             onClick={toggleMenu}
             style={{
               position: "relative",
@@ -329,6 +325,8 @@ export function Nav() {
           <dialog
             open
             aria-modal="true"
+            className="nav-overlay"
+            data-closing={closing}
             style={{
               position: "fixed",
               top: `${tokens.spacing[64]}px`,
@@ -352,9 +350,6 @@ export function Nav() {
               backgroundColor: "rgba(10,11,13,0.85)",
               display: "flex",
               alignItems: "center",
-              animation: closing
-                ? "nav-overlay-fade-out 0.25s ease forwards"
-                : "nav-overlay-curtain 0.4s ease forwards",
             }}
           >
             <ul
@@ -387,17 +382,9 @@ export function Nav() {
                       letterSpacing:
                         tokens.typography.cardTitleLarge.letterSpacing,
                       display: "inline-block",
-                      // Hidden (and so unfocusable) through the animation
-                      // delay; nav-link-in makes it visible from its first
-                      // frame. While closing, the animation is dropped.
-                      visibility: closing ? "visible" : "hidden",
-                      opacity: closing ? 1 : 0,
-                      animation: closing
-                        ? "none"
-                        : "nav-link-in 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards",
-                      animationDelay: closing
-                        ? undefined
-                        : `${400 + index * 70}ms`,
+                      // Entry stagger; the animation itself lives in
+                      // .nav-overlay-link (index.css), motion-safe only.
+                      "--link-index": index,
                     }}
                   >
                     {label}

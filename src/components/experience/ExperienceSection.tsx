@@ -47,7 +47,9 @@ export function ExperienceSection() {
   const handleActivate = (i: number) => {
     pinIndex(i)
 
-    cardRefs.current[i]?.scrollIntoView({ behavior: "smooth", block: "start" })
+    // No explicit behavior: it follows html { scroll-behavior }, which is
+    // smooth by default and auto under prefers-reduced-motion.
+    cardRefs.current[i]?.scrollIntoView({ block: "start" })
   }
 
   return (

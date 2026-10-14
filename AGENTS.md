@@ -25,9 +25,9 @@ This is the canonical project structure. Start with task-relevant files below. O
 - `src/test/setup.ts` - Vitest setup: jest-dom matchers and Testing Library cleanup. Tests sit next to the component they cover, as `X.test.tsx`
 - `src/components/projects/ProjectCard.tsx` - Single component for both project layouts; optional `large` prop switches the featured layout (image beside the copy, button links) and the "Also built" row (thumbnail, text links). Do not split into separate default/large components
 - `src/index.css` - Global CSS entrypoint and Tailwind CSS v4 import
-- `public/fonts/` - Self-hosted Instrument Sans and Inter variable fonts (woff2, subset to the site's characters) with their OFL licenses; declared in `src/index.css` and preloaded in `index.html`. Generated — don't edit by hand
+- `public/fonts/` - Self-hosted Instrument Sans, Inter and JetBrains Mono variable fonts (woff2, subset to the site's characters) with their OFL licenses; declared in `src/index.css`. Instrument Sans and Inter are preloaded in `index.html`; JetBrains Mono is not (mono text is never the LCP element). Generated — don't edit by hand
 - `scripts/subset-fonts.mjs` - Regenerates `public/fonts/` from pinned upstream Google Fonts sources (`pnpm run fonts`). Re-run it when new copy introduces characters outside the current subset
-- `index.html` - Vite HTML shell containing the `#root` element and loading `src/main.tsx`
+- `index.html` - Vite HTML shell containing the `#root` element and loading `src/main.tsx`. Its `<head>` holds the static metadata (description, canonical, Open Graph/Twitter, Person JSON-LD); the page is client-rendered, so scrapers only see what is here. Keep it consistent with the site: the JSON-LD `sameAs` must match the LinkedIn/GitHub links in `Footer.tsx` and `ContactSection.tsx` (`src/test/headMetadata.test.tsx` enforces it), and the descriptions and `knowsAbout` should follow the hero copy and the experience/project data. `og:image` points at `/og-image.png`, which does not exist yet
 - `package.json` - Project dependencies and the Vite build, development, preview, test, formatting, and lint scripts
 - `vite.config.ts` - Vite configuration with the React plugin, Tailwind CSS v4 plugin, the `@` alias for `src`, and the Vitest `test` config (jsdom environment)
 - `.oxlintrc.json` - oxlint configuration: enabled plugins (`typescript`, `unicorn`, `oxc`, `react`, `jsx-a11y`) and the `correctness` rule category
@@ -49,6 +49,19 @@ Supply-chain settings live in `pnpm-workspace.yaml`:
 - `pnpm-lock.yaml` is committed; CI installs with `pnpm install --frozen-lockfile`, so commit the lockfile alongside any `package.json` change.
 - Release-age quarantine: `minimumReleaseAge: 4320` (minutes, 3 days) refuses versions published more recently. For an urgent security patch, add the package name to `minimumReleaseAgeExclude` with a comment linking the advisory, and remove the entry once the version is older than 3 days.
 - `trustPolicy: no-downgrade` fails install if a package's publish trust (trusted publisher / provenance) is weaker than an earlier version's. Only after confirming the release is legitimate, add the narrowest exclusion — `trustPolicyExclude: ["pkg@1.2.3"]` — with a comment explaining why.
+
+## CI
+
+`.github/workflows/ci.yml` runs on PRs to `main` and on manual dispatch. The `changes` job feeds the changed paths to `.github/scripts/ci-changes.sh`, which decides which jobs run; the rest are skipped:
+
+- `static` (source, config, `.github/`): typecheck, lint, format check, tests, and a guard against `^`/`~` ranges in `package.json`
+- `build` (anything that ships in `dist/`): `pnpm build`
+- `dependency-review` (`package.json`, `pnpm-*`): fails on high-severity advisories
+- `zizmor` (`.github/`): audits workflows, actions and Dependabot config
+- `codeql` (`src/`, `netlify/`, `scripts/`): JavaScript/TypeScript analysis
+- `links` (changed `*.md`, `index.html`, `src/data/`, `src/components/`): Lychee on those files only
+
+`ci-ok` is the single required status check: it fails if any job failed or was cancelled, and passes when jobs were skipped. Add the `full-check` label to a PR (or run the workflow manually) to run every job. When adding a job, add it to `ci-ok`'s `needs`. Pin every third-party `uses:` to a commit SHA with a version comment; shared setup steps live in the local `.github/actions/setup` action.
 
 ## Styling
 

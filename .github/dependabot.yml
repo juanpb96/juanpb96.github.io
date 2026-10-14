@@ -1,0 +1,25 @@
+version: 2
+updates:
+  - package-ecosystem: "npm" # pnpm is detected from pnpm-lock.yaml
+    directory: "/"
+    schedule:
+      interval: "quarterly"
+    # Match the minimumReleaseAge quarantine in pnpm-workspace.yaml so
+    # Dependabot does not propose versions pnpm install would refuse.
+    # zizmor wants >= 7 days; 3 is deliberate so both quarantines stay equal.
+    cooldown:
+      default-days: 3 # zizmor: ignore[dependabot-cooldown]
+    groups:
+      dev-dependencies-minor-patch:
+        dependency-type: "development"
+        update-types: ["minor", "patch"]
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "quarterly"
+    cooldown:
+      default-days: 7
+    groups:
+      github-actions:
+        patterns: ["*"]
