@@ -13,3 +13,4 @@ When styling a component or applying tokens to hardcoded values in this project:
 6. Never use JS-based viewport detection for responsive behavior. If no CSS-only solution exists, stop and ask before implementing one.
 7. Visibility toggles for responsive show/hide are set once, at the point of composition — never duplicated inside the reusable component.
 8. For full-width-visual + aligned-content elements (nav bars, footers), wrap only the inner content in ContentContainer and keep the outer element's background/border full width. Non-fixed elements use: width: 100vw; margin-left/right: calc(50% - 50vw).
+9. Don't use `!important`. Styles that something else must override (media queries, states, reduced motion) belong in classes in `index.css`, not inline `style`, so normal specificity and cascade order can win. Apply motion only under `prefers-reduced-motion: no-preference` rather than resetting it afterwards.

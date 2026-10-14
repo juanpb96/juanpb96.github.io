@@ -9,8 +9,8 @@ export function ContactSection() {
       id="contact"
       className="px-container-mobile md:px-container-desktop"
       style={{
-        paddingTop: "clamp(64px, 10vw, 120px)",
-        paddingBottom: "clamp(64px, 10vw, 120px)",
+        paddingTop: `clamp(${tokens.spacing[64]}px, 10vw, ${tokens.spacing[120]}px)`,
+        paddingBottom: `clamp(${tokens.spacing[64]}px, 10vw, ${tokens.spacing[120]}px)`,
         position: "relative",
         overflow: "hidden",
       }}
@@ -29,7 +29,7 @@ export function ContactSection() {
       <div
         className="grid grid-cols-1 mdlg:grid-cols-2"
         style={{
-          gap: "clamp(48px, 8vw, 80px)",
+          gap: `clamp(${tokens.spacing[48]}px, 8vw, ${tokens.spacing[80]}px)`,
           alignItems: "center",
           position: "relative",
           zIndex: 1,
@@ -39,11 +39,11 @@ export function ContactSection() {
         <div>
           <h2
             style={{
-              fontFamily: tokens.fonts.display,
-              fontWeight: 700,
+              fontFamily: tokens.typography.sectionTitle.font,
+              fontWeight: tokens.typography.sectionTitle.weight,
               fontSize: `clamp(${tokens.typography.sectionTitle.sizeMobile}, 5vw, ${tokens.typography.sectionTitle.size})`,
-              letterSpacing: "-0.03em",
-              lineHeight: 1.05,
+              letterSpacing: tokens.typography.sectionTitle.letterSpacing,
+              lineHeight: tokens.typography.sectionTitle.lineHeight,
               color: tokens.colors.textPrimary,
               margin: `0 0 ${tokens.spacing[24]}px 0`,
             }}

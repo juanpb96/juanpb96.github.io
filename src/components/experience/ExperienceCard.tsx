@@ -61,7 +61,7 @@ export const ExperienceCard = forwardRef<HTMLDivElement, ExperienceCardProps>(
             display: "flex",
             alignItems: "flex-start",
             gap: "14px",
-            marginBottom: "16px",
+            marginBottom: `${tokens.spacing[16]}px`,
           }}
         >
           {/* Company avatar */}
@@ -70,7 +70,7 @@ export const ExperienceCard = forwardRef<HTMLDivElement, ExperienceCardProps>(
               width: "36px",
               height: "36px",
               padding: showLogo ? `${tokens.spacing[4]}px` : undefined,
-              borderRadius: "10px",
+              borderRadius: `${tokens.radius.sm}px`,
               backgroundColor: tokens.colors.surfaceRaised,
               border: `1px solid ${
                 highlighted
@@ -149,7 +149,7 @@ export const ExperienceCard = forwardRef<HTMLDivElement, ExperienceCardProps>(
             fontSize: "0.875rem",
             color: tokens.colors.textSecondary,
             lineHeight: 1.7,
-            margin: "0 0 16px 0",
+            margin: `0 0 ${tokens.spacing[16]}px 0`,
           }}
         >
           {exp.description}

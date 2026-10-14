@@ -6,5 +6,7 @@ declare module "react" {
   interface CSSProperties {
     /** Position of an overlay link, used by index.css to stagger its entry. */
     "--link-index"?: number
+    /** Experience grid gap; the column separator reads it to stay centred. */
+    "--experience-gap"?: string
   }
 }

@@ -83,7 +83,13 @@ function FormField({
   }
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        gap: `${tokens.spacing[8]}px`,
+      }}
+    >
       <label
         htmlFor={id}
         style={{ fontSize: "0.8125rem", fontFamily: tokens.fonts.display }}
