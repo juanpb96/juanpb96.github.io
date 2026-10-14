@@ -13,8 +13,8 @@ export function ProjectsSection() {
       id="projects"
       className="px-container-mobile md:px-container-desktop"
       style={{
-        paddingTop: "clamp(64px, 10vw, 120px)",
-        paddingBottom: "clamp(64px, 10vw, 120px)",
+        paddingTop: `clamp(${tokens.spacing[64]}px, 10vw, ${tokens.spacing[120]}px)`,
+        paddingBottom: `clamp(${tokens.spacing[64]}px, 10vw, ${tokens.spacing[120]}px)`,
         position: "relative",
         overflow: "hidden",
       }}
@@ -33,13 +33,13 @@ export function ProjectsSection() {
       <div style={{ position: "relative", zIndex: 1 }}>
         <h2
           style={{
-            fontFamily: tokens.fonts.display,
-            fontWeight: 700,
+            fontFamily: tokens.typography.sectionTitle.font,
+            fontWeight: tokens.typography.sectionTitle.weight,
             fontSize: `clamp(${tokens.typography.sectionTitle.sizeMobile}, 5vw, ${tokens.typography.sectionTitle.size})`,
-            letterSpacing: "-0.03em",
+            letterSpacing: tokens.typography.sectionTitle.letterSpacing,
             color: tokens.colors.textPrimary,
-            margin: "0 0 clamp(32px, 6vw, 64px) 0",
-            lineHeight: 1.05,
+            margin: `0 0 clamp(${tokens.spacing[32]}px, 6vw, ${tokens.spacing[64]}px) 0`,
+            lineHeight: tokens.typography.sectionTitle.lineHeight,
           }}
         >
           <SoftHyphenWord>Pro&shy;jects</SoftHyphenWord>
@@ -53,7 +53,7 @@ export function ProjectsSection() {
           style={{
             fontSize: "0.875rem",
             color: tokens.colors.textSecondary,
-            margin: `clamp(48px, 8vw, 80px) 0 ${tokens.spacing[16]}px`,
+            margin: `clamp(${tokens.spacing[48]}px, 8vw, ${tokens.spacing[80]}px) 0 ${tokens.spacing[16]}px`,
           }}
         >
           Also built

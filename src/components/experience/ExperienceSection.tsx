@@ -4,6 +4,8 @@ import { experiences, isCurrentExperience } from "../../data/experiences"
 
 import { tokens } from "../../tokens"
 
+import { moveFocus } from "../../utils/moveFocus"
+
 import { WeightTransitionText } from "../shared/WeightTransitionText"
 
 import { ExperienceCard } from "./ExperienceCard"
@@ -49,16 +51,24 @@ export function ExperienceSection() {
 
     // No explicit behavior: it follows html { scroll-behavior }, which is
     // smooth by default and auto under prefers-reduced-motion.
-    cardRefs.current[i]?.scrollIntoView({ block: "start" })
+    const card = cardRefs.current[i]
+
+    card?.scrollIntoView({ block: "start" })
+
+    // Continue the Tab order from the card (it's far below the stepper on
+    // mobile). moveFocus uses preventScroll, so the scroll above stays the
+    // only one and keeps its scroll-behavior.
+    moveFocus(card ?? null)
   }
 
   return (
     <section
       id="experience"
-      className="px-container-mobile md:px-container-desktop [--experience-gap:clamp(48px,8vw,80px)]"
+      className="px-container-mobile md:px-container-desktop"
       style={{
-        paddingTop: "clamp(64px, 10vw, 120px)",
-        paddingBottom: "clamp(64px, 10vw, 120px)",
+        "--experience-gap": `clamp(${tokens.spacing[48]}px, 8vw, ${tokens.spacing[80]}px)`,
+        paddingTop: `clamp(${tokens.spacing[64]}px, 10vw, ${tokens.spacing[120]}px)`,
+        paddingBottom: `clamp(${tokens.spacing[64]}px, 10vw, ${tokens.spacing[120]}px)`,
         position: "relative",
       }}
     >
@@ -87,8 +97,8 @@ export function ExperienceSection() {
         className="hidden md:block md:left-[calc(var(--spacing-container-desktop)_+_(100%_-_2_*_var(--spacing-container-desktop))_*_0.42_+_var(--experience-gap)_/_2)] mdlg:left-[calc(var(--spacing-container-desktop)_+_340px_+_var(--experience-gap)_/_2)]"
         style={{
           position: "absolute",
-          top: "clamp(64px, 10vw, 120px)",
-          bottom: "clamp(64px, 10vw, 120px)",
+          top: `clamp(${tokens.spacing[64]}px, 10vw, ${tokens.spacing[120]}px)`,
+          bottom: `clamp(${tokens.spacing[64]}px, 10vw, ${tokens.spacing[120]}px)`,
           width: "1px",
           transform: "translateX(-50%)",
           backgroundColor: tokens.colors.border,
@@ -109,13 +119,13 @@ export function ExperienceSection() {
         <div className="md:sticky md:top-24">
           <h2
             style={{
-              fontFamily: tokens.fonts.display,
-              fontWeight: 700,
+              fontFamily: tokens.typography.sectionTitle.font,
+              fontWeight: tokens.typography.sectionTitle.weight,
               fontSize: `clamp(${tokens.typography.sectionTitle.sizeMobile}, 5vw, ${tokens.typography.sectionTitle.size})`,
-              letterSpacing: "-0.03em",
+              letterSpacing: tokens.typography.sectionTitle.letterSpacing,
               color: tokens.colors.textPrimary,
               margin: `0 0 ${tokens.spacing[20]}px 0`,
-              lineHeight: 1.05,
+              lineHeight: tokens.typography.sectionTitle.lineHeight,
             }}
           >
             <SoftHyphenWord>Ex&shy;pe&shy;ri&shy;ence</SoftHyphenWord>

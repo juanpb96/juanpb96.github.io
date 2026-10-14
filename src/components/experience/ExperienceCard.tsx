@@ -30,9 +30,10 @@ export const ExperienceCard = forwardRef<HTMLDivElement, ExperienceCardProps>(
     const showLogo = Boolean(exp.logo) && !logoFailed
 
     return (
-      // Intentional a11y exception, not a gap: the onClick below only mirrors the side stepper's selection for mouse/touch. The stepper button (native <button>, aria-pressed, aria-label, focus-visible) is the sole keyboard entry point by design, since focus on the card has no action of its own beyond that visual mirror.
+      // Intentional a11y exception, not a gap: the onClick below only mirrors the side stepper's selection for mouse/touch. The stepper button (native <button>, aria-pressed, aria-label, focus-visible) is the sole keyboard entry point by design, since focus on the card has no action of its own beyond that visual mirror. The stepper moves focus here only as a Tab starting point (moveFocus), hence no focus ring (see .experience-card in src/index.css).
       <div // oxlint-disable-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
         ref={ref}
+        className="experience-card"
         onMouseEnter={onMouseEnter}
         onMouseLeave={onMouseLeave}
         onClick={onClick}
@@ -61,7 +62,7 @@ export const ExperienceCard = forwardRef<HTMLDivElement, ExperienceCardProps>(
             display: "flex",
             alignItems: "flex-start",
             gap: "14px",
-            marginBottom: "16px",
+            marginBottom: `${tokens.spacing[16]}px`,
           }}
         >
           {/* Company avatar */}
@@ -70,7 +71,7 @@ export const ExperienceCard = forwardRef<HTMLDivElement, ExperienceCardProps>(
               width: "36px",
               height: "36px",
               padding: showLogo ? `${tokens.spacing[4]}px` : undefined,
-              borderRadius: "10px",
+              borderRadius: `${tokens.radius.sm}px`,
               backgroundColor: tokens.colors.surfaceRaised,
               border: `1px solid ${
                 highlighted
@@ -110,17 +111,21 @@ export const ExperienceCard = forwardRef<HTMLDivElement, ExperienceCardProps>(
             )}
           </div>
           <div>
-            <div
+            {/* Real heading for the screen reader heading list, sitting under
+                the section's h2. Tailwind's preflight already zeroes h3
+                margins and makes size/weight inherit, so the inline values
+                below fully define its look. */}
+            <h3
               style={{
                 fontFamily: tokens.fonts.display,
                 fontWeight: 600,
                 fontSize: "1rem",
                 color: tokens.colors.textPrimary,
-                marginBottom: "2px",
+                margin: "0 0 2px 0",
               }}
             >
               {exp.role}
-            </div>
+            </h3>
             <div
               style={{
                 fontSize: "0.8125rem",
@@ -149,7 +154,7 @@ export const ExperienceCard = forwardRef<HTMLDivElement, ExperienceCardProps>(
             fontSize: "0.875rem",
             color: tokens.colors.textSecondary,
             lineHeight: 1.7,
-            margin: "0 0 16px 0",
+            margin: `0 0 ${tokens.spacing[16]}px 0`,
           }}
         >
           {exp.description}
