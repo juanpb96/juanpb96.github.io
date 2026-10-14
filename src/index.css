@@ -85,9 +85,10 @@
   --surface-raised: #16191f;
   --border: rgba(255, 255, 255, 0.07);
   --border-strong: rgba(255, 255, 255, 0.13);
+  --input-border: rgba(255, 255, 255, 0.34);
   --text-primary: #eef0f4;
   --text-secondary: #8b909a;
-  --text-tertiary: #737a87;
+  --text-tertiary: #7b828e;
   --accent: #4d9cf8;
   --accent-dim: rgba(77, 156, 248, 0.18);
   --accent-glow: rgba(77, 156, 248, 0.10);
@@ -553,9 +554,11 @@ main[tabindex="-1"]:focus {
 }
 
 /* Contact form fields — border/shadow live here so :focus can override the
-   base state, same reasoning as .button above. */
+   base state, same reasoning as .button above. The field fill matches the
+   card, so the resting border (--input-border) carries the boundary and
+   stays at or above 3:1 against --surface (WCAG 1.4.11). */
 .contact-form-field {
-  border: 1px solid var(--border-strong);
+  border: 1px solid var(--input-border);
   background-color: var(--surface);
   color: var(--text-primary);
   font: inherit;
