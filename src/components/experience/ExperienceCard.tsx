@@ -50,7 +50,9 @@ export const ExperienceCard = forwardRef<HTMLDivElement, ExperienceCardProps>(
             ? `0 0 40px rgba(77,156,248,0.08), inset 0 1px 0 ${tokens.colors.accentGlow}`
             : "none",
           position: "relative",
-          scrollMarginTop: `calc(64px + ${tokens.spacing[20]}px)`,
+          // Adds to the html scroll-padding-top (80px, src/index.css) so the
+          // stepper's scrollIntoView still lands the card 84px down.
+          scrollMarginTop: `${tokens.spacing[4]}px`,
         }}
       >
         {/* Role header */}

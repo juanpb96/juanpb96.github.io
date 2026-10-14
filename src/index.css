@@ -101,8 +101,12 @@
   --font-mono: 'JetBrains Mono', 'JetBrains Mono Fallback', monospace;
 }
 
+/* scroll-padding-top keeps anything scrolled into view (focused controls,
+   #hash jumps, scrollIntoView) clear of the fixed nav: 64px nav height
+   (tokens.spacing[64] in Nav.tsx) + 16px breathing room (WCAG 2.4.11). */
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 80px;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -140,8 +144,6 @@ body {
 /* Section transitions — continuous canvas feel */
 section {
   position: relative;
-  /* offset for the fixed nav height */
-  scroll-margin-top: 64px;
 }
 
 /* Sections and <main> only receive programmatic focus (a temporary
