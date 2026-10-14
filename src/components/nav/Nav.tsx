@@ -384,7 +384,7 @@ export function Nav() {
                       display: "inline-block",
                       // Entry stagger; the animation itself lives in
                       // .nav-overlay-link (index.css), motion-safe only.
-                      ["--link-index" as string]: index,
+                      "--link-index": index,
                     }}
                   >
                     {label}
