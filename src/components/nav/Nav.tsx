@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type CSSProperties } from "react"
+import { useEffect, useId, useRef, useState, type CSSProperties } from "react"
 
 import { createPortal } from "react-dom"
 
@@ -18,6 +18,16 @@ export function Nav() {
   const [open, setOpen] = useState(false)
 
   const [closing, setClosing] = useState(false)
+
+  // Overlay links whose entry animation has started (see nav-link-in). Until
+  // then they're visibility: hidden, so the focus trap must skip them. Tracked
+  // from onAnimationStart rather than read back via getComputedStyle so the
+  // trap doesn't depend on layout/animation support (e.g. jsdom in tests).
+  const [revealedLinks, setRevealedLinks] = useState<ReadonlySet<number>>(
+    () => new Set(),
+  )
+
+  const dialogId = useId()
 
   const navRef = useRef<HTMLElement>(null)
 
@@ -62,6 +72,9 @@ export function Nav() {
     setOpen(true)
 
     setClosing(false)
+
+    // Links replay their entry animation on every open.
+    setRevealedLinks(new Set())
   }
 
   const closeMenu = (restoreFocusTo: HTMLElement | null) => {
@@ -95,12 +108,15 @@ export function Nav() {
 
     // Overlay links stay visibility: hidden until their entry animation
     // starts (see nav-link-in), and focus() on a hidden element is a no-op,
-    // so the manual trap has to skip them too.
+    // so the manual trap has to skip them too. Each link carries
+    // data-revealed once it's visible (read from the DOM, as this handler is
+    // created once per open and would otherwise see stale state).
     const getFocusables = (): HTMLElement[] =>
-      [...linkRefs.current, logoRef.current, hamburgerRef.current].filter(
-        (el): el is HTMLAnchorElement | HTMLButtonElement =>
-          el !== null && getComputedStyle(el).visibility !== "hidden",
-      )
+      [
+        ...linkRefs.current.filter((el) => el?.dataset.revealed !== undefined),
+        logoRef.current,
+        hamburgerRef.current,
+      ].filter((el): el is HTMLAnchorElement | HTMLButtonElement => el !== null)
 
     // Focus stays on the toggle, now the visible close (X) button, instead of
     // jumping into the links while they're still animating in; Tab reaches
@@ -167,8 +183,10 @@ export function Nav() {
         )
       : []
 
+    // Set as an attribute (not the inert property) so it's reflected in
+    // the DOM everywhere, including jsdom in tests.
     backgroundSiblings.forEach((el) => {
-      ;(el as HTMLElement).inert = true
+      el.setAttribute("inert", "")
     })
 
     return () => {
@@ -179,7 +197,7 @@ export function Nav() {
       document.body.style.overflow = ""
 
       backgroundSiblings.forEach((el) => {
-        ;(el as HTMLElement).inert = false
+        el.removeAttribute("inert")
       })
 
       // After the background is un-inerted, or focusing a section would fail.
@@ -295,6 +313,7 @@ export function Nav() {
             className="md:hidden nav-hamburger nav-tap-target"
             aria-label={iconOpen ? "Close menu" : "Open menu"}
             aria-expanded={iconOpen}
+            aria-controls={open ? dialogId : undefined}
             onClick={toggleMenu}
             style={{
               position: "relative",
@@ -323,12 +342,17 @@ export function Nav() {
           trap. Modality (focus trap, inert background, Escape) is therefore
           handled manually in the effect above. The declarative open
           attribute also skips show()'s built-in autofocus, so focus
-          placement stays under our control. */}
+          placement stays under our control.
+
+          No aria-modal: the logo and close button live outside the dialog
+          (in <nav>), and screen readers honouring aria-modal could then
+          never reach "Close menu". The background is made inert instead. */}
       {open &&
         createPortal(
           <dialog
             open
-            aria-modal="true"
+            id={dialogId}
+            aria-label="Site menu"
             style={{
               position: "fixed",
               top: `${tokens.spacing[64]}px`,
@@ -376,6 +400,14 @@ export function Nav() {
                     }}
                     href={`#${label.toLowerCase()}`}
                     className="nav-overlay-link"
+                    data-revealed={
+                      closing || revealedLinks.has(index) ? "" : undefined
+                    }
+                    onAnimationStart={() =>
+                      setRevealedLinks((prev) =>
+                        prev.has(index) ? prev : new Set(prev).add(index),
+                      )
+                    }
                     onClick={() =>
                       closeMenu(document.getElementById(label.toLowerCase()))
                     }
