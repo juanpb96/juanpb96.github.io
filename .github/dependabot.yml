@@ -6,8 +6,9 @@ updates:
       interval: "quarterly"
     # Match the minimumReleaseAge quarantine in pnpm-workspace.yaml so
     # Dependabot does not propose versions pnpm install would refuse.
+    # zizmor wants >= 7 days; 3 is deliberate so both quarantines stay equal.
     cooldown:
-      default-days: 3
+      default-days: 3 # zizmor: ignore[dependabot-cooldown]
     groups:
       dev-dependencies-minor-patch:
         dependency-type: "development"
@@ -17,6 +18,8 @@ updates:
     directory: "/"
     schedule:
       interval: "quarterly"
+    cooldown:
+      default-days: 7
     groups:
       github-actions:
         patterns: ["*"]
