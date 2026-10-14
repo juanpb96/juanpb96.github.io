@@ -89,6 +89,8 @@ CI runs the `e2e` job only for the sections a PR can affect (`src/components/<se
 
 Screenshots differ between operating systems and browser builds, so baselines are only valid from the Playwright Docker image pinned in the `e2e` job. Locally, `pnpm run e2e` is reliable for the axe checks; a snapshot mismatch there does not mean CI will fail. To run against a Chromium you already have, set `PLAYWRIGHT_CHROMIUM_PATH`.
 
+The `e2e` job installs git-lfs and checks out with `lfs: true`, so the screenshots show the real LFS images (project thumbnails, experience logos). Baselines generated from a checkout without LFS objects would show broken images.
+
 To update the baselines after an intended visual change:
 
 1. Push the branch, then run the CI workflow manually on it (Actions → CI → Run workflow, pick the branch, tick `update-snapshots`).

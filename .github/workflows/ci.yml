@@ -201,9 +201,15 @@ jobs:
     container:
       image: mcr.microsoft.com/playwright:v1.64.0-noble@sha256:06a9939e57531807f8d5fd76ce44b53165ffb7d7501d87ab10e285c20b1e971f
     steps:
+      # The image has git but not git-lfs; the project images are LFS objects
+      # and must be real files, or the screenshots show broken images.
+      - name: Install git-lfs
+        run: apt-get update && apt-get install -y --no-install-recommends git-lfs
+
       - name: Checkout
         uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
         with:
+          lfs: true
           persist-credentials: false
 
       - name: Setup

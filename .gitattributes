@@ -162,7 +162,7 @@
 # in the deploy checkout, so keep them out of LFS (overrides *.woff2 above).
 public/fonts/*.woff2 !filter !diff !merge -text
 
-# Playwright snapshot baselines are compared byte-for-byte in CI, whose
-# checkout does not fetch LFS objects, so they must be real files too
-# (overrides *.png above).
+# Playwright snapshot baselines are compared byte-for-byte in CI, where only
+# the e2e job fetches LFS objects, so they must be real files too (overrides
+# *.png above).
 e2e/**/*-snapshots/*.png !filter !diff !merge -text
