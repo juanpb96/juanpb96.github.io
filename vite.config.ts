@@ -24,8 +24,10 @@ export default defineConfig({
     port: parseInt(process.env.PORT || "8443"),
   },
   // Component tests (pnpm test) render in jsdom; src/test/setup.ts adds
-  // the jest-dom matchers and unmounts between tests.
+  // the jest-dom matchers and unmounts between tests. Browser checks in e2e/
+  // run with Playwright (pnpm run e2e), not Vitest.
   test: {
+    include: ["src/**/*.test.{ts,tsx}"],
     environment: "jsdom",
     setupFiles: ["./src/test/setup.ts"],
   },

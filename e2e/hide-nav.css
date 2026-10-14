@@ -1,0 +1,5 @@
+/* Injected into section screenshots so the fixed nav bar does not cover
+   the top of the section once the page scrolls to it. */
+nav.site-nav {
+  visibility: hidden;
+}
