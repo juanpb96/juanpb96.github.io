@@ -109,23 +109,13 @@ html {
   scroll-padding-top: 80px;
 }
 
-/* Reduced motion: scrolling jumps, and every animation/transition finishes
-   at once. !important is needed to beat the Nav's inline animation styles.
-   Animations are shortened rather than removed (no `animation: none`): the
-   mobile overlay links start hidden and only nav-link-in's forwards fill
-   reveals them, so they must still run to their end state. */
+/* Reduced motion: scrolling jumps. Motion that moves things (nav overlay,
+   hamburger morph, arrow/tooltip/chevron nudges) is opt-in via
+   `prefers-reduced-motion: no-preference`, so reduced motion gets the static
+   end state and nothing needs overriding with !important. */
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
-  }
-
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-delay: 0s !important;
-    transition-duration: 0.01ms !important;
-    transition-delay: 0s !important;
   }
 }
 
@@ -252,7 +242,11 @@ main[tabindex="-1"]:focus {
   background-color: var(--accent);
 }
 
-/* Mobile nav overlay */
+/* Mobile nav overlay. The base state is the finished one (links visible), so
+   reduced motion just shows it. Under no-preference the links start hidden
+   (and so unfocusable, which Nav.tsx's focus trap respects) and nav-link-in
+   reveals them. data-closing swaps the entry for a fade-out and keeps the
+   links visible while it runs. */
 @keyframes nav-overlay-curtain {
   from { clip-path: inset(0 0 100% 0); }
   to { clip-path: inset(0 0 0% 0); }
@@ -269,6 +263,46 @@ main[tabindex="-1"]:focus {
 @keyframes nav-link-in {
   from { opacity: 0; transform: translateY(12px); visibility: visible; }
   to { opacity: 1; transform: translateY(0); visibility: visible; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .site-nav {
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+  }
+
+  /* Springy overshoot when the icon returns to the hamburger; a smooth curve
+     while the menu is open (data-menu-open). */
+  .nav-hamburger {
+    --nav-icon-ease: cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .nav-hamburger[data-menu-open="true"] {
+    --nav-icon-ease: cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .nav-hamburger-line {
+    transition:
+      background-color 0.2s,
+      transform 0.35s var(--nav-icon-ease),
+      opacity 0.35s var(--nav-icon-ease),
+      top 0.35s var(--nav-icon-ease),
+      height 0.35s var(--nav-icon-ease);
+  }
+
+  .nav-overlay {
+    animation: nav-overlay-curtain 0.4s ease forwards;
+  }
+
+  .nav-overlay[data-closing="true"] {
+    animation: nav-overlay-fade-out 0.25s ease forwards;
+  }
+
+  .nav-overlay:not([data-closing="true"]) .nav-overlay-link {
+    visibility: hidden;
+    opacity: 0;
+    animation: nav-link-in 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation-delay: calc(400ms + var(--link-index) * 70ms);
+  }
 }
 
 /* Icon buttons (shared/IconButton: footer LinkedIn + GitHub links).
@@ -371,7 +405,13 @@ main[tabindex="-1"]:focus {
 
 .build-card-toggle svg {
   color: var(--text-secondary);
-  transition: color 0.2s ease, transform 0.2s ease;
+  transition: color 0.2s ease;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .build-card-toggle svg {
+    transition: color 0.2s ease, transform 0.2s ease;
+  }
 }
 
 .build-card-toggle:focus-visible {
@@ -425,7 +465,13 @@ main[tabindex="-1"]:focus {
 .button-arrow {
   --arrow-shift: translateX(4px);
   display: inline-block;
-  transition: transform 0.2s ease, color 0.2s ease;
+  transition: color 0.2s ease;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .button-arrow {
+    transition: transform 0.2s ease, color 0.2s ease;
+  }
 }
 
 .button-arrow-diagonal {
@@ -645,8 +691,14 @@ main[tabindex="-1"]:focus {
   white-space: nowrap;
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.2s ease, transform 0.2s ease;
+  transition: opacity 0.2s ease;
   z-index: 10;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .icon-button-tooltip {
+    transition: opacity 0.2s ease, transform 0.2s ease;
+  }
 }
 
 .icon-button:focus-visible .icon-button-tooltip {
