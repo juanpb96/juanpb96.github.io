@@ -18,12 +18,12 @@ export default defineConfig({
     },
   },
   server: {
-    host: "0.0.0.0",
+    host: process.env.VITE_HOST ?? "localhost",
     port: parseInt(process.env.PORT || "8443"),
     strictPort: true,
   },
   preview: {
-    host: "0.0.0.0",
+    host: process.env.VITE_HOST ?? "localhost",
     port: parseInt(process.env.PORT || "8443"),
   },
   // Component tests (pnpm test) render in jsdom; src/test/setup.ts adds
