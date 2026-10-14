@@ -4,6 +4,8 @@ import { experiences, isCurrentExperience } from "../../data/experiences"
 
 import { tokens } from "../../tokens"
 
+import { moveFocus } from "../../utils/moveFocus"
+
 import { WeightTransitionText } from "../shared/WeightTransitionText"
 
 import { ExperienceCard } from "./ExperienceCard"
@@ -49,7 +51,14 @@ export function ExperienceSection() {
 
     // No explicit behavior: it follows html { scroll-behavior }, which is
     // smooth by default and auto under prefers-reduced-motion.
-    cardRefs.current[i]?.scrollIntoView({ block: "start" })
+    const card = cardRefs.current[i]
+
+    card?.scrollIntoView({ block: "start" })
+
+    // Continue the Tab order from the card (it's far below the stepper on
+    // mobile). moveFocus uses preventScroll, so the scroll above stays the
+    // only one and keeps its scroll-behavior.
+    moveFocus(card ?? null)
   }
 
   return (

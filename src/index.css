@@ -157,9 +157,11 @@ section {
 /* Sections and <main> only receive programmatic focus (a temporary
    tabindex="-1" set by moveFocus after mobile nav navigation or the skip
    link) to move the Tab starting point, not as an interactive target, so
-   they don't get a focus ring. */
+   they don't get a focus ring. Same for an Experience card focused by its
+   stepper button, which the card's selected highlight already marks. */
 section[tabindex="-1"]:focus,
-main[tabindex="-1"]:focus {
+main[tabindex="-1"]:focus,
+.experience-card[tabindex="-1"]:focus {
   outline: none;
 }
 
