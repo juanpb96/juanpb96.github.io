@@ -26,6 +26,61 @@
       crossorigin
     />
     <title>Juan Bonilla · Front-End Engineer</title>
+    <!--
+      Static metadata for search engines and link previews. The page is
+      client-rendered, so scrapers (LinkedIn, Slack, X) only ever see what is
+      in this file. See "index.html" in AGENTS.md for what to keep in sync
+      (sameAs is checked by src/test/headMetadata.test.tsx).
+    -->
+    <meta
+      name="description"
+      content="Front-end engineer in Bogotá building accessible React and TypeScript interfaces with Claude Code in the loop, verified by hand on desktop and a real phone."
+    />
+    <link rel="canonical" href="https://juanbonilla.me/" />
+    <meta name="theme-color" content="#0a0b0d" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Juan Bonilla" />
+    <meta property="og:title" content="Juan Bonilla · Front-End Engineer" />
+    <meta
+      property="og:description"
+      content="Accessible React and TypeScript interfaces, built with Claude Code in the loop and verified by hand. Projects, experience and contact."
+    />
+    <meta property="og:url" content="https://juanbonilla.me/" />
+    <meta property="og:image" content="https://juanbonilla.me/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="Juan Bonilla, Front-End Engineer. juanbonilla.me"
+    />
+    <meta property="og:locale" content="en_US" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Juan Bonilla",
+        "alternateName": "Juan Pablo Bonilla",
+        "url": "https://juanbonilla.me/",
+        "jobTitle": "Front-End Engineer",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Bogotá",
+          "addressCountry": "CO"
+        },
+        "knowsAbout": [
+          "React",
+          "TypeScript",
+          "Web accessibility",
+          "AI-assisted development",
+          "Front-end development"
+        ],
+        "sameAs": [
+          "https://www.linkedin.com/in/juanpablobonilla",
+          "https://github.com/juanpb96"
+        ]
+      }
+    </script>
   </head>
   <body>
     <div id="root"></div>
