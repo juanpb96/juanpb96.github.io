@@ -41,6 +41,53 @@ afterEach(() => {
 })
 
 describe("ContactForm", () => {
+  it("declares the Netlify honeypot and keeps its field out of reach", () => {
+    const { container } = render(<ContactForm />)
+    const form = container.querySelector("form")
+    const honeypot = container.querySelector('input[name="bot-field"]')
+
+    expect(form).toHaveAttribute("netlify-honeypot", "bot-field")
+    expect(honeypot).not.toBeNull()
+    expect(honeypot).toHaveAttribute("tabindex", "-1")
+    expect(honeypot).toHaveAttribute("autocomplete", "off")
+    expect(honeypot).not.toBeVisible()
+
+    // Not announced: no accessible query finds it.
+    expect(
+      screen.queryByRole("textbox", { name: /leave this empty/i }),
+    ).not.toBeInTheDocument()
+
+    expect(screen.getAllByRole("textbox")).toHaveLength(3)
+  })
+
+  it("sends the honeypot field, empty, in the POST body", async () => {
+    const user = userEvent.setup()
+    fetchMock.mockResolvedValueOnce(new Response("ok"))
+    render(<ContactForm />)
+
+    await fillAndSubmit(user)
+
+    const body = new URLSearchParams(String(fetchMock.mock.calls[0]?.[1]?.body))
+    expect(body.has("bot-field")).toBe(true)
+    expect(body.get("bot-field")).toBe("")
+  })
+
+  it("sets autocomplete and maxLength on the visible fields", () => {
+    render(<ContactForm />)
+
+    const name = screen.getByLabelText("Name")
+    const email = screen.getByLabelText("Email")
+
+    expect(name).toHaveAttribute("autocomplete", "name")
+    expect(name).toHaveAttribute("maxlength", "100")
+    expect(email).toHaveAttribute("autocomplete", "email")
+    expect(email).toHaveAttribute("maxlength", "254")
+    expect(screen.getByLabelText("Message")).toHaveAttribute(
+      "maxlength",
+      "5000",
+    )
+  })
+
   it("posts the form urlencoded to Netlify Forms and shows the sending state", async () => {
     const user = userEvent.setup()
     const request = pendingResponse()
@@ -53,7 +100,7 @@ describe("ContactForm", () => {
     expect(fetchMock).toHaveBeenCalledWith("/", {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: "form-name=contact&name=Ana+Torres&email=ana%40studio.co&message=Hi+Juan",
+      body: "form-name=contact&bot-field=&name=Ana+Torres&email=ana%40studio.co&message=Hi+Juan",
     })
 
     const button = screen.getByRole("button", { name: "Sending…" })
