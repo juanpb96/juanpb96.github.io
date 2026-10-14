@@ -1,14 +1,10 @@
 import type { ReactNode } from "react"
-
 import { tokens } from "../../tokens"
 
 interface IconButtonProps {
   href: string
-
   ariaLabel: string
-
   tooltip: string
-
   children: ReactNode
 }
 

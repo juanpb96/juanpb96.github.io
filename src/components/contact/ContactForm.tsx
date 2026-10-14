@@ -1,21 +1,12 @@
 import { useEffect, useRef, useState } from "react"
-
 import type { FormEvent, Ref } from "react"
-
 import { flushSync } from "react-dom"
-
 import { ArrowRightIcon } from "../icons/ArrowRightIcon"
-
 import { ErrorIcon } from "../icons/ErrorIcon"
-
 import { SpinnerIcon } from "../icons/SpinnerIcon"
-
 import { Button } from "../shared/Button"
-
 import { WeightTransitionText } from "../shared/WeightTransitionText"
-
 import { moveFocus } from "../../utils/moveFocus"
-
 import { tokens } from "../../tokens"
 
 type SubmitStatus = "idle" | "submitting" | "success" | "error"
@@ -43,21 +34,13 @@ async function submitToNetlify(form: HTMLFormElement) {
 
 interface FormFieldProps {
   id: string
-
   name: string
-
   label: string
-
   placeholder?: string
-
   type?: "text" | "email"
-
   multiline?: boolean
-
   required?: boolean
-
   readOnly?: boolean
-
   inputRef?: Ref<HTMLInputElement>
 }
 
@@ -143,13 +126,9 @@ export function ContactForm() {
   // Set synchronously, so a second submit (double click, Enter in a field)
   // landing before the re-render to "submitting" is still ignored.
   const submittingRef = useRef(false)
-
   const successHeadingRef = useRef<HTMLHeadingElement>(null)
-
   const nameInputRef = useRef<HTMLInputElement>(null)
-
   const submitting = status === "submitting"
-
   const sent = status === "success"
 
   // The success panel replaces the form, hiding the submit button that held

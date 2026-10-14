@@ -1,11 +1,7 @@
 import { readFileSync } from "node:fs"
-
 import { render } from "@testing-library/react"
-
 import { describe, expect, it } from "vitest"
-
 import { ContactSection } from "../components/contact/ContactSection"
-
 import { Footer } from "../components/footer/Footer"
 
 // index.html is static (the page is client-rendered, so scrapers never run
@@ -31,7 +27,6 @@ function externalHrefs(container: HTMLElement): string[] {
 describe("index.html Person JSON-LD", () => {
   it("lists every profile link the Footer renders in sameAs", () => {
     const { container } = render(<Footer />)
-
     const hrefs = externalHrefs(container)
 
     expect(hrefs.length).toBeGreaterThan(0)
@@ -40,7 +35,6 @@ describe("index.html Person JSON-LD", () => {
 
   it("does not link the contact section to a profile missing from sameAs", () => {
     const { container } = render(<ContactSection />)
-
     const sameAs = readSameAs()
 
     for (const href of externalHrefs(container)) {

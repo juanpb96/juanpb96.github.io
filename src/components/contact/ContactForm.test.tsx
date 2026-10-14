@@ -1,9 +1,6 @@
 import { act, render, screen, within } from "@testing-library/react"
-
 import userEvent from "@testing-library/user-event"
-
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest"
-
 import { ContactForm } from "./ContactForm"
 
 type User = ReturnType<typeof userEvent.setup>
@@ -28,17 +25,13 @@ function pendingResponse() {
 
 async function fillAndSubmit(user: User) {
   await user.type(screen.getByLabelText("Name"), "Ana Torres")
-
   await user.type(screen.getByLabelText("Email"), "ana@studio.co")
-
   await user.type(screen.getByLabelText("Message"), "Hi Juan")
-
   await user.click(screen.getByRole("button", { name: "Send message" }))
 }
 
 beforeEach(() => {
   fetchMock.mockReset()
-
   vi.stubGlobal("fetch", fetchMock)
 })
 
@@ -49,7 +42,6 @@ afterEach(() => {
 describe("ContactForm", () => {
   it("posts the form urlencoded to Netlify Forms and shows the sending state", async () => {
     const user = userEvent.setup()
-
     const request = pendingResponse()
 
     render(<ContactForm />)
@@ -57,7 +49,6 @@ describe("ContactForm", () => {
     await fillAndSubmit(user)
 
     expect(fetchMock).toHaveBeenCalledTimes(1)
-
     expect(fetchMock).toHaveBeenCalledWith("/", {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
@@ -67,9 +58,7 @@ describe("ContactForm", () => {
     const button = screen.getByRole("button", { name: "Sending…" })
 
     expect(button).toHaveAttribute("aria-disabled", "true")
-
     expect(button).toHaveFocus()
-
     expect(screen.getByRole("status")).toHaveTextContent("Sending…")
 
     for (const label of ["Name", "Email", "Message"]) {
@@ -81,7 +70,6 @@ describe("ContactForm", () => {
 
   it("ignores repeat submits while a message is sending", async () => {
     const user = userEvent.setup()
-
     const request = pendingResponse()
 
     render(<ContactForm />)
@@ -89,7 +77,6 @@ describe("ContactForm", () => {
     await fillAndSubmit(user)
 
     await user.click(screen.getByRole("button", { name: "Sending…" }))
-
     await user.type(screen.getByLabelText("Name"), "{Enter}")
 
     expect(fetchMock).toHaveBeenCalledTimes(1)
@@ -109,7 +96,6 @@ describe("ContactForm", () => {
     const alert = await screen.findByRole("alert")
 
     expect(alert).toHaveTextContent("Your message didn't go through.")
-
     expect(
       within(alert).getByRole("link", { name: "hello@juanbonilla.me" }),
     ).toHaveAttribute("href", "mailto:hello@juanbonilla.me")
@@ -117,17 +103,11 @@ describe("ContactForm", () => {
     const retry = screen.getByRole("button", { name: "Try again" })
 
     expect(retry).toHaveFocus()
-
     expect(retry).not.toHaveAttribute("aria-disabled")
-
     expect(screen.getByRole("status")).toBeEmptyDOMElement()
-
     expect(screen.getByLabelText("Name")).toHaveValue("Ana Torres")
-
     expect(screen.getByLabelText("Email")).toHaveValue("ana@studio.co")
-
     expect(screen.getByLabelText("Message")).toHaveValue("Hi Juan")
-
     expect(screen.getByLabelText("Name")).not.toHaveAttribute("readonly")
   })
 
@@ -161,17 +141,14 @@ describe("ContactForm", () => {
     await user.click(screen.getByRole("button", { name: "Try again" }))
 
     expect(screen.queryByRole("alert")).not.toBeInTheDocument()
-
     expect(screen.getByRole("button", { name: "Sending…" })).toBeInTheDocument()
 
     await retry.settle(new Response("", { status: 500 }))
 
     expect(screen.getByRole("alert")).toBeInTheDocument()
-
     expect(
       screen.getByRole("button", { name: "Try again" }),
     ).toBeInTheDocument()
-
     expect(fetchMock).toHaveBeenCalledTimes(2)
   })
 
@@ -187,7 +164,6 @@ describe("ContactForm", () => {
     const heading = await screen.findByRole("heading", { name: "Message sent" })
 
     expect(heading).toHaveFocus()
-
     expect(screen.getByText("ana@studio.co")).toBeInTheDocument()
 
     // The form stays mounted (it keeps the card's height) but is hidden,
@@ -195,11 +171,8 @@ describe("ContactForm", () => {
     const name = screen.getByLabelText("Name")
 
     expect(name).not.toBeVisible()
-
     expect(name.closest("[inert]")).not.toBeNull()
-
     expect(name).toHaveValue("")
-
     expect(
       screen.queryByRole("button", { name: "Send message" }),
     ).not.toBeInTheDocument()
@@ -225,13 +198,9 @@ describe("ContactForm", () => {
     const name = screen.getByLabelText("Name")
 
     expect(name).toHaveFocus()
-
     expect(name).toBeVisible()
-
     expect(name.closest("[inert]")).toBeNull()
-
     expect(name).toHaveValue("")
-
     expect(screen.getByRole("button", { name: "Send message" })).toBeVisible()
   })
 })

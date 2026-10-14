@@ -1,11 +1,7 @@
 import { render, screen } from "@testing-library/react"
-
 import userEvent from "@testing-library/user-event"
-
 import { beforeEach, describe, expect, it, vi } from "vitest"
-
 import { experiences } from "../../data/experiences"
-
 import { ExperienceSection } from "./ExperienceSection"
 
 const scrollIntoView = vi.fn()
@@ -46,7 +42,6 @@ describe("ExperienceSection", () => {
         .textContent?.split(softHyphen)
         .join(""),
     ).toBe("Experience")
-
     expect(
       screen.getAllByRole("heading", { level: 3 }).map((h) => h.textContent),
     ).toEqual(experiences.map((exp) => exp.role))
@@ -62,11 +57,8 @@ describe("ExperienceSection", () => {
     const card = cardFor(screen.getAllByRole("heading", { level: 3 })[1])
 
     expect(scrollIntoView).toHaveBeenCalledTimes(1)
-
     expect(scrollIntoView.mock.contexts[0]).toBe(card)
-
     expect(card).toHaveFocus()
-
     expect(card).toHaveAttribute("tabindex", "-1")
   })
 
@@ -89,7 +81,6 @@ describe("ExperienceSection", () => {
     const card = cardFor(screen.getAllByRole("heading", { level: 3 })[last])
 
     expect(card).toHaveFocus()
-
     expect(stepperButtons()[last]).toHaveAttribute("aria-pressed", "true")
 
     await user.tab()

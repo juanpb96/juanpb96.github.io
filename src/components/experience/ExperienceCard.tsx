@@ -1,20 +1,13 @@
 import { forwardRef, useState } from "react"
-
 import type { Experience } from "../../data/experiences"
-
 import { tokens } from "../../tokens"
 
 interface ExperienceCardProps {
   exp: Experience
-
   isActive: boolean
-
   selected: boolean
-
   onMouseEnter: () => void
-
   onMouseLeave: () => void
-
   onClick: () => void
 }
 
@@ -24,9 +17,7 @@ export const ExperienceCard = forwardRef<HTMLDivElement, ExperienceCardProps>(
     ref,
   ) {
     const highlighted = isActive || selected
-
     const [logoFailed, setLogoFailed] = useState(false)
-
     const showLogo = Boolean(exp.logo) && !logoFailed
 
     return (

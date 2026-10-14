@@ -1,30 +1,19 @@
 import { useEffect, useRef, useState, type CSSProperties } from "react"
-
 import { createPortal } from "react-dom"
-
 import { tokens } from "../../tokens"
-
 import { moveFocus } from "../../utils/moveFocus"
-
 import { ContentContainer } from "../layout/ContentContainer"
 
 const links = ["Projects", "Experience", "Contact"]
-
 const CLOSE_ANIMATION_MS = 260
 
 export function Nav() {
   const [scrolled, setScrolled] = useState(false)
-
   const [open, setOpen] = useState(false)
-
   const [closing, setClosing] = useState(false)
-
   const navRef = useRef<HTMLElement>(null)
-
   const logoRef = useRef<HTMLAnchorElement>(null)
-
   const hamburgerRef = useRef<HTMLButtonElement>(null)
-
   const linkRefs = useRef<(HTMLAnchorElement | null)[]>([])
 
   // Pending close timer. Its presence doubles as the "already closing" guard:
@@ -60,7 +49,6 @@ export function Nav() {
     }
 
     setOpen(true)
-
     setClosing(false)
   }
 
@@ -75,7 +63,6 @@ export function Nav() {
       closeTimerRef.current = null
 
       setOpen(false)
-
       setClosing(false)
     }, CLOSE_ANIMATION_MS)
   }
