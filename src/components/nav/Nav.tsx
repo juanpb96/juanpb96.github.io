@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type CSSProperties } from "react"
+import { useEffect, useId, useRef, useState, type CSSProperties } from "react"
 
 import { createPortal } from "react-dom"
 
@@ -12,12 +12,26 @@ const links = ["Projects", "Experience", "Contact"]
 
 const CLOSE_ANIMATION_MS = 260
 
+// Must match the media query that gates the overlay animations in index.css.
+const MOTION_OK_QUERY = "(prefers-reduced-motion: no-preference)"
+
 export function Nav() {
   const [scrolled, setScrolled] = useState(false)
 
   const [open, setOpen] = useState(false)
 
   const [closing, setClosing] = useState(false)
+
+  // Overlay links whose entry animation has started (see nav-link-in). Until
+  // then they're visibility: hidden (motion-allowed only; under reduced motion
+  // they're always visible), so the focus trap must skip them. Tracked
+  // from onAnimationStart rather than read back via getComputedStyle so the
+  // trap doesn't depend on layout/animation support (e.g. jsdom in tests).
+  const [revealedLinks, setRevealedLinks] = useState<ReadonlySet<number>>(
+    () => new Set(),
+  )
+
+  const dialogId = useId()
 
   const navRef = useRef<HTMLElement>(null)
 
@@ -62,6 +76,9 @@ export function Nav() {
     setOpen(true)
 
     setClosing(false)
+
+    // Links replay their entry animation on every open.
+    setRevealedLinks(new Set())
   }
 
   const closeMenu = (restoreFocusTo: HTMLElement | null) => {
@@ -93,14 +110,27 @@ export function Nav() {
 
     const hamburgerButton = hamburgerRef.current
 
-    // Overlay links stay visibility: hidden until their entry animation
-    // starts (see nav-link-in), and focus() on a hidden element is a no-op,
-    // so the manual trap has to skip them too.
-    const getFocusables = (): HTMLElement[] =>
-      [...linkRefs.current, logoRef.current, hamburgerRef.current].filter(
-        (el): el is HTMLAnchorElement | HTMLButtonElement =>
-          el !== null && getComputedStyle(el).visibility !== "hidden",
-      )
+    // When motion is allowed, overlay links stay visibility: hidden until
+    // their entry animation starts (see nav-link-in), and focus() on a hidden
+    // element is a no-op, so the manual trap has to skip them too. Each link
+    // carries data-revealed once it's visible (read from the DOM, as this
+    // handler is created once per open and would otherwise see stale state).
+    //
+    // The entry animation is opt-in (index.css only applies it under
+    // MOTION_OK_QUERY), so otherwise the links are visible from the start and
+    // no animationstart ever fires: count them all as revealed. Checked on
+    // every Tab so a preference change while open is picked up too.
+    const getFocusables = (): HTMLElement[] => {
+      const linksAnimate = window.matchMedia(MOTION_OK_QUERY).matches
+
+      return [
+        ...linkRefs.current.filter(
+          (el) => !linksAnimate || el?.dataset.revealed !== undefined,
+        ),
+        logoRef.current,
+        hamburgerRef.current,
+      ].filter((el): el is HTMLAnchorElement | HTMLButtonElement => el !== null)
+    }
 
     // Focus stays on the toggle, now the visible close (X) button, instead of
     // jumping into the links while they're still animating in; Tab reaches
@@ -122,9 +152,10 @@ export function Nav() {
 
       if (focusables.length === 0) return
 
-      const currentIndex = focusables.indexOf(
-        document.activeElement as HTMLElement,
-      )
+      const active = document.activeElement
+
+      const currentIndex =
+        active instanceof HTMLElement ? focusables.indexOf(active) : -1
 
       const lastIndex = focusables.length - 1
 
@@ -167,8 +198,10 @@ export function Nav() {
         )
       : []
 
+    // Set as an attribute (not the inert property) so it's reflected in
+    // the DOM everywhere, including jsdom in tests.
     backgroundSiblings.forEach((el) => {
-      ;(el as HTMLElement).inert = true
+      el.setAttribute("inert", "")
     })
 
     return () => {
@@ -179,7 +212,7 @@ export function Nav() {
       document.body.style.overflow = ""
 
       backgroundSiblings.forEach((el) => {
-        ;(el as HTMLElement).inert = false
+        el.removeAttribute("inert")
       })
 
       // After the background is un-inerted, or focusing a section would fail.
@@ -246,6 +279,7 @@ export function Nav() {
           <a
             ref={logoRef}
             href="#hero"
+            aria-label="JB, Juan Bonilla, back to top"
             className="nav-logo nav-tap-target"
             onClick={() => {
               if (open) closeMenu(logoRef.current)
@@ -290,6 +324,7 @@ export function Nav() {
             className="md:hidden nav-hamburger nav-tap-target"
             aria-label={iconOpen ? "Close menu" : "Open menu"}
             aria-expanded={iconOpen}
+            aria-controls={open ? dialogId : undefined}
             data-menu-open={open}
             onClick={toggleMenu}
             style={{
@@ -319,12 +354,17 @@ export function Nav() {
           trap. Modality (focus trap, inert background, Escape) is therefore
           handled manually in the effect above. The declarative open
           attribute also skips show()'s built-in autofocus, so focus
-          placement stays under our control. */}
+          placement stays under our control.
+
+          No aria-modal: the logo and close button live outside the dialog
+          (in <nav>), and screen readers honouring aria-modal could then
+          never reach "Close menu". The background is made inert instead. */}
       {open &&
         createPortal(
           <dialog
             open
-            aria-modal="true"
+            id={dialogId}
+            aria-label="Site menu"
             className="nav-overlay"
             data-closing={closing}
             style={{
@@ -371,6 +411,14 @@ export function Nav() {
                     }}
                     href={`#${label.toLowerCase()}`}
                     className="nav-overlay-link"
+                    data-revealed={
+                      closing || revealedLinks.has(index) ? "" : undefined
+                    }
+                    onAnimationStart={() =>
+                      setRevealedLinks((prev) =>
+                        prev.has(index) ? prev : new Set(prev).add(index),
+                      )
+                    }
                     onClick={() =>
                       closeMenu(document.getElementById(label.toLowerCase()))
                     }
