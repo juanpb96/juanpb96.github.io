@@ -32,6 +32,21 @@ function Page({ withNav = true }: { withNav?: boolean }) {
 
 let breakpointListener: ((e: MediaQueryListEvent) => void) | null
 
+// Answer for "(prefers-reduced-motion: reduce)"; the stub below derives
+// "(prefers-reduced-motion: no-preference)" (which gates the overlay
+// animations in index.css) from it. Defaults to motion allowed per test.
+let prefersReducedMotion: boolean
+
+function mediaQueryMatches(query: string) {
+  if (query === "(prefers-reduced-motion: reduce)") return prefersReducedMotion
+
+  if (query === "(prefers-reduced-motion: no-preference)") {
+    return !prefersReducedMotion
+  }
+
+  return false
+}
+
 function crossBreakpoint(matches: boolean) {
   act(() => {
     breakpointListener?.({ matches } as MediaQueryListEvent)
@@ -84,10 +99,12 @@ beforeEach(() => {
 
   breakpointListener = null
 
+  prefersReducedMotion = false
+
   vi.stubGlobal(
     "matchMedia",
     vi.fn((query: string) => ({
-      matches: false,
+      matches: mediaQueryMatches(query),
       media: query,
       onchange: null,
       addEventListener: (
@@ -237,6 +254,32 @@ describe("Nav mobile overlay", () => {
     expect(experience).not.toHaveFocus()
 
     expect(contact).not.toHaveFocus()
+  })
+
+  it("lets Tab reach every link straight away under reduced motion, with no entry animation", async () => {
+    prefersReducedMotion = true
+
+    const { user } = setup()
+
+    await openMenu(user)
+
+    // No animationstart is fired: under reduced motion index.css applies no
+    // entry animation, so the links are visible from the moment it opens.
+    const links = overlayLinks()
+
+    for (const link of links) {
+      expect(link).not.toHaveAttribute("data-revealed")
+    }
+
+    const close = screen.getByRole("button", { name: "Close menu" })
+
+    const logo = screen.getByRole("link", { name: "JB" })
+
+    for (const expected of [...links, logo, close]) {
+      await user.tab()
+
+      expect(expected).toHaveFocus()
+    }
   })
 
   it("closes on Escape after the close animation and returns focus to the toggle", async () => {

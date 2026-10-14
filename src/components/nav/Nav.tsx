@@ -12,6 +12,9 @@ const links = ["Projects", "Experience", "Contact"]
 
 const CLOSE_ANIMATION_MS = 260
 
+// Must match the media query that gates the overlay animations in index.css.
+const MOTION_OK_QUERY = "(prefers-reduced-motion: no-preference)"
+
 export function Nav() {
   const [scrolled, setScrolled] = useState(false)
 
@@ -20,7 +23,8 @@ export function Nav() {
   const [closing, setClosing] = useState(false)
 
   // Overlay links whose entry animation has started (see nav-link-in). Until
-  // then they're visibility: hidden, so the focus trap must skip them. Tracked
+  // then they're visibility: hidden (motion-allowed only; under reduced motion
+  // they're always visible), so the focus trap must skip them. Tracked
   // from onAnimationStart rather than read back via getComputedStyle so the
   // trap doesn't depend on layout/animation support (e.g. jsdom in tests).
   const [revealedLinks, setRevealedLinks] = useState<ReadonlySet<number>>(
@@ -106,17 +110,27 @@ export function Nav() {
 
     const hamburgerButton = hamburgerRef.current
 
-    // Overlay links stay visibility: hidden until their entry animation
-    // starts (see nav-link-in), and focus() on a hidden element is a no-op,
-    // so the manual trap has to skip them too. Each link carries
-    // data-revealed once it's visible (read from the DOM, as this handler is
-    // created once per open and would otherwise see stale state).
-    const getFocusables = (): HTMLElement[] =>
-      [
-        ...linkRefs.current.filter((el) => el?.dataset.revealed !== undefined),
+    // When motion is allowed, overlay links stay visibility: hidden until
+    // their entry animation starts (see nav-link-in), and focus() on a hidden
+    // element is a no-op, so the manual trap has to skip them too. Each link
+    // carries data-revealed once it's visible (read from the DOM, as this
+    // handler is created once per open and would otherwise see stale state).
+    //
+    // The entry animation is opt-in (index.css only applies it under
+    // MOTION_OK_QUERY), so otherwise the links are visible from the start and
+    // no animationstart ever fires: count them all as revealed. Checked on
+    // every Tab so a preference change while open is picked up too.
+    const getFocusables = (): HTMLElement[] => {
+      const linksAnimate = window.matchMedia(MOTION_OK_QUERY).matches
+
+      return [
+        ...linkRefs.current.filter(
+          (el) => !linksAnimate || el?.dataset.revealed !== undefined,
+        ),
         logoRef.current,
         hamburgerRef.current,
       ].filter((el): el is HTMLAnchorElement | HTMLButtonElement => el !== null)
+    }
 
     // Focus stays on the toggle, now the visible close (X) button, instead of
     // jumping into the links while they're still animating in; Tab reaches
