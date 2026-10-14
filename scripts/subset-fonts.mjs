@@ -32,6 +32,15 @@ const FONTS = [
     extraChars: "",
   },
   {
+    output: "jetbrains-mono",
+    source: "jetbrainsmono/JetBrainsMono[wght].ttf",
+    license: "jetbrainsmono/OFL.txt",
+    // Weights used on the site + the og-image template's mono accent line;
+    // "→" appears in a workaround and "·" in the og accent line copy.
+    axes: { wght: { min: 400, max: 500 } },
+    extraChars: "→·",
+  },
+  {
     output: "inter",
     source: "inter/Inter[opsz,wght].ttf",
     license: "inter/OFL.txt",

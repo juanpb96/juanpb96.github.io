@@ -25,8 +25,9 @@ This is the canonical project structure. Start with task-relevant files below. O
 - `src/test/setup.ts` - Vitest setup: jest-dom matchers and Testing Library cleanup. Tests sit next to the component they cover, as `X.test.tsx`
 - `src/components/projects/ProjectCard.tsx` - Single component for both project layouts; optional `large` prop switches the featured layout (image beside the copy, button links) and the "Also built" row (thumbnail, text links). Do not split into separate default/large components
 - `src/index.css` - Global CSS entrypoint and Tailwind CSS v4 import
-- `public/fonts/` - Self-hosted Instrument Sans and Inter variable fonts (woff2, subset to the site's characters) with their OFL licenses; declared in `src/index.css` and preloaded in `index.html`. Generated — don't edit by hand
+- `public/fonts/` - Self-hosted Instrument Sans, JetBrains Mono and Inter variable fonts (woff2, subset to the site's characters) with their OFL licenses; declared in `src/index.css` and preloaded in `index.html`. Generated — don't edit by hand
 - `scripts/subset-fonts.mjs` - Regenerates `public/fonts/` from pinned upstream Google Fonts sources (`pnpm run fonts`). Re-run it when new copy introduces characters outside the current subset
+- `scripts/og-image.html` + `scripts/generate-og-image.mjs` - Static template + Playwright renderer that produces `public/og-image.png` (social share card, 1200×630). Run `pnpm run og` to regenerate it; re-run whenever the name/role/accent copy in the template changes. Playwright is a dev-only dependency (only this script uses it), pinned exactly; its browsers are not part of CI.`
 - `index.html` - Vite HTML shell containing the `#root` element and loading `src/main.tsx`
 - `package.json` - Project dependencies and the Vite build, development, preview, test, formatting, and lint scripts
 - `vite.config.ts` - Vite configuration with the React plugin, Tailwind CSS v4 plugin, the `@` alias for `src`, and the Vitest `test` config (jsdom environment)
