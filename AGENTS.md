@@ -4,7 +4,9 @@ React + Vite + Tailwind CSS personal portfolio site.
 
 ## Development Server
 
-Run `pnpm run dev` to start the Vite dev server (default port `8443`, overridable via `$PORT`).
+Run `pnpm run dev` to start the Vite dev server (default port `8443`, overridable via `$PORT`). It binds to `localhost` only (as does `pnpm run preview`); set `$VITE_HOST` to bind elsewhere.
+
+To test on a phone or another device on the same network, run `pnpm run dev:lan` instead — it exposes the server on all interfaces and prints a Network URL to open on the device.
 
 ## Project Structure
 
@@ -38,6 +40,15 @@ This is the canonical project structure. Start with task-relevant files below. O
 - Testing: Vitest with jsdom, React Testing Library, `@testing-library/user-event`, and jest-dom. Run `pnpm test` (or `pnpm run test:watch`)
 - Formatting: oxfmt
 - Linting: oxlint, including the native `jsx-a11y` plugin for accessibility rules. Run `pnpm run lint`
+
+### Dependency policy
+
+Supply-chain settings live in `pnpm-workspace.yaml`:
+
+- Exact versions only: `saveExact: true` makes `pnpm add` write `1.2.3`, not `^1.2.3`. Don't hand-write ranges in `package.json`.
+- `pnpm-lock.yaml` is committed; CI installs with `pnpm install --frozen-lockfile`, so commit the lockfile alongside any `package.json` change.
+- Release-age quarantine: `minimumReleaseAge: 4320` (minutes, 3 days) refuses versions published more recently. For an urgent security patch, add the package name to `minimumReleaseAgeExclude` with a comment linking the advisory, and remove the entry once the version is older than 3 days.
+- `trustPolicy: no-downgrade` fails install if a package's publish trust (trusted publisher / provenance) is weaker than an earlier version's. Only after confirming the release is legitimate, add the narrowest exclusion — `trustPolicyExclude: ["pkg@1.2.3"]` — with a comment explaining why.
 
 ## Styling
 
