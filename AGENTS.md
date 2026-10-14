@@ -50,6 +50,19 @@ Supply-chain settings live in `pnpm-workspace.yaml`:
 - Release-age quarantine: `minimumReleaseAge: 4320` (minutes, 3 days) refuses versions published more recently. For an urgent security patch, add the package name to `minimumReleaseAgeExclude` with a comment linking the advisory, and remove the entry once the version is older than 3 days.
 - `trustPolicy: no-downgrade` fails install if a package's publish trust (trusted publisher / provenance) is weaker than an earlier version's. Only after confirming the release is legitimate, add the narrowest exclusion — `trustPolicyExclude: ["pkg@1.2.3"]` — with a comment explaining why.
 
+## CI
+
+`.github/workflows/ci.yml` runs on PRs to `main` and on manual dispatch. The `changes` job feeds the changed paths to `.github/scripts/ci-changes.sh`, which decides which jobs run; the rest are skipped:
+
+- `static` (source, config, `.github/`): typecheck, lint, format check, tests, and a guard against `^`/`~` ranges in `package.json`
+- `build` (anything that ships in `dist/`): `pnpm build`
+- `dependency-review` (`package.json`, `pnpm-*`): fails on high-severity advisories
+- `zizmor` (`.github/`): audits workflows, actions and Dependabot config
+- `codeql` (`src/`, `netlify/`, `scripts/`): JavaScript/TypeScript analysis
+- `links` (changed `*.md`, `index.html`, `src/data/`, `src/components/`): Lychee on those files only
+
+`ci-ok` is the single required status check: it fails if any job failed or was cancelled, and passes when jobs were skipped. Add the `full-check` label to a PR (or run the workflow manually) to run every job. When adding a job, add it to `ci-ok`'s `needs`. Pin every third-party `uses:` to a commit SHA with a version comment; shared setup steps live in the local `.github/actions/setup` action.
+
 ## Styling
 
 This project uses **Tailwind CSS v4** through the `@tailwindcss/vite` plugin configured in `vite.config.ts`. `src/index.css` imports Tailwind with `@import 'tailwindcss';`. Use Tailwind utility classes directly in JSX and put global CSS or Tailwind v4 theme customization in `src/index.css`. This scaffold does not need a Tailwind config file or PostCSS config.
