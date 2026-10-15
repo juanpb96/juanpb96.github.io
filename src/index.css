@@ -113,6 +113,8 @@
   --font-display: "Instrument Sans", "Instrument Sans Fallback", sans-serif;
   --font-body: "Inter", "Inter Fallback", sans-serif;
   --font-mono: "JetBrains Mono", "JetBrains Mono Fallback", monospace;
+  --duration-fast: 0.2s;
+  --duration-base: 0.3s;
 }
 
 /* scroll-padding-top keeps anything scrolled into view (focused controls,
@@ -187,6 +189,14 @@ main[tabindex="-1"]:focus,
   outline: none;
 }
 
+/* Experience card highlight (card, company avatar, tag pills), in step with
+   the side stepper. */
+@media (prefers-reduced-motion: no-preference) {
+  .experience-highlight {
+    transition: all var(--duration-fast) ease;
+  }
+}
+
 /* Skip link — visually hidden (but still announced) until focused, then
    shown above the fixed nav. Colors live here so :focus-visible can
    override them; layout/typography tokens are inline in SkipLink.tsx. */
@@ -214,7 +224,7 @@ main[tabindex="-1"]:focus,
 .nav-overlay-link {
   color: var(--text-primary);
   text-decoration: none;
-  transition: color 0.2s;
+  transition: color var(--duration-fast);
 }
 
 /* Expands the clickable area to a 44×44px minimum tap target (Apple HIG)
@@ -235,7 +245,7 @@ main[tabindex="-1"]:focus,
 
 .nav-hamburger-line {
   background-color: var(--text-primary);
-  transition: background-color 0.2s;
+  transition: background-color var(--duration-fast);
 }
 
 @media (hover: hover) and (pointer: fine) {
@@ -308,8 +318,8 @@ main[tabindex="-1"]:focus,
 @media (prefers-reduced-motion: no-preference) {
   .site-nav {
     transition:
-      background-color 0.3s ease,
-      border-color 0.3s ease;
+      background-color var(--duration-base) ease,
+      border-color var(--duration-base) ease;
   }
 
   /* Springy overshoot when the icon returns to the hamburger; a smooth curve
@@ -324,7 +334,7 @@ main[tabindex="-1"]:focus,
 
   .nav-hamburger-line {
     transition:
-      background-color 0.2s,
+      background-color var(--duration-fast),
       transform 0.35s var(--nav-icon-ease),
       opacity 0.35s var(--nav-icon-ease),
       top 0.35s var(--nav-icon-ease),
@@ -335,8 +345,10 @@ main[tabindex="-1"]:focus,
     animation: nav-overlay-curtain 0.4s ease forwards;
   }
 
+  /* --nav-close-duration is set inline from CLOSE_FADE_MS in Nav.tsx, which
+     unmounts the overlay just after it ends. */
   .nav-overlay[data-closing="true"] {
-    animation: nav-overlay-fade-out 0.25s ease forwards;
+    animation: nav-overlay-fade-out var(--nav-close-duration) ease forwards;
   }
 
   .nav-overlay:not([data-closing="true"]) .nav-overlay-link {
@@ -365,13 +377,13 @@ main[tabindex="-1"]:focus,
   background-color: transparent;
   color: var(--text-primary);
   transition:
-    background-color 0.2s,
-    border-color 0.2s;
+    background-color var(--duration-fast),
+    border-color var(--duration-fast);
 }
 
 .icon-button svg {
   background-color: transparent;
-  transition: color 0.2s;
+  transition: color var(--duration-fast);
 }
 
 .icon-button:focus-visible {
@@ -404,8 +416,8 @@ main[tabindex="-1"]:focus,
   color: var(--text-secondary);
   border: 1px solid var(--border);
   transition:
-    color 0.2s,
-    border-color 0.2s;
+    color var(--duration-fast),
+    border-color var(--duration-fast);
 }
 
 .tag-toggle::before {
@@ -451,14 +463,14 @@ main[tabindex="-1"]:focus,
 
 .build-card-toggle svg {
   color: var(--text-secondary);
-  transition: color 0.2s ease;
+  transition: color var(--duration-fast) ease;
 }
 
 @media (prefers-reduced-motion: no-preference) {
   .build-card-toggle svg {
     transition:
-      color 0.2s ease,
-      transform 0.2s ease;
+      color var(--duration-fast) ease,
+      transform var(--duration-fast) ease;
   }
 }
 
@@ -500,8 +512,8 @@ main[tabindex="-1"]:focus,
   text-decoration: none;
   cursor: pointer;
   transition:
-    background-color 0.2s,
-    border-color 0.2s;
+    background-color var(--duration-fast),
+    border-color var(--duration-fast);
 }
 
 .button:focus-visible {
@@ -515,14 +527,14 @@ main[tabindex="-1"]:focus,
 .button-arrow {
   --arrow-shift: translateX(4px);
   display: inline-block;
-  transition: color 0.2s ease;
+  transition: color var(--duration-fast) ease;
 }
 
 @media (prefers-reduced-motion: no-preference) {
   .button-arrow {
     transition:
-      transform 0.2s ease,
-      color 0.2s ease;
+      transform var(--duration-fast) ease,
+      color var(--duration-fast) ease;
   }
 }
 
@@ -591,12 +603,12 @@ main[tabindex="-1"]:focus,
    also take the accent border; their base border lives here, not inline,
    so the hover rule can override it. */
 .project-image-link {
-  transition: background-color 0.2s;
+  transition: background-color var(--duration-fast);
 }
 
 .project-thumb {
   border: 1px solid var(--border);
-  transition: border-color 0.2s;
+  transition: border-color var(--duration-fast);
 }
 
 @media (hover: hover) and (pointer: fine) {
@@ -620,7 +632,7 @@ main[tabindex="-1"]:focus,
   gap: 6px; /* tokens.spacing[6] */
   color: var(--text-secondary);
   text-decoration: none;
-  transition: color 0.2s ease;
+  transition: color var(--duration-fast) ease;
 }
 
 .text-link::before {
@@ -655,7 +667,7 @@ main[tabindex="-1"]:focus,
   text-decoration: underline;
   text-decoration-color: var(--accent-border);
   text-underline-offset: 2px;
-  transition: text-decoration-color 0.2s ease;
+  transition: text-decoration-color var(--duration-fast) ease;
 }
 
 .inline-link:focus-visible {
@@ -681,8 +693,8 @@ main[tabindex="-1"]:focus,
   color: var(--text-primary);
   font: inherit;
   transition:
-    border-color 0.2s ease,
-    box-shadow 0.2s ease;
+    border-color var(--duration-fast) ease,
+    box-shadow var(--duration-fast) ease;
 }
 
 .contact-form-field::placeholder {
@@ -747,15 +759,15 @@ main[tabindex="-1"]:focus,
   white-space: nowrap;
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.2s ease;
+  transition: opacity var(--duration-fast) ease;
   z-index: 10;
 }
 
 @media (prefers-reduced-motion: no-preference) {
   .icon-button-tooltip {
     transition:
-      opacity 0.2s ease,
-      transform 0.2s ease;
+      opacity var(--duration-fast) ease,
+      transform var(--duration-fast) ease;
   }
 }
 
@@ -783,8 +795,8 @@ main[tabindex="-1"]:focus,
 .weight-transition::after {
   grid-area: 1 / 1;
   transition:
-    opacity 0.2s ease,
-    color 0.2s ease;
+    opacity var(--duration-fast) ease,
+    color var(--duration-fast) ease;
 }
 
 .weight-transition-text {

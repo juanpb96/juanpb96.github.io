@@ -8,5 +8,7 @@ declare module "react" {
     "--link-index"?: number
     /** Experience grid gap; the column separator reads it to stay centred. */
     "--experience-gap"?: string
+    /** Nav overlay fade-out duration, set from Nav.tsx's CLOSE_FADE_MS. */
+    "--nav-close-duration"?: string
   }
 }

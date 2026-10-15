@@ -6,7 +6,10 @@ import { moveFocus } from "../../utils/moveFocus"
 import { ContentContainer } from "../layout/ContentContainer"
 
 const links = ["Projects", "Experience", "Contact"]
-const CLOSE_ANIMATION_MS = 260
+// Overlay fade-out (nav-overlay-fade-out in index.css, read through
+// --nav-close-duration); the menu unmounts just after it ends.
+const CLOSE_FADE_MS = 250
+const CLOSE_ANIMATION_MS = CLOSE_FADE_MS + 10
 
 // Must match the media query that gates the overlay animations in index.css.
 const MOTION_OK_QUERY = "(prefers-reduced-motion: no-preference)"
@@ -356,6 +359,7 @@ export function Nav() {
             className="nav-overlay"
             data-closing={closing}
             style={{
+              "--nav-close-duration": `${CLOSE_FADE_MS}ms`,
               position: "fixed",
               top: `${tokens.spacing[64]}px`,
               left: 0,

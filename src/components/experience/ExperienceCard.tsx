@@ -26,7 +26,7 @@ export const ExperienceCard = forwardRef<HTMLDivElement, ExperienceCardProps>(
       // Intentional a11y exception, not a gap: the onClick below only mirrors the side stepper's selection for mouse/touch. The stepper button (native <button>, aria-pressed, aria-label, focus-visible) is the sole keyboard entry point by design, since focus on the card has no action of its own beyond that visual mirror. The stepper moves focus here only as a Tab starting point (moveFocus), hence no focus ring (see .experience-card in src/index.css).
       <div // oxlint-disable-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
         ref={ref}
-        className="experience-card"
+        className="experience-card experience-highlight"
         onMouseEnter={onMouseEnter}
         onMouseLeave={onMouseLeave}
         onClick={onClick}
@@ -39,7 +39,6 @@ export const ExperienceCard = forwardRef<HTMLDivElement, ExperienceCardProps>(
             ? tokens.colors.accentGlow
             : tokens.colors.surface,
           padding: `28px ${tokens.spacing[32]}px`,
-          transition: "all 0.3s ease",
           boxShadow: highlighted
             ? `0 0 40px ${tokens.colors.accentFaint}, inset 0 1px 0 ${tokens.colors.accentGlow}`
             : "none",
@@ -60,6 +59,7 @@ export const ExperienceCard = forwardRef<HTMLDivElement, ExperienceCardProps>(
         >
           {/* Company avatar */}
           <div
+            className="experience-highlight"
             style={{
               width: "36px",
               height: "36px",
@@ -72,7 +72,6 @@ export const ExperienceCard = forwardRef<HTMLDivElement, ExperienceCardProps>(
                   : tokens.colors.borderStrong
               }`,
               boxShadow: highlighted ? SELECTED_RING : "none",
-              transition: "all 0.3s ease",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
@@ -196,6 +195,7 @@ export const ExperienceCard = forwardRef<HTMLDivElement, ExperienceCardProps>(
           {exp.tags.map((tag) => (
             <span
               key={tag}
+              className="experience-highlight"
               style={{
                 padding: `${tokens.spacing[4]}px 10px`,
                 borderRadius: `${tokens.radius.full}px`,
@@ -213,7 +213,6 @@ export const ExperienceCard = forwardRef<HTMLDivElement, ExperienceCardProps>(
                 color: highlighted
                   ? tokens.colors.accent
                   : tokens.colors.textSecondary,
-                transition: "all 0.3s",
               }}
             >
               {tag}
