@@ -127,9 +127,11 @@ export function ExperienceSection() {
           </h2>
           <p
             style={{
-              fontSize: "0.9375rem",
+              fontFamily: tokens.typography.sectionIntro.font,
+              fontSize: tokens.typography.sectionIntro.size,
+              fontWeight: tokens.typography.sectionIntro.weight,
+              lineHeight: tokens.typography.sectionIntro.lineHeight,
               color: tokens.colors.textSecondary,
-              lineHeight: 1.7,
               margin: 0,
               textWrap: "balance",
             }}
@@ -223,7 +225,11 @@ export function ExperienceSection() {
                       active={highlighted}
                       color={tokens.colors.textSecondary}
                       activeColor={tokens.colors.textPrimary}
-                      style={{ fontSize: "0.875rem" }}
+                      style={{
+                        fontFamily: tokens.typography.label.font,
+                        fontSize: tokens.typography.label.size,
+                        lineHeight: tokens.typography.label.lineHeight,
+                      }}
                     >
                       {exp.company}
                     </WeightTransitionText>

@@ -179,9 +179,10 @@ export function ProjectCard({ number, project, large }: ProjectCardProps) {
         <div
           className="mt-2 flex gap-6 sm:[grid-area:links] @min-[58rem]:mt-0 @min-[58rem]:self-center"
           style={{
-            fontFamily: tokens.fonts.body,
-            fontSize: "0.875rem",
-            fontWeight: 500,
+            fontFamily: tokens.typography.label.font,
+            fontSize: tokens.typography.label.size,
+            fontWeight: tokens.typography.label.weightActive,
+            lineHeight: tokens.typography.label.lineHeight,
           }}
         >
           <a

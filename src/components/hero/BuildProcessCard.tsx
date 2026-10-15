@@ -46,9 +46,10 @@ function readStoredExpanded() {
 
 // Same type as the active Experience stepper label.
 const labelStyle: CSSProperties = {
-  fontFamily: tokens.fonts.body,
-  fontSize: "0.875rem",
-  fontWeight: 500,
+  fontFamily: tokens.typography.label.font,
+  fontSize: tokens.typography.label.size,
+  fontWeight: tokens.typography.label.weightActive,
+  lineHeight: tokens.typography.label.lineHeight,
   color: tokens.colors.textPrimary,
 }
 
