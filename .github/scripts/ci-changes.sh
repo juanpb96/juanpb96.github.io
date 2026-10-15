@@ -8,7 +8,8 @@
 #         covers every eligible file).
 # Output: key=value lines appended to $GITHUB_OUTPUT (stdout when unset).
 #         `e2e` is a Playwright --grep pattern such as "@nav|@contact", or
-#         empty when no section can be affected.
+#         empty when no section can be affected. `lighthouse` is true when
+#         a change can alter the built site (tests and e2e specs excluded).
 #
 # Run from the repository root: `links` only keeps files that still exist.
 set -euo pipefail
@@ -75,6 +76,22 @@ done
 e2e=""
 for t in "${e2e_tags[@]}"; do e2e="${e2e:+$e2e|}@$t"; done
 
+# Lighthouse measures the built site, so it runs for anything that ships in
+# dist/ except tests and Playwright specs.
+lighthouse=false
+if [ "$full" = true ]; then
+  lighthouse=true
+else
+  for f in "${files[@]}"; do
+    [[ "$f" =~ .test.[jt]sx?$ ]] && continue
+    [[ "$f" =~ ^src/test/ ]] && continue
+    if [[ "$f" =~ ^(src/|index.html$|public/|netlify.toml$|vite.config|lighthouserc.json$|package.json$|pnpm-|.github/) ]]; then
+      lighthouse=true
+      break
+    fi
+  done
+fi
+
 {
   flag code '^(src/|e2e/|index\.html|public/|scripts/|netlify/|netlify\.toml|vite\.config|playwright\.config|tsconfig|package\.json|pnpm-|\.github/)'
   flag ui '^(src/|index\.html|public/|netlify\.toml|vite\.config|package\.json|pnpm-|\.github/)'
@@ -83,4 +100,5 @@ for t in "${e2e_tags[@]}"; do e2e="${e2e:+$e2e|}@$t"; done
   flag scripts '^(src/|netlify/|scripts/)'
   echo "links=${links[*]}"
   echo "e2e=$e2e"
+  echo "lighthouse=$lighthouse"
 } >>"$out"

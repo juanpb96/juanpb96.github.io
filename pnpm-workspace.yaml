@@ -33,3 +33,10 @@ minimumReleaseAgeExclude:
   - "@oxc-parser/binding-win32-arm64-msvc@0.154.0"
   - "@oxc-parser/binding-win32-ia32-msvc@0.154.0"
   - "@oxc-parser/binding-win32-x64-msvc@0.154.0"
+
+# semver@5.7.2 and semver@6.3.1 (transitive dependencies of @lhci/cli) are the
+# 2023-07-10 ReDoS backports to the 5.x and 6.x lines, published by an npm maintainer
+# from github.com/npm/node-semver without provenance, after the 7.5.x releases
+# that had it. Verified against the upstream repository; exact version only.
+trustPolicyExclude:
+  - semver@5.7.2 || 6.3.1
