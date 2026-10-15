@@ -105,6 +105,7 @@
   --accent: #4d9cf8;
   --accent-dim: rgba(77, 156, 248, 0.18);
   --accent-glow: rgba(77, 156, 248, 0.1);
+  --accent-faint: rgba(77, 156, 248, 0.08);
   --accent-border: rgba(77, 156, 248, 0.3);
   --error: #d96565;
   --error-bg: rgba(217, 101, 101, 0.1);

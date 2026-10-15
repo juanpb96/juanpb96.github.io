@@ -2,6 +2,7 @@ import { useId, useState, type CSSProperties } from "react"
 
 import { tokens } from "../../tokens"
 import { ChevronDownIcon } from "../icons/ChevronDownIcon"
+import { SELECTED_RING } from "../shared/selectedRing"
 
 const steps = [
   {
@@ -158,7 +159,7 @@ export function BuildProcessCard() {
                     borderRadius: "50%",
                     backgroundColor: tokens.colors.surface,
                     border: `1px solid ${tokens.colors.accentBorder}`,
-                    boxShadow: `inset 0 0 6px ${tokens.colors.accentGlow}, inset 0 0 0 1px ${tokens.colors.accentBorder}`,
+                    boxShadow: SELECTED_RING,
                     flexShrink: 0,
                   }}
                 />

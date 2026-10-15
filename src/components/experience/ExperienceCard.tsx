@@ -2,6 +2,7 @@ import { forwardRef, useState } from "react"
 
 import type { Experience } from "../../data/experiences"
 import { tokens } from "../../tokens"
+import { SELECTED_RING } from "../shared/selectedRing"
 
 interface ExperienceCardProps {
   exp: Experience
@@ -40,7 +41,7 @@ export const ExperienceCard = forwardRef<HTMLDivElement, ExperienceCardProps>(
           padding: `28px ${tokens.spacing[32]}px`,
           transition: "all 0.3s ease",
           boxShadow: highlighted
-            ? `0 0 40px rgba(77,156,248,0.08), inset 0 1px 0 ${tokens.colors.accentGlow}`
+            ? `0 0 40px ${tokens.colors.accentFaint}, inset 0 1px 0 ${tokens.colors.accentGlow}`
             : "none",
           position: "relative",
           // Adds to the html scroll-padding-top (80px, src/index.css) so the
@@ -70,9 +71,7 @@ export const ExperienceCard = forwardRef<HTMLDivElement, ExperienceCardProps>(
                   ? tokens.colors.accentBorder
                   : tokens.colors.borderStrong
               }`,
-              boxShadow: highlighted
-                ? `inset 0 0 6px ${tokens.colors.accentGlow}, inset 0 0 0 1px ${tokens.colors.accentBorder}`
-                : "none",
+              boxShadow: highlighted ? SELECTED_RING : "none",
               transition: "all 0.3s ease",
               display: "flex",
               alignItems: "center",
