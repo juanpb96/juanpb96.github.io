@@ -16,13 +16,14 @@ const COLLAPSED_COUNT = 2
 const tagStyle: CSSProperties = {
   padding: `${tokens.spacing[4]}px 10px`,
   borderRadius: `${tokens.radius.full}px`,
-  fontSize: "0.6875rem",
-  fontFamily: tokens.fonts.mono,
+  fontFamily: tokens.typography.tag.font,
+  fontSize: tokens.typography.tag.size,
+  fontWeight: tokens.typography.tag.weight,
 }
 
 const variantStyles = {
   neutral: {
-    backgroundColor: "rgba(255,255,255,0.03)",
+    backgroundColor: tokens.colors.surfaceTint,
     border: `1px solid ${tokens.colors.border}`,
     color: tokens.colors.textSecondary,
   },

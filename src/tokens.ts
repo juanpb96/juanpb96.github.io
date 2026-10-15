@@ -4,6 +4,7 @@ const colors = {
   bg: "#0a0b0d",
   surface: "#111316",
   surfaceRaised: "#16191f",
+  surfaceTint: "rgba(255,255,255,0.03)",
   border: "rgba(255,255,255,0.07)",
   borderStrong: "rgba(255,255,255,0.13)",
   inputBorder: "rgba(255,255,255,0.34)",
@@ -76,6 +77,13 @@ const typography = {
     weight: 500,
     lineHeight: 1.33,
     letterSpacing: 0,
+  },
+  // Tag pills (TagList, ExperienceCard) and the footer icon tooltip. Line
+  // height is inherited from the surrounding text.
+  tag: {
+    font: fonts.mono,
+    size: "0.6875rem",
+    weight: 400,
   },
 } as const
 
