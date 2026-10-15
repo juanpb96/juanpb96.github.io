@@ -273,6 +273,9 @@ jobs:
         with:
           name: lighthouse-report
           path: .lighthouseci/
+          # .lighthouseci is a dot-directory, which upload-artifact skips by
+          # default ("No files were found").
+          include-hidden-files: true
           retention-days: 7
 
   ci-ok:

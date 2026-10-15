@@ -10,6 +10,11 @@ updates:
     cooldown:
       default-days: 3 # zizmor: ignore[dependabot-cooldown]
     groups:
+      # React refuses to run when react and react-dom differ, so they (and
+      # their types) always move together. Listed first so they don't land
+      # in the dev-dependencies group.
+      react:
+        patterns: ["react", "react-dom", "@types/react", "@types/react-dom"]
       dev-dependencies-minor-patch:
         dependency-type: "development"
         update-types: ["minor", "patch"]
