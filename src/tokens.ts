@@ -79,6 +79,23 @@ const typography = {
     lineHeight: 1.33,
     letterSpacing: 0,
   },
+  // Small UI labels: Experience stepper label (weightActive when highlighted),
+  // Hero BuildProcessCard step label, "Also built" heading, "Also built" row
+  // links, contact form error title.
+  label: {
+    font: fonts.body,
+    size: "0.875rem",
+    weight: 400,
+    weightActive: 500,
+    lineHeight: 1.6,
+  },
+  // Intro paragraph under the Experience and Contact section titles.
+  sectionIntro: {
+    font: fonts.body,
+    size: "0.9375rem",
+    weight: 400,
+    lineHeight: 1.7,
+  },
   // Tag pills (TagList, ExperienceCard) and the footer icon tooltip. Line
   // height is inherited from the surrounding text.
   tag: {

@@ -52,9 +52,11 @@ export function ContactSection() {
           </h2>
           <p
             style={{
-              fontSize: "0.9375rem",
+              fontFamily: tokens.typography.sectionIntro.font,
+              fontSize: tokens.typography.sectionIntro.size,
+              fontWeight: tokens.typography.sectionIntro.weight,
+              lineHeight: tokens.typography.sectionIntro.lineHeight,
               color: tokens.colors.textSecondary,
-              lineHeight: 1.7,
               marginBottom: "12px",
               maxWidth: "420px",
             }}

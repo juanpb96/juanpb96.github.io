@@ -312,9 +312,10 @@ export function ContactForm() {
                 <p
                   style={{
                     margin: `0 0 ${tokens.spacing[4]}px 0`,
-                    fontSize: "0.875rem",
-                    fontWeight: 500,
-                    lineHeight: 1.6,
+                    fontFamily: tokens.typography.label.font,
+                    fontSize: tokens.typography.label.size,
+                    fontWeight: tokens.typography.label.weightActive,
+                    lineHeight: tokens.typography.label.lineHeight,
                     color: tokens.colors.textPrimary,
                   }}
                 >

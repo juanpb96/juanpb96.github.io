@@ -51,7 +51,10 @@ export function ProjectsSection() {
         <p
           id="projects-also-built"
           style={{
-            fontSize: "0.875rem",
+            fontFamily: tokens.typography.label.font,
+            fontSize: tokens.typography.label.size,
+            fontWeight: tokens.typography.label.weight,
+            lineHeight: tokens.typography.label.lineHeight,
             color: tokens.colors.textSecondary,
             margin: `clamp(${tokens.spacing[48]}px, 8vw, ${tokens.spacing[80]}px) 0 ${tokens.spacing[16]}px`,
           }}
