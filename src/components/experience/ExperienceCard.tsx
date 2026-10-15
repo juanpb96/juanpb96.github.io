@@ -189,7 +189,7 @@ export const ExperienceCard = forwardRef<HTMLDivElement, ExperienceCardProps>(
             <span
               key={tag}
               style={{
-                padding: "3px 10px",
+                padding: `${tokens.spacing[4]}px 10px`,
                 borderRadius: `${tokens.radius.full}px`,
                 border: `1px solid ${
                   highlighted
@@ -197,13 +197,14 @@ export const ExperienceCard = forwardRef<HTMLDivElement, ExperienceCardProps>(
                     : tokens.colors.border
                 }`,
                 backgroundColor: highlighted
-                  ? "rgba(77,156,248,0.08)"
-                  : "rgba(255,255,255,0.03)",
-                fontSize: "0.6875rem",
+                  ? tokens.colors.accentGlow
+                  : tokens.colors.surfaceTint,
+                fontFamily: tokens.typography.tag.font,
+                fontSize: tokens.typography.tag.size,
+                fontWeight: tokens.typography.tag.weight,
                 color: highlighted
                   ? tokens.colors.accent
                   : tokens.colors.textSecondary,
-                fontFamily: tokens.fonts.mono,
                 transition: "all 0.3s",
               }}
             >
