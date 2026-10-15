@@ -276,7 +276,18 @@ jobs:
           retention-days: 7
 
   ci-ok:
-    needs: [changes, static, build, dependency-review, zizmor, codeql, links, e2e, lighthouse]
+    needs:
+      [
+        changes,
+        static,
+        build,
+        dependency-review,
+        zizmor,
+        codeql,
+        links,
+        e2e,
+        lighthouse,
+      ]
     if: always()
     runs-on: ubuntu-latest
     steps:

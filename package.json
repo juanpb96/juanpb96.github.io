@@ -1,12 +1,8 @@
 {
   "name": "juan-bonilla-portfolio",
-  "private": true,
   "version": "1.0.0",
+  "private": true,
   "type": "module",
-  "packageManager": "pnpm@10.34.3",
-  "engines": {
-    "node": ">=26.0.0"
-  },
   "scripts": {
     "dev": "vite",
     "dev:lan": "vite --host",
@@ -45,5 +41,9 @@
     "typescript": "7.0.2",
     "vite": "8.3.4",
     "vitest": "5.0.3"
-  }
+  },
+  "engines": {
+    "node": ">=26.0.0"
+  },
+  "packageManager": "pnpm@10.34.3"
 }

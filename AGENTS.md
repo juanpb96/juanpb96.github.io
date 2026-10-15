@@ -75,7 +75,7 @@ This project uses **Tailwind CSS v4** through the `@tailwindcss/vite` plugin con
 
 ## Code quality
 
-- Use double quotes for strings, matching `oxfmt`'s default (enforced by `pnpm run format` and the CI format check).
+- Use double quotes for strings, matching `oxfmt`'s default (enforced by `pnpm run format` and the CI format check). `.oxfmtrc.json` pins the rest of the house style that newer oxfmt defaults would change: no semicolons, 80-column lines.
 - Ensure JSX tags are closed and braces are balanced.
 - Export components as named exports (`export function X`), not default exports.
 - Avoid type assertions (`x as T`, `<T>x`, non-null `!`). Narrow instead: `instanceof`/type guards, typed refs (`useRef<HTMLButtonElement>(null)`), `satisfies` for object literals, and module augmentation for custom CSS properties (see `src/react-css-properties.d.ts`). `as const` is fine. If an assertion is truly unavoidable (e.g. a DOM API typed too loosely), keep it local and add a one-line comment saying why.
