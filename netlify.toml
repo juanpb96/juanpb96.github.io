@@ -9,6 +9,34 @@ publish = "dist"
 [build.environment]
 NODE_VERSION = "26"
 
+# Security headers for everything Netlify serves from dist/. They don't apply
+# to proxied paths (the redirects below) or to edge-function responses.
+# The CSP starts as report-only: once it has run clean in production, rename
+# it to Content-Security-Policy and add upgrade-insecure-requests. Everything
+# is same-origin: fonts are self-hosted, the JSON-LD block is data (CSP does
+# not apply to it) and React's style={{}} writes through the CSSOM, so no
+# 'unsafe-inline' is needed. Report-only ignores frame-ancestors, so
+# X-Frame-Options covers framing until the CSP is enforced.
+[[headers]]
+for = "/*"
+
+[headers.values]
+Content-Security-Policy-Report-Only = "default-src 'self'; script-src 'self'; style-src 'self'; font-src 'self'; img-src 'self'; connect-src 'self'; form-action 'self'; frame-ancestors 'none'; base-uri 'none'; object-src 'none'"
+X-Content-Type-Options = "nosniff"
+Referrer-Policy = "strict-origin-when-cross-origin"
+Permissions-Policy = "camera=(), microphone=(), geolocation=(), payment=(), usb=()"
+Cross-Origin-Opener-Policy = "same-origin"
+X-Frame-Options = "DENY"
+
+# Vite content-hashes everything under /assets/, so it can be cached forever.
+# index.html and the unhashed files (fonts, icons) keep Netlify's default
+# max-age=0, must-revalidate.
+[[headers]]
+for = "/assets/*"
+
+[headers.values]
+Cache-Control = "public, max-age=31536000, immutable"
+
 # /FEM_weather-app itself is served by netlify/edge-functions/weather-app.ts
 [[redirects]]
 from = "/FEM_weather-app/*"
