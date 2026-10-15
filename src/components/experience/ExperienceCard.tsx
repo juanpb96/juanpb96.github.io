@@ -153,7 +153,10 @@ export const ExperienceCard = forwardRef<HTMLDivElement, ExperienceCardProps>(
 
         <div
           className="grid grid-cols-1"
-          style={{ gap: "6px", marginBottom: `${tokens.spacing[20]}px` }}
+          style={{
+            gap: `${tokens.spacing[6]}px`,
+            marginBottom: `${tokens.spacing[20]}px`,
+          }}
         >
           {exp.achievements.map((a) => (
             <div
@@ -183,7 +186,13 @@ export const ExperienceCard = forwardRef<HTMLDivElement, ExperienceCardProps>(
         </div>
 
         {/* Tags */}
-        <div style={{ display: "flex", gap: "6px", flexWrap: "wrap" }}>
+        <div
+          style={{
+            display: "flex",
+            gap: `${tokens.spacing[6]}px`,
+            flexWrap: "wrap",
+          }}
+        >
           {exp.tags.map((tag) => (
             <span
               key={tag}

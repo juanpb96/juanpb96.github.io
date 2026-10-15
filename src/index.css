@@ -617,7 +617,7 @@ main[tabindex="-1"]:focus,
   position: relative;
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 6px; /* tokens.spacing[6] */
   color: var(--text-secondary);
   text-decoration: none;
   transition: color 0.2s ease;

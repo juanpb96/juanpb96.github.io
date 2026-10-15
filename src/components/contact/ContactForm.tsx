@@ -64,7 +64,7 @@ function FormField({
 
   const fieldStyle = {
     width: "100%",
-    padding: "12px 14px",
+    padding: `${tokens.spacing[12]}px 14px`,
     borderRadius: `${tokens.radius.sm}px`,
     fontSize: "0.875rem",
     fontFamily: tokens.fonts.body,
