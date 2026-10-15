@@ -3,6 +3,18 @@ packages:
 
 overrides:
   "@types/react-dom>@types/react": 19.0.0
+  # GHSA-c475-qrg2-pj4r: get-uri (via @lhci/cli > proxy-agent) pins basic-ftp 5.3.1;
+  # 6.2.1 is the first patched version. Remove once get-uri depends on a fixed range.
+  basic-ftp: 6.2.1
+  # GHSA-ph9p-34f9-6g65: @lhci/cli > inquirer > external-editor pins tmp ^0.0.33;
+  # 0.2.6 is the first patched version (0.2.7 is the latest).
+  tmp: 0.2.7
+  # GHSA-jmr9-qjv8-65gv, GHSA-7pqw-9j4j-h8q3: extract-zip has no patched release.
+  # @puppeteer/browsers 2.x (via lighthouse > puppeteer-core) only loads it with a
+  # dynamic import() to unzip a downloaded browser, which lhci never does (it uses
+  # the runner's Chrome), so remove it from the tree. Drop this once lighthouse
+  # depends on @puppeteer/browsers 3.x, which no longer uses extract-zip.
+  extract-zip: "-"
 
 # Supply-chain policy (see "Dependency policy" in AGENTS.md)
 minimumReleaseAge: 4320 # 3 days; use minimumReleaseAgeExclude for urgent security patches
@@ -33,3 +45,10 @@ minimumReleaseAgeExclude:
   - "@oxc-parser/binding-win32-arm64-msvc@0.154.0"
   - "@oxc-parser/binding-win32-ia32-msvc@0.154.0"
   - "@oxc-parser/binding-win32-x64-msvc@0.154.0"
+
+# semver@5.7.2 and semver@6.3.1 (transitive dependencies of @lhci/cli) are the
+# 2023-07-10 ReDoS backports to the 5.x and 6.x lines, published by an npm maintainer
+# from github.com/npm/node-semver without provenance, after the 7.5.x releases
+# that had it. Verified against the upstream repository; exact version only.
+trustPolicyExclude:
+  - semver@5.7.2 || 6.3.1

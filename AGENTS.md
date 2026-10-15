@@ -62,6 +62,7 @@ Supply-chain settings live in `pnpm-workspace.yaml`:
 - `zizmor` (`.github/`): audits workflows, actions and Dependabot config
 - `codeql` (`src/`, `netlify/`, `scripts/`): JavaScript/TypeScript analysis
 - `links` (changed `*.md`, `index.html`, `src/data/`, `src/components/`): Lychee on those files only
+- `lighthouse` (anything that changes the built site; skipped for tests, `e2e/` and docs): Lighthouse CI against `dist/` with the budgets in `lighthouserc.json` (category scores, LCP/CLS/TBT, script size); the report is uploaded as the `lighthouse-report` artifact. Run locally with `pnpm build && pnpm exec lhci autorun` (set `CHROME_PATH` if Chrome is not installed); lab numbers vary a little between machines
 - `e2e` (sections a change can affect, see "Browser checks"): Playwright axe + visual snapshots inside the pinned Playwright Docker image
 
 `ci-ok` is the single required status check: it fails if any job failed or was cancelled, and passes when jobs were skipped. Add the `full-check` label to a PR (or run the workflow manually) to run every job. When adding a job, add it to `ci-ok`'s `needs`. Pin every third-party `uses:` to a commit SHA with a version comment; shared setup steps live in the local `.github/actions/setup` action.
