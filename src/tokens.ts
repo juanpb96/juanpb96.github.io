@@ -12,17 +12,17 @@ const colors = {
   textTertiary: "#7b828e",
   accent: "#4d9cf8",
   accentDim: "rgba(77,156,248,0.18)",
-  accentGlow: "rgba(77,156,248,0.10)",
+  accentGlow: "rgba(77,156,248,0.1)",
   accentBorder: "rgba(77,156,248,0.3)",
   error: "#d96565",
-  errorBg: "rgba(217,101,101,0.10)",
+  errorBg: "rgba(217,101,101,0.1)",
   errorBorder: "rgba(217,101,101,0.3)",
 } as const
 
 const fonts = {
-  display: "'Instrument Sans', 'Instrument Sans Fallback', sans-serif",
-  mono: "'JetBrains Mono', 'JetBrains Mono Fallback', monospace",
-  body: "'Inter', 'Inter Fallback', sans-serif",
+  display: '"Instrument Sans", "Instrument Sans Fallback", sans-serif',
+  mono: '"JetBrains Mono", "JetBrains Mono Fallback", monospace',
+  body: '"Inter", "Inter Fallback", sans-serif',
 } as const
 
 const typography = {

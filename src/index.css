@@ -1,20 +1,20 @@
-@import 'tailwindcss';
+@import "tailwindcss";
 
 /* Self-hosted variable fonts, subset to the site's characters by
    scripts/subset-fonts.mjs (`pnpm run fonts`); the two above-the-fold
    families are preloaded in index.html. The weight ranges cover every
    weight the site uses, so font-weight can also be transitioned smoothly. */
 @font-face {
-  font-family: 'Instrument Sans';
-  src: url('/fonts/instrument-sans.woff2') format('woff2');
+  font-family: "Instrument Sans";
+  src: url("/fonts/instrument-sans.woff2") format("woff2");
   font-weight: 400 700;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'Inter';
-  src: url('/fonts/inter.woff2') format('woff2');
+  font-family: "Inter";
+  src: url("/fonts/inter.woff2") format("woff2");
   font-weight: 400 500;
   font-style: normal;
   font-display: swap;
@@ -23,8 +23,8 @@
 /* Not preloaded: mono text (meta tags, dates, tooltips) is never the LCP
    element, so it shouldn't compete with the hero fonts. */
 @font-face {
-  font-family: 'JetBrains Mono';
-  src: url('/fonts/jetbrains-mono.woff2') format('woff2');
+  font-family: "JetBrains Mono";
+  src: url("/fonts/jetbrains-mono.woff2") format("woff2");
   font-weight: 400 500;
   font-style: normal;
   font-display: swap;
@@ -44,8 +44,8 @@
    1229/2048), so its fallback needs no size-adjust and matches every line
    exactly; ascent/descent are JetBrains Mono's 1020/300 per 1000 units. */
 @font-face {
-  font-family: 'Instrument Sans Fallback';
-  src: local('Arial'), local('ArialMT');
+  font-family: "Instrument Sans Fallback";
+  src: local("Arial"), local("ArialMT");
   font-weight: 400 500;
   size-adjust: 103%;
   ascent-override: 94.2%;
@@ -54,8 +54,8 @@
 }
 
 @font-face {
-  font-family: 'Instrument Sans Fallback';
-  src: local('Arial Bold'), local('Arial-BoldMT');
+  font-family: "Instrument Sans Fallback";
+  src: local("Arial Bold"), local("Arial-BoldMT");
   font-weight: 600 700;
   size-adjust: 99%;
   ascent-override: 98%;
@@ -64,8 +64,8 @@
 }
 
 @font-face {
-  font-family: 'Inter Fallback';
-  src: local('Arial'), local('ArialMT');
+  font-family: "Inter Fallback";
+  src: local("Arial"), local("ArialMT");
   font-weight: 400 500;
   size-adjust: 107.9%;
   ascent-override: 89.8%;
@@ -74,8 +74,8 @@
 }
 
 @font-face {
-  font-family: 'JetBrains Mono Fallback';
-  src: local('Courier New'), local('CourierNewPSMT');
+  font-family: "JetBrains Mono Fallback";
+  src: local("Courier New"), local("CourierNewPSMT");
   size-adjust: 100%;
   ascent-override: 102%;
   descent-override: 30%;
@@ -103,14 +103,14 @@
   --text-tertiary: #7b828e;
   --accent: #4d9cf8;
   --accent-dim: rgba(77, 156, 248, 0.18);
-  --accent-glow: rgba(77, 156, 248, 0.10);
+  --accent-glow: rgba(77, 156, 248, 0.1);
   --accent-border: rgba(77, 156, 248, 0.3);
   --error: #d96565;
-  --error-bg: rgba(217, 101, 101, 0.10);
+  --error-bg: rgba(217, 101, 101, 0.1);
   --error-border: rgba(217, 101, 101, 0.3);
-  --font-display: 'Instrument Sans', 'Instrument Sans Fallback', sans-serif;
-  --font-body: 'Inter', 'Inter Fallback', sans-serif;
-  --font-mono: 'JetBrains Mono', 'JetBrains Mono Fallback', monospace;
+  --font-display: "Instrument Sans", "Instrument Sans Fallback", sans-serif;
+  --font-body: "Inter", "Inter Fallback", sans-serif;
+  --font-mono: "JetBrains Mono", "JetBrains Mono Fallback", monospace;
 }
 
 /* scroll-padding-top keeps anything scrolled into view (focused controls,
@@ -131,7 +131,9 @@ html {
   }
 }
 
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
@@ -148,8 +150,12 @@ body {
 /* Hide the page scrollbar while keeping functionality. Scoped to the root
    scroller so overflowing controls (the contact message textarea) still show
    theirs. */
-html::-webkit-scrollbar { width: 0; }
-html { scrollbar-width: none; }
+html::-webkit-scrollbar {
+  width: 0;
+}
+html {
+  scrollbar-width: none;
+}
 
 /* Architectural grid texture */
 .grid-texture {
@@ -216,7 +222,7 @@ main[tabindex="-1"]:focus,
 }
 
 .nav-tap-target::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 50%;
   left: 50%;
@@ -264,26 +270,44 @@ main[tabindex="-1"]:focus,
    reveals them. data-closing swaps the entry for a fade-out and keeps the
    links visible while it runs. */
 @keyframes nav-overlay-curtain {
-  from { clip-path: inset(0 0 100% 0); }
-  to { clip-path: inset(0 0 0% 0); }
+  from {
+    clip-path: inset(0 0 100% 0);
+  }
+  to {
+    clip-path: inset(0 0 0% 0);
+  }
 }
 
 @keyframes nav-overlay-fade-out {
-  from { opacity: 1; }
-  to { opacity: 0; }
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
 }
 
 /* visibility is set in both keyframes: the link's base style is hidden (so
    it can't be focused during its animation delay), and a from-only value
    would interpolate back to hidden at the end of the fill-forwards run. */
 @keyframes nav-link-in {
-  from { opacity: 0; transform: translateY(12px); visibility: visible; }
-  to { opacity: 1; transform: translateY(0); visibility: visible; }
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+    visibility: visible;
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    visibility: visible;
+  }
 }
 
 @media (prefers-reduced-motion: no-preference) {
   .site-nav {
-    transition: background-color 0.3s ease, border-color 0.3s ease;
+    transition:
+      background-color 0.3s ease,
+      border-color 0.3s ease;
   }
 
   /* Springy overshoot when the icon returns to the hamburger; a smooth curve
@@ -338,7 +362,9 @@ main[tabindex="-1"]:focus,
   border-color: transparent;
   background-color: transparent;
   color: var(--text-primary);
-  transition: background-color 0.2s, border-color 0.2s;
+  transition:
+    background-color 0.2s,
+    border-color 0.2s;
 }
 
 .icon-button svg {
@@ -375,11 +401,13 @@ main[tabindex="-1"]:focus,
   font: inherit;
   color: var(--text-secondary);
   border: 1px solid var(--border);
-  transition: color 0.2s, border-color 0.2s;
+  transition:
+    color 0.2s,
+    border-color 0.2s;
 }
 
 .tag-toggle::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 50%;
   left: 50%;
@@ -426,7 +454,9 @@ main[tabindex="-1"]:focus,
 
 @media (prefers-reduced-motion: no-preference) {
   .build-card-toggle svg {
-    transition: color 0.2s ease, transform 0.2s ease;
+    transition:
+      color 0.2s ease,
+      transform 0.2s ease;
   }
 }
 
@@ -467,7 +497,9 @@ main[tabindex="-1"]:focus,
   border: 1px solid transparent;
   text-decoration: none;
   cursor: pointer;
-  transition: background-color 0.2s, border-color 0.2s;
+  transition:
+    background-color 0.2s,
+    border-color 0.2s;
 }
 
 .button:focus-visible {
@@ -486,7 +518,9 @@ main[tabindex="-1"]:focus,
 
 @media (prefers-reduced-motion: no-preference) {
   .button-arrow {
-    transition: transform 0.2s ease, color 0.2s ease;
+    transition:
+      transform 0.2s ease,
+      color 0.2s ease;
   }
 }
 
@@ -588,7 +622,7 @@ main[tabindex="-1"]:focus,
 }
 
 .text-link::before {
-  content: '';
+  content: "";
   position: absolute;
   inset: calc((100% - 44px) / 2) 0;
 }
@@ -644,7 +678,9 @@ main[tabindex="-1"]:focus,
   background-color: var(--surface);
   color: var(--text-primary);
   font: inherit;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 .contact-form-field::placeholder {
@@ -673,7 +709,9 @@ main[tabindex="-1"]:focus,
 /* In-progress indicator (icons/SpinnerIcon). Under reduced motion it stays
    still: the "Sending…" label already carries the state. */
 @keyframes spinner-rotate {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .spinner {
@@ -713,7 +751,9 @@ main[tabindex="-1"]:focus,
 
 @media (prefers-reduced-motion: no-preference) {
   .icon-button-tooltip {
-    transition: opacity 0.2s ease, transform 0.2s ease;
+    transition:
+      opacity 0.2s ease,
+      transform 0.2s ease;
   }
 }
 
