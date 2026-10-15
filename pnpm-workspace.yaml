@@ -3,6 +3,9 @@ packages:
 
 overrides:
   "@types/react-dom>@types/react": 19.0.0
+  # GHSA-c475-qrg2-pj4r: get-uri (via @lhci/cli > proxy-agent) pins basic-ftp 5.3.1;
+  # 6.2.1 is the first patched version. Remove once get-uri depends on a fixed range.
+  basic-ftp: 6.2.1
 
 # Supply-chain policy (see "Dependency policy" in AGENTS.md)
 minimumReleaseAge: 4320 # 3 days; use minimumReleaseAgeExclude for urgent security patches
