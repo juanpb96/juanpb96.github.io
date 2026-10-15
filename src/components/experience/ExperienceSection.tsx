@@ -4,6 +4,7 @@ import { experiences, isCurrentExperience } from "../../data/experiences"
 import { tokens } from "../../tokens"
 import { moveFocus } from "../../utils/moveFocus"
 import { WeightTransitionText } from "../shared/WeightTransitionText"
+import { SELECTED_RING } from "../shared/selectedRing"
 import { ExperienceCard } from "./ExperienceCard"
 import { SoftHyphenWord } from "../shared/SoftHyphenWord"
 
@@ -210,7 +211,7 @@ export function ExperienceSection() {
                       boxShadow: isActive
                         ? `0 0 12px ${tokens.colors.accent}`
                         : selected
-                          ? `inset 0 0 6px ${tokens.colors.accentGlow}, inset 0 0 0 1px ${tokens.colors.accentBorder}`
+                          ? SELECTED_RING
                           : "none",
                       transition: "all 0.2s ease",
                       flexShrink: 0,
