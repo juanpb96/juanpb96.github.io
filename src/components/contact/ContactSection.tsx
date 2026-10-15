@@ -57,7 +57,7 @@ export function ContactSection() {
               fontWeight: tokens.typography.sectionIntro.weight,
               lineHeight: tokens.typography.sectionIntro.lineHeight,
               color: tokens.colors.textSecondary,
-              marginBottom: "12px",
+              marginBottom: `${tokens.spacing[12]}px`,
               maxWidth: "420px",
             }}
           >

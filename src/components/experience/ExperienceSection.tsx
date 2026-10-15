@@ -183,7 +183,7 @@ export function ExperienceSection() {
                     display: "flex",
                     alignItems: "center",
                     gap: `${tokens.spacing[16]}px`,
-                    padding: "12px 0",
+                    padding: `${tokens.spacing[12]}px 0`,
                     position: "relative",
                     width: "100%",
                     background: "none",
