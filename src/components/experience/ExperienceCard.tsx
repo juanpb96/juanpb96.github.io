@@ -89,6 +89,10 @@ export const ExperienceCard = forwardRef<HTMLDivElement, ExperienceCardProps>(
               <img
                 src={exp.logo}
                 alt=""
+                width={26}
+                height={26}
+                loading="lazy"
+                decoding="async"
                 onError={() => setLogoFailed(true)}
                 style={{
                   width: "100%",

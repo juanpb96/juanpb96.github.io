@@ -46,6 +46,13 @@ function titleStyle(large?: boolean): CSSProperties {
   }
 }
 
+// Rendered width of a row thumbnail, times its zoom: the full row width
+// below sm (the section's 32px side padding on each side), the 180px column
+// of the row grid from sm.
+function rowImageSizes({ imageScale = 1 }: Project) {
+  return `(min-width: 40rem) ${180 * imageScale}px, calc((100vw - 64px) * ${imageScale})`
+}
+
 export function ProjectCard({ number, project, large }: ProjectCardProps) {
   const { title, description, tags, liveUrl, githubUrl } = project
   const placement = large ? "featured" : "row"
@@ -71,6 +78,10 @@ export function ProjectCard({ number, project, large }: ProjectCardProps) {
     >
       <img
         src={project.image}
+        srcSet={large ? undefined : project.imageSrcSet}
+        sizes={
+          large || !project.imageSrcSet ? undefined : rowImageSizes(project)
+        }
         alt={project.imageAlt}
         loading="lazy"
         className={large ? "absolute inset-0" : undefined}
