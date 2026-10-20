@@ -131,6 +131,14 @@ const container = {
   maxWidth: 1500,
 } as const
 
+// Transition durations, mirrored as --duration-fast / --duration-base in
+// src/index.css. One-off choreography (nav overlay, hamburger morph, spinner)
+// keeps its own timing.
+const motion = {
+  fast: "0.2s",
+  base: "0.3s",
+} as const
+
 const zIndex = {
   overlay: 90,
   nav: 100,
@@ -144,5 +152,6 @@ export const tokens = {
   spacing,
   radius,
   container,
+  motion,
   zIndex,
 } as const

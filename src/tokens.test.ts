@@ -39,6 +39,10 @@ describe("index.css mirrors tokens.ts", () => {
     )
   })
 
+  it.each(Object.entries(tokens.motion))("motion.%s", (key, value) => {
+    expect(customProperty(`duration-${kebab(key)}`)).toBe(value)
+  })
+
   it("container padding matches spacing[32] and spacing[48]", () => {
     expect(customProperty("spacing-container-mobile")).toBe(
       `${tokens.spacing[32]}px`,

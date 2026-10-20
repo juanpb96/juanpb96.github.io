@@ -215,7 +215,7 @@ export function ExperienceSection() {
                         : selected
                           ? SELECTED_RING
                           : "none",
-                      transition: "all 0.2s ease",
+                      transition: `all ${tokens.motion.fast} ease`,
                       flexShrink: 0,
                       zIndex: 1,
                     }}
@@ -241,7 +241,7 @@ export function ExperienceSection() {
                           ? tokens.colors.textSecondary
                           : tokens.colors.textTertiary,
                         fontFamily: tokens.fonts.mono,
-                        transition: "color 0.2s ease",
+                        transition: `color ${tokens.motion.fast} ease`,
                       }}
                     >
                       {exp.period}
