@@ -89,6 +89,9 @@
   --spacing-container-mobile: 32px;
   --spacing-container-desktop: 48px;
   --breakpoint-mdlg: 56.25rem;
+  /* "Also built" row width where ProjectCard switches to one line of
+     columns: generates the @project-row: container variant. */
+  --container-project-row: 58rem;
 }
 
 :root {
