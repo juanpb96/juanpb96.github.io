@@ -2,6 +2,9 @@ import { tokens } from "../../tokens"
 import { ContactForm } from "./ContactForm"
 import { SoftHyphenWord } from "../shared/SoftHyphenWord"
 
+// Shared by the intro and the reply-time note below it.
+const INTRO_MAX_WIDTH = "420px"
+
 export function ContactSection() {
   return (
     <section
@@ -58,7 +61,7 @@ export function ContactSection() {
               lineHeight: tokens.typography.sectionIntro.lineHeight,
               color: tokens.colors.textSecondary,
               marginBottom: `${tokens.spacing[12]}px`,
-              maxWidth: "420px",
+              maxWidth: INTRO_MAX_WIDTH,
             }}
           >
             If you'd like to discuss a project, collaborate, or simply say
@@ -83,7 +86,7 @@ export function ContactSection() {
               fontSize: "0.75rem",
               color: tokens.colors.textTertiary,
               lineHeight: 1.7,
-              maxWidth: "420px",
+              maxWidth: INTRO_MAX_WIDTH,
             }}
           >
             Bogotá, GMT-5. Usually replies within a day

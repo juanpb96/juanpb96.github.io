@@ -3,6 +3,7 @@ import { useId, useState, type CSSProperties } from "react"
 import { tokens } from "../../tokens"
 import { ChevronDownIcon } from "../icons/ChevronDownIcon"
 import { SELECTED_RING } from "../shared/selectedRing"
+import { STEPPER_DOT_SIZE, STEPPER_RAIL_STYLE } from "../shared/stepperRail"
 
 const steps = [
   {
@@ -120,16 +121,7 @@ export function BuildProcessCard() {
       >
         <div style={{ position: "relative" }}>
           {/* Rail, aligned to the dots like the Experience stepper's */}
-          <div
-            style={{
-              position: "absolute",
-              left: "5px",
-              top: "6px",
-              bottom: "6px",
-              width: "1px",
-              backgroundColor: tokens.colors.border,
-            }}
-          />
+          <div style={STEPPER_RAIL_STYLE} />
           <ol
             style={{
               listStyle: "none",
@@ -154,8 +146,8 @@ export function BuildProcessCard() {
                 <span
                   aria-hidden="true"
                   style={{
-                    width: "11px",
-                    height: "11px",
+                    width: STEPPER_DOT_SIZE,
+                    height: STEPPER_DOT_SIZE,
                     marginTop: "6px",
                     borderRadius: "50%",
                     backgroundColor: tokens.colors.surface,

@@ -5,6 +5,7 @@ import { tokens } from "../../tokens"
 import { moveFocus } from "../../utils/moveFocus"
 import { WeightTransitionText } from "../shared/WeightTransitionText"
 import { SELECTED_RING } from "../shared/selectedRing"
+import { STEPPER_DOT_SIZE, STEPPER_RAIL_STYLE } from "../shared/stepperRail"
 import { ExperienceCard } from "./ExperienceCard"
 import { SoftHyphenWord } from "../shared/SoftHyphenWord"
 
@@ -20,6 +21,11 @@ function supportsHoverPointer() {
 
   return hoverPointerQuery.matches
 }
+
+// First grid column: a fraction of the content box from md, fixed from mdlg.
+// Set as custom properties so the grid and the column separator share them.
+const FIRST_COLUMN_FRACTION = 0.42
+const FIRST_COLUMN_FIXED = "340px"
 
 export function ExperienceSection() {
   // Hover is transient (fine-pointer only, per the media-query gating used for
@@ -62,6 +68,8 @@ export function ExperienceSection() {
       className="px-container-mobile md:px-container-desktop"
       style={{
         "--experience-gap": `clamp(${tokens.spacing[48]}px, 8vw, ${tokens.spacing[80]}px)`,
+        "--experience-col-fraction": FIRST_COLUMN_FRACTION,
+        "--experience-col-fixed": FIRST_COLUMN_FIXED,
         paddingTop: `clamp(${tokens.spacing[64]}px, 10vw, ${tokens.spacing[120]}px)`,
         paddingBottom: `clamp(${tokens.spacing[64]}px, 10vw, ${tokens.spacing[120]}px)`,
         position: "relative",
@@ -82,14 +90,15 @@ export function ExperienceSection() {
 
       {/* Vertical separator line, centered in the column gap: left padding
           (--spacing-container-desktop, 48px) + first column + half the gap. The first column is
-          proportional (42%) in the md-mdlg range and a fixed 340px at mdlg+,
-          matching the grid-cols breakpoints below exactly. Grid percentage
+          proportional (--experience-col-fraction) in the md-mdlg range and
+          fixed (--experience-col-fixed) at mdlg+, the same variables the
+          grid-cols breakpoints below read. Grid percentage
           tracks resolve against the full content box (section width minus
           2 × that padding, gap included). The gap is read from the same
           --experience-gap the grid uses, so the line follows its 8vw growth
           instead of assuming a fixed value. */}
       <div
-        className="hidden md:block md:left-[calc(var(--spacing-container-desktop)_+_(100%_-_2_*_var(--spacing-container-desktop))_*_0.42_+_var(--experience-gap)_/_2)] mdlg:left-[calc(var(--spacing-container-desktop)_+_340px_+_var(--experience-gap)_/_2)]"
+        className="hidden md:block md:left-[calc(var(--spacing-container-desktop)_+_(100%_-_2_*_var(--spacing-container-desktop))_*_var(--experience-col-fraction)_+_var(--experience-gap)_/_2)] mdlg:left-[calc(var(--spacing-container-desktop)_+_var(--experience-col-fixed)_+_var(--experience-gap)_/_2)]"
         style={{
           position: "absolute",
           top: `clamp(${tokens.spacing[64]}px, 10vw, ${tokens.spacing[120]}px)`,
@@ -102,7 +111,7 @@ export function ExperienceSection() {
       />
 
       <div
-        className="grid grid-cols-1 md:grid-cols-[42%_1fr] mdlg:grid-cols-[340px_1fr]"
+        className="grid grid-cols-1 md:grid-cols-[calc(var(--experience-col-fraction)_*_100%)_1fr] mdlg:grid-cols-[var(--experience-col-fixed)_1fr]"
         style={{
           gap: "var(--experience-gap)",
           alignItems: "start",
@@ -152,16 +161,7 @@ export function ExperienceSection() {
               position: "relative",
             }}
           >
-            <div
-              style={{
-                position: "absolute",
-                left: "5px",
-                top: "6px",
-                bottom: "6px",
-                width: "1px",
-                backgroundColor: tokens.colors.border,
-              }}
-            />
+            <div style={STEPPER_RAIL_STYLE} />
             {experiences.map((exp, i) => {
               const isActive = isCurrentExperience(exp)
               const selected = hoverIndex === i || pinnedIndex === i
@@ -197,8 +197,8 @@ export function ExperienceSection() {
                   <span
                     style={{
                       display: "block",
-                      width: "11px",
-                      height: "11px",
+                      width: STEPPER_DOT_SIZE,
+                      height: STEPPER_DOT_SIZE,
                       borderRadius: "50%",
                       backgroundColor: isActive
                         ? tokens.colors.accent

@@ -1,7 +1,7 @@
 import { tokens } from "../../tokens"
 import { ContentContainer } from "../layout/ContentContainer"
 import { GithubIcon } from "../icons/GithubIcon"
-import { IconButton } from "../shared/IconButton"
+import { ICON_BUTTON_INSET, IconButton } from "../shared/IconButton"
 import { LinkedinIcon } from "../icons/LinkedinIcon"
 
 // Read once at module load rather than during render (react/purity).
@@ -33,11 +33,14 @@ export function Footer() {
               Juan Bonilla
             </span>
           </span>
-          {/* Each IconButton is a circle with 13px of inset around its glyph, so the
-              first glyph sits 13px in from the button's edge. In the stacked
-              mobile layout, pull the row back by that inset so the glyph lines
-              up with the copy above it. */}
-          <div className="flex items-center gap-2 -ml-[13px] md:ml-0">
+          {/* Each IconButton is a circle with ICON_BUTTON_INSET around its
+              glyph, so the first glyph sits that far in from the button's
+              edge. In the stacked mobile layout, pull the row back by that
+              inset so the glyph lines up with the copy above it. */}
+          <div
+            className="flex items-center gap-2 -ml-(--icon-button-inset) md:ml-0"
+            style={{ "--icon-button-inset": `${ICON_BUTTON_INSET}px` }}
+          >
             <IconButton
               href="https://www.linkedin.com/in/juanpablobonilla"
               ariaLabel="View LinkedIn profile"

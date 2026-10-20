@@ -9,9 +9,10 @@ interface IconButtonProps {
   children: ReactNode
 }
 
-/* The circle is the 1.125rem glyph plus 13px of inset on each side: 44px at
-   the default size (the tap target minimum), growing with the glyph. */
-const BUTTON_SIZE = "calc(1.125rem + 26px)"
+/* The circle is the 1.125rem glyph plus ICON_BUTTON_INSET on each side: 44px
+   at the default size (the tap target minimum), growing with the glyph. */
+export const ICON_BUTTON_INSET = 13
+const BUTTON_SIZE = `calc(1.125rem + ${ICON_BUTTON_INSET * 2}px)`
 
 export function IconButton({
   href,

@@ -5,6 +5,10 @@ import { TagList } from "../shared/TagList"
 import { BuildProcessCard } from "./BuildProcessCard"
 import { SoftHyphenWord } from "../shared/SoftHyphenWord"
 
+// Max width of both columns: the copy (always) and the BuildProcessCard
+// (mdlg+, read by the mdlg:max-w-(--hero-column-max) class).
+const COLUMN_MAX_WIDTH = "560px"
+
 export function HeroSection() {
   return (
     <section
@@ -48,7 +52,9 @@ export function HeroSection() {
       />
 
       {/* Left: Text */}
-      <div style={{ position: "relative", zIndex: 2, maxWidth: "560px" }}>
+      <div
+        style={{ position: "relative", zIndex: 2, maxWidth: COLUMN_MAX_WIDTH }}
+      >
         {/* One heading: the space between the spans keeps the accessible
             name "Juan Bonilla Front-End Engineer" rather than run together. */}
         <h1
@@ -100,8 +106,12 @@ export function HeroSection() {
 
       {/* Right (mdlg+) / below: how the site is built */}
       <div
-        className="w-full mdlg:max-w-[560px] mdlg:justify-self-end"
-        style={{ position: "relative", zIndex: 2 }}
+        className="w-full mdlg:max-w-(--hero-column-max) mdlg:justify-self-end"
+        style={{
+          "--hero-column-max": COLUMN_MAX_WIDTH,
+          position: "relative",
+          zIndex: 2,
+        }}
       >
         <BuildProcessCard />
       </div>
