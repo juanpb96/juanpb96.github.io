@@ -20,7 +20,7 @@ export function HeroSection() {
         columnGap: `clamp(${tokens.spacing[48]}px, 8vw, ${tokens.spacing[80]}px)`,
         rowGap: `${tokens.spacing[32]}px`,
         // The nav is fixed, so the top padding clears its height first.
-        paddingTop: `calc(${tokens.spacing[64]}px + clamp(${tokens.spacing[32]}px, 6vw, ${tokens.spacing[64]}px))`,
+        paddingTop: `calc(${tokens.container.navHeight}px + clamp(${tokens.spacing[32]}px, 6vw, ${tokens.spacing[64]}px))`,
         paddingBottom: `clamp(${tokens.spacing[32]}px, 6vw, ${tokens.spacing[64]}px)`,
         position: "relative",
         overflow: "hidden",

@@ -120,7 +120,7 @@ export function ExperienceSection() {
         }}
       >
         {/* Left: sticky label */}
-        <div className="md:sticky md:top-24">
+        <div className="md:sticky md:top-[calc(var(--nav-height)_+_32px)]">
           <h2
             style={{
               fontFamily: tokens.typography.sectionTitle.font,

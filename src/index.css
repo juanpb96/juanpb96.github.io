@@ -115,14 +115,15 @@
   --font-mono: "JetBrains Mono", "JetBrains Mono Fallback", monospace;
   --duration-fast: 0.2s;
   --duration-base: 0.3s;
+  --nav-height: 64px;
 }
 
 /* scroll-padding-top keeps anything scrolled into view (focused controls,
-   #hash jumps, scrollIntoView) clear of the fixed nav: 64px nav height
-   (tokens.spacing[64] in Nav.tsx) + 16px breathing room (WCAG 2.4.11). */
+   #hash jumps, scrollIntoView) clear of the fixed nav: --nav-height + 16px
+   breathing room (WCAG 2.4.11). */
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 80px;
+  scroll-padding-top: calc(var(--nav-height) + 16px);
 }
 
 /* Reduced motion: scrolling jumps. Motion that moves things (nav overlay,
@@ -173,7 +174,7 @@ html {
 section {
   position: relative;
   /* Cancels the 16px breathing room from html's scroll-padding-top so nav
-     links and #hash jumps land a section flush under the 64px nav, keeping
+     links and #hash jumps land a section flush under the nav, keeping
      its top divider line hidden behind the nav. */
   scroll-margin-top: -16px;
 }
