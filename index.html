@@ -86,16 +86,16 @@
       }
     </script>
     <!--
-      Umami Cloud analytics: cookieless, anonymous visit stats. The script and
-      the event endpoint are proxied first-party through netlify.toml (/a/*),
-      so the CSP stays 'self' and nothing loads from *.umami.is in the
-      browser. data-domains keeps deploy previews and localhost out.
+      Umami Cloud analytics: cookieless, anonymous visit stats. Loaded
+      straight from cloud.umami.is (allowed in the CSP in netlify.toml): a
+      proxy through Netlify made every visitor show up at Netlify's own
+      location. The tracker posts events back to the script's origin.
+      data-domains keeps deploy previews and localhost out.
     -->
     <script
       defer
-      src="/a/s.js"
+      src="https://cloud.umami.is/script.js"
       data-website-id="8adcb17c-8fd4-4347-8768-9a2bef690e39"
-      data-host-url="https://juanbonilla.me/a"
       data-domains="juanbonilla.me"
     ></script>
   </head>
