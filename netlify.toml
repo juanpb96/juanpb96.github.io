@@ -12,8 +12,9 @@ NODE_VERSION = "26"
 # Security headers for everything Netlify serves from dist/. They don't apply
 # to proxied paths (the redirects below) or to edge-function responses.
 # The CSP is enforced after a clean report-only period in production.
-# Everything is same-origin except Umami analytics (cloud.umami.is: its
-# script, and the events it posts back to the same origin). Fonts are
+# Everything is same-origin except Umami analytics: its script comes from
+# cloud.umami.is and it posts events to gateway.umami.is (connect-src keeps
+# both hosts). Fonts are
 # self-hosted, the JSON-LD block is data (CSP does not apply to it) and
 # React's style={{}} writes through the CSSOM, so no 'unsafe-inline' is
 # needed. frame-ancestors covers framing; X-Frame-Options stays for older
@@ -22,7 +23,7 @@ NODE_VERSION = "26"
 for = "/*"
 
 [headers.values]
-Content-Security-Policy = "default-src 'self'; script-src 'self' https://cloud.umami.is; style-src 'self'; font-src 'self'; img-src 'self'; connect-src 'self' https://cloud.umami.is; form-action 'self'; frame-ancestors 'none'; base-uri 'none'; object-src 'none'; upgrade-insecure-requests"
+Content-Security-Policy = "default-src 'self'; script-src 'self' https://cloud.umami.is; style-src 'self'; font-src 'self'; img-src 'self'; connect-src 'self' https://cloud.umami.is https://gateway.umami.is; form-action 'self'; frame-ancestors 'none'; base-uri 'none'; object-src 'none'; upgrade-insecure-requests"
 X-Content-Type-Options = "nosniff"
 Referrer-Policy = "strict-origin-when-cross-origin"
 Permissions-Policy = "camera=(), microphone=(), geolocation=(), payment=(), usb=()"
