@@ -1,0 +1,131 @@
+<!doctype html>
+<!--
+  Open Graph card (1200×630), rendered to public/og-image.png by
+  scripts/generate-og-image.mjs (`pnpm run og`). Re-run it when the name or
+  role copy changes. Colours mirror src/tokens.ts (token named next to each
+  value); fonts are the self-hosted subsets in public/fonts/, so the text may
+  only use characters the site itself renders.
+-->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <style>
+      @font-face {
+        font-family: "Instrument Sans";
+        src: url("../public/fonts/instrument-sans.woff2") format("woff2");
+        font-weight: 400 700;
+      }
+
+      @font-face {
+        font-family: "JetBrains Mono";
+        src: url("../public/fonts/jetbrains-mono.woff2") format("woff2");
+        font-weight: 400 500;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+      }
+
+      html,
+      body {
+        width: 1200px;
+        height: 630px;
+      }
+
+      body {
+        position: relative;
+        overflow: hidden;
+        background-color: #0a0b0d; /* colors.bg */
+        color: #eef0f4; /* colors.textPrimary */
+        font-family: "Instrument Sans", sans-serif;
+      }
+
+      /* The hero's grid texture: 64px cells in colors.border at 40 %. */
+      .grid {
+        position: absolute;
+        inset: 0;
+        opacity: 0.4;
+        background-image:
+          linear-gradient(rgba(255, 255, 255, 0.07) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255, 255, 255, 0.07) 1px, transparent 1px);
+        background-size: 64px 64px;
+      }
+
+      /* The hero's ambient glow (colors.accentFaint), scaled up for the card. */
+      .glow {
+        position: absolute;
+        top: -120px;
+        right: -80px;
+        width: 760px;
+        height: 760px;
+        border-radius: 50%;
+        background: radial-gradient(
+          circle,
+          rgba(77, 156, 248, 0.1) 0%,
+          transparent 70%
+        );
+      }
+
+      /* Content stays inside a centred 1080×560 safe area, so previews that
+         crop the edges (LinkedIn, Slack) keep everything. */
+      .safe {
+        position: absolute;
+        inset: 35px 60px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+
+      .monogram {
+        font-weight: 700;
+        font-size: 32px;
+        letter-spacing: -0.02em;
+      }
+
+      .name {
+        font-weight: 700;
+        font-size: 88px;
+        line-height: 1.05;
+        letter-spacing: -0.03em;
+      }
+
+      .role {
+        margin-top: 8px;
+        font-weight: 700;
+        font-size: 56px;
+        line-height: 1.05;
+        letter-spacing: -0.03em;
+        color: #8b909a; /* colors.textSecondary */
+      }
+
+      .stack {
+        margin-top: 32px;
+        font-family: "JetBrains Mono", monospace;
+        font-weight: 500;
+        font-size: 28px;
+        color: #4d9cf8; /* colors.accent */
+      }
+
+      .url {
+        font-family: "JetBrains Mono", monospace;
+        font-weight: 400;
+        font-size: 26px;
+        color: #8b909a; /* colors.textSecondary */
+      }
+    </style>
+  </head>
+  <body>
+    <div class="grid"></div>
+    <div class="glow"></div>
+    <div class="safe">
+      <p class="monogram">JB</p>
+      <div>
+        <h1 class="name">Juan Bonilla</h1>
+        <p class="role">Front-End Engineer</p>
+        <p class="stack">React · TypeScript · Accessibility</p>
+      </div>
+      <p class="url">juanbonilla.me</p>
+    </div>
+  </body>
+</html>

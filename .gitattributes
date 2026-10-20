@@ -162,6 +162,10 @@
 # in the deploy checkout, so keep them out of LFS (overrides *.woff2 above).
 public/fonts/*.woff2 !filter !diff !merge -text
 
+# The Open Graph image is fetched by link-preview scrapers straight from the
+# deploy, so it must be a real file there too (overrides *.png above).
+public/og-image.png !filter !diff !merge -text
+
 # Playwright snapshot baselines are compared byte-for-byte in CI, where only
 # the e2e job fetches LFS objects, so they must be real files too (overrides
 # *.png above).
