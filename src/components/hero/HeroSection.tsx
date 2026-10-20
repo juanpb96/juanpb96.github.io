@@ -1,4 +1,5 @@
 import { tokens } from "../../tokens"
+import { track } from "../../utils/analytics"
 import { ArrowRightIcon } from "../icons/ArrowRightIcon"
 import { Button } from "../shared/Button"
 import { TagList } from "../shared/TagList"
@@ -98,7 +99,12 @@ export function HeroSection() {
           the design decisions, the accessibility and the final review.
         </p>
 
-        <Button variant="primary" href="#contact" className="w-full sm:w-auto">
+        <Button
+          variant="primary"
+          href="#contact"
+          onClick={() => track("cta_get_in_touch")}
+          className="w-full sm:w-auto"
+        >
           Get in touch
           <ArrowRightIcon className="button-arrow" />
         </Button>

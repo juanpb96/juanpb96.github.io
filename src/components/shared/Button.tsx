@@ -13,7 +13,7 @@ interface ButtonLinkProps extends ButtonBaseProps {
   external?: boolean
   type?: never
   ariaDisabled?: never
-  onClick?: never
+  onClick?: () => void
 }
 
 interface ButtonElementProps extends ButtonBaseProps {
@@ -67,6 +67,7 @@ export function Button({
   return (
     <a
       href={href}
+      onClick={onClick}
       className={classes}
       style={style}
       {...(external && { target: "_blank", rel: "noopener noreferrer" })}

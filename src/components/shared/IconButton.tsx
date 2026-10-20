@@ -7,6 +7,7 @@ interface IconButtonProps {
   ariaLabel: string
   tooltip: string
   children: ReactNode
+  onClick?: () => void
 }
 
 /* The circle is the 1.125rem glyph plus ICON_BUTTON_INSET on each side: 44px
@@ -19,6 +20,7 @@ export function IconButton({
   ariaLabel,
   tooltip,
   children,
+  onClick,
 }: IconButtonProps) {
   return (
     <a
@@ -26,6 +28,7 @@ export function IconButton({
       target="_blank"
       rel="noopener noreferrer"
       aria-label={`${ariaLabel} (opens in new tab)`}
+      onClick={onClick}
       className="icon-button"
       style={{
         width: BUTTON_SIZE,

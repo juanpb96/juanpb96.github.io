@@ -1,4 +1,5 @@
 import { tokens } from "../../tokens"
+import { track } from "../../utils/analytics"
 import { ContactForm } from "./ContactForm"
 import { SoftHyphenWord } from "../shared/SoftHyphenWord"
 
@@ -66,7 +67,11 @@ export function ContactSection() {
           >
             If you'd like to discuss a project, collaborate, or simply say
             hello, feel free to reach out through{" "}
-            <a href="mailto:hello@juanbonilla.me" className="inline-link">
+            <a
+              href="mailto:hello@juanbonilla.me"
+              onClick={() => track("email_click", { location: "contact" })}
+              className="inline-link"
+            >
               email
             </a>{" "}
             or{" "}
@@ -74,6 +79,12 @@ export function ContactSection() {
               href="https://www.linkedin.com/in/juanpablobonilla"
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() =>
+                track("social_click", {
+                  network: "linkedin",
+                  location: "contact",
+                })
+              }
               className="inline-link"
             >
               LinkedIn

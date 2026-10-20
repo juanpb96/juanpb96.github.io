@@ -7,6 +7,7 @@ import { ErrorIcon } from "../icons/ErrorIcon"
 import { SpinnerIcon } from "../icons/SpinnerIcon"
 import { Button } from "../shared/Button"
 import { WeightTransitionText } from "../shared/WeightTransitionText"
+import { track } from "../../utils/analytics"
 import { moveFocus } from "../../utils/moveFocus"
 import { tokens } from "../../tokens"
 
@@ -166,9 +167,11 @@ export function ContactForm() {
       form.reset()
 
       setStatus("success")
+      track("contact_sent")
     } catch {
       // Field values are kept so the message can be resent as is.
       setStatus("error")
+      track("contact_failed")
     } finally {
       submittingRef.current = false
     }
