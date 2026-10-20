@@ -1,6 +1,6 @@
-import colcanLogo from "../assets/experience/colcan.png"
-import globantLogo from "../assets/experience/globant.png"
-import monksLogo from "../assets/experience/monks.png"
+import colcanLogo from "../assets/experience/colcan.webp?no-inline"
+import globantLogo from "../assets/experience/globant.webp?no-inline"
+import monksLogo from "../assets/experience/monks.webp?no-inline"
 
 export interface Experience {
   role: string
