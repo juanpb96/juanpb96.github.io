@@ -2,7 +2,8 @@
 <!--
   Open Graph card (1200×630), rendered to public/og-image.png by
   scripts/generate-og-image.mjs (`pnpm run og`). Re-run it when the name or
-  role copy changes. Colours mirror src/tokens.ts (token named next to each
+  role copy changes. It mirrors the hero (title, tags, intro copy) at card
+  size. Colours mirror src/tokens.ts (token named next to each
   value); fonts are the self-hosted subsets in public/fonts/, so the text may
   only use characters the site itself renders.
 -->
@@ -14,6 +15,12 @@
         font-family: "Instrument Sans";
         src: url("../public/fonts/instrument-sans.woff2") format("woff2");
         font-weight: 400 700;
+      }
+
+      @font-face {
+        font-family: "Inter";
+        src: url("../public/fonts/inter.woff2") format("woff2");
+        font-weight: 400 500;
       }
 
       @font-face {
@@ -55,14 +62,14 @@
       /* The hero's ambient glow (colors.accentFaint), scaled up for the card. */
       .glow {
         position: absolute;
-        top: -120px;
-        right: -80px;
+        top: -40px;
+        right: -60px;
         width: 760px;
         height: 760px;
         border-radius: 50%;
         background: radial-gradient(
           circle,
-          rgba(77, 156, 248, 0.1) 0%,
+          rgba(77, 156, 248, 0.08) 0%,
           transparent 70%
         );
       }
@@ -83,34 +90,55 @@
         letter-spacing: -0.02em;
       }
 
-      .name {
+      /* Same type as the hero title (typography.heroTitle), at card size. */
+      .title {
         font-weight: 700;
-        font-size: 88px;
+        font-size: 92px;
         line-height: 1.05;
         letter-spacing: -0.03em;
+      }
+
+      .title span {
+        display: block;
       }
 
       .role {
-        margin-top: 8px;
-        font-weight: 700;
-        font-size: 56px;
-        line-height: 1.05;
-        letter-spacing: -0.03em;
-        color: #8b909a; /* colors.textSecondary */
+        color: #7b828e; /* colors.textTertiary */
       }
 
-      .stack {
-        margin-top: 32px;
-        font-family: "JetBrains Mono", monospace;
-        font-weight: 500;
-        font-size: 28px;
+      /* The hero's tags (TagList, accent variant), at card size. */
+      .tags {
+        display: flex;
+        gap: 12px;
+        margin-top: 28px;
+        padding: 0;
+        list-style: none;
+      }
+
+      .tags li {
+        padding: 6px 18px;
+        border: 1px solid rgba(77, 156, 248, 0.3); /* colors.accentBorder */
+        border-radius: 999px; /* radius.full */
+        background-color: rgba(77, 156, 248, 0.1); /* colors.accentGlow */
         color: #4d9cf8; /* colors.accent */
+        font-family: "JetBrains Mono", monospace;
+        font-size: 22px;
+        line-height: 29px;
+      }
+
+      /* The hero's intro copy (typography.body), at card size. */
+      .intro {
+        max-width: 880px;
+        margin-top: 24px;
+        font-family: "Inter", sans-serif;
+        font-size: 26px;
+        line-height: 1.5;
+        color: #8b909a; /* colors.textSecondary */
       }
 
       .url {
         font-family: "JetBrains Mono", monospace;
-        font-weight: 400;
-        font-size: 26px;
+        font-size: 24px;
         color: #8b909a; /* colors.textSecondary */
       }
     </style>
@@ -121,9 +149,19 @@
     <div class="safe">
       <p class="monogram">JB</p>
       <div>
-        <h1 class="name">Juan Bonilla</h1>
-        <p class="role">Front-End Engineer</p>
-        <p class="stack">React · TypeScript · Accessibility</p>
+        <h1 class="title">
+          <span>Juan Bonilla</span>
+          <span class="role">Front-End Engineer</span>
+        </h1>
+        <ul class="tags">
+          <li>React</li>
+          <li>TypeScript</li>
+          <li>AI-assisted workflow</li>
+        </ul>
+        <p class="intro">
+          I build with Claude Code in the loop: it takes the boilerplate, I own
+          the design decisions, the accessibility and the final review.
+        </p>
       </div>
       <p class="url">juanbonilla.me</p>
     </div>
