@@ -129,6 +129,8 @@ const radius = {
 
 const container = {
   maxWidth: 1500,
+  // Fixed nav bar height, mirrored as --nav-height in src/index.css.
+  navHeight: 64,
 } as const
 
 // Transition durations, mirrored as --duration-fast / --duration-base in

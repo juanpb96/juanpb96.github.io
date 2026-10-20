@@ -6,6 +6,9 @@ import { moveFocus } from "../../utils/moveFocus"
 import { ContentContainer } from "../layout/ContentContainer"
 
 const links = ["Projects", "Experience", "Contact"]
+// Translucent bar shared by the scrolled nav and the mobile menu overlay.
+const NAV_BACKGROUND = "rgba(10,11,13,0.85)"
+const NAV_BLUR = "blur(20px)"
 // Overlay fade-out (nav-overlay-fade-out in index.css, read through
 // --nav-close-duration); the menu unmounts just after it ends.
 const CLOSE_FADE_MS = 250
@@ -248,9 +251,9 @@ export function Nav() {
         left: 0,
         right: 0,
         zIndex: tokens.zIndex.nav,
-        backdropFilter: "blur(20px)",
-        WebkitBackdropFilter: "blur(20px)",
-        backgroundColor: scrolled ? "rgba(10,11,13,0.85)" : "transparent",
+        backdropFilter: NAV_BLUR,
+        WebkitBackdropFilter: NAV_BLUR,
+        backgroundColor: scrolled ? NAV_BACKGROUND : "transparent",
         borderBottom: scrolled
           ? `1px solid ${tokens.colors.border}`
           : "1px solid transparent",
@@ -263,7 +266,7 @@ export function Nav() {
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
-            height: `${tokens.spacing[64]}px`,
+            height: `${tokens.container.navHeight}px`,
           }}
         >
           {/* Monogram */}
@@ -361,7 +364,7 @@ export function Nav() {
             style={{
               "--nav-close-duration": `${CLOSE_FADE_MS}ms`,
               position: "fixed",
-              top: `${tokens.spacing[64]}px`,
+              top: `${tokens.container.navHeight}px`,
               left: 0,
               right: 0,
               bottom: 0,
@@ -377,9 +380,9 @@ export function Nav() {
               border: "none",
               color: "inherit",
               zIndex: tokens.zIndex.overlay,
-              backdropFilter: "blur(20px)",
-              WebkitBackdropFilter: "blur(20px)",
-              backgroundColor: "rgba(10,11,13,0.85)",
+              backdropFilter: NAV_BLUR,
+              WebkitBackdropFilter: NAV_BLUR,
+              backgroundColor: NAV_BACKGROUND,
               display: "flex",
               alignItems: "center",
             }}

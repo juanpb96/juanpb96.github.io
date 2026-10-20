@@ -43,6 +43,10 @@ describe("index.css mirrors tokens.ts", () => {
     expect(customProperty(`duration-${kebab(key)}`)).toBe(value)
   })
 
+  it("nav height matches container.navHeight", () => {
+    expect(customProperty("nav-height")).toBe(`${tokens.container.navHeight}px`)
+  })
+
   it("container padding matches spacing[32] and spacing[48]", () => {
     expect(customProperty("spacing-container-mobile")).toBe(
       `${tokens.spacing[32]}px`,
