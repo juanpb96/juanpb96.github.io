@@ -11,17 +11,17 @@ NODE_VERSION = "26"
 
 # Security headers for everything Netlify serves from dist/. They don't apply
 # to proxied paths (the redirects below) or to edge-function responses.
-# The CSP starts as report-only: once it has run clean in production, rename
-# it to Content-Security-Policy and add upgrade-insecure-requests. Everything
-# is same-origin: fonts are self-hosted, the JSON-LD block is data (CSP does
-# not apply to it) and React's style={{}} writes through the CSSOM, so no
-# 'unsafe-inline' is needed. Report-only ignores frame-ancestors, so
-# X-Frame-Options covers framing until the CSP is enforced.
+# The CSP is enforced after a clean report-only period in production.
+# Everything is same-origin: fonts are self-hosted, analytics is proxied
+# through /a/*, the JSON-LD block is data (CSP does not apply to it) and
+# React's style={{}} writes through the CSSOM, so no 'unsafe-inline' is
+# needed. frame-ancestors covers framing; X-Frame-Options stays for older
+# browsers that ignore it.
 [[headers]]
 for = "/*"
 
 [headers.values]
-Content-Security-Policy-Report-Only = "default-src 'self'; script-src 'self'; style-src 'self'; font-src 'self'; img-src 'self'; connect-src 'self'; form-action 'self'; frame-ancestors 'none'; base-uri 'none'; object-src 'none'"
+Content-Security-Policy = "default-src 'self'; script-src 'self'; style-src 'self'; font-src 'self'; img-src 'self'; connect-src 'self'; form-action 'self'; frame-ancestors 'none'; base-uri 'none'; object-src 'none'; upgrade-insecure-requests"
 X-Content-Type-Options = "nosniff"
 Referrer-Policy = "strict-origin-when-cross-origin"
 Permissions-Policy = "camera=(), microphone=(), geolocation=(), payment=(), usb=()"
