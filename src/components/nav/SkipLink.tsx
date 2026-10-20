@@ -18,7 +18,6 @@ export function SkipLink() {
         zIndex: tokens.zIndex.skipLink,
         display: "inline-flex",
         alignItems: "center",
-        minHeight: "44px",
         padding: `0 ${tokens.spacing[16]}px`,
         borderRadius: `${tokens.radius.sm}px`,
         fontFamily: tokens.typography.navigation.font,
