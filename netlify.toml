@@ -14,10 +14,9 @@ NODE_VERSION = "26"
 # The CSP is enforced after a clean report-only period in production.
 # Everything is same-origin except Umami analytics: its script comes from
 # cloud.umami.is and it posts events to gateway.umami.is (connect-src keeps
-# both hosts). Fonts are
-# self-hosted, the JSON-LD block is data (CSP does not apply to it) and
-# React's style={{}} writes through the CSSOM, so no 'unsafe-inline' is
-# needed. frame-ancestors covers framing; X-Frame-Options stays for older
+# both hosts). Fonts are self-hosted, the JSON-LD block is data (CSP does
+# not apply to it) and React's style={{}} writes through the CSSOM, so no
+# 'unsafe-inline' is needed. frame-ancestors covers framing; X-Frame-Options stays for older
 # browsers that ignore it.
 [[headers]]
 for = "/*"
