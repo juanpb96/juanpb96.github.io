@@ -2,6 +2,7 @@ import type { CSSProperties } from "react"
 
 import type { Project } from "../../data/projects"
 import { tokens } from "../../tokens"
+import { track } from "../../utils/analytics"
 import { ArrowUpRightIcon } from "../icons/ArrowUpRightIcon"
 import { GithubIcon } from "../icons/GithubIcon"
 import { Button } from "../shared/Button"
@@ -47,6 +48,11 @@ function titleStyle(large?: boolean): CSSProperties {
 
 export function ProjectCard({ number, project, large }: ProjectCardProps) {
   const { title, description, tags, liveUrl, githubUrl } = project
+  const placement = large ? "featured" : "row"
+  const trackLive = (via: "button" | "link" | "image") => () =>
+    track("project_live", { project: title, placement, via })
+  const trackCode = (via: "button" | "link") => () =>
+    track("project_code", { project: title, placement, via })
 
   // Featured: bleeds to the card's edges (the card clips the corners). From
   // lg it sits beside the copy: its 16:10 ratio sets the row height unless
@@ -86,6 +92,7 @@ export function ProjectCard({ number, project, large }: ProjectCardProps) {
         rel="noopener noreferrer"
         tabIndex={-1}
         aria-hidden="true"
+        onClick={trackLive("image")}
         className="project-image-link absolute inset-0"
       />
     </div>
@@ -123,6 +130,7 @@ export function ProjectCard({ number, project, large }: ProjectCardProps) {
               variant="primary"
               href={liveUrl}
               external
+              onClick={trackLive("button")}
               className="w-full sm:w-auto"
             >
               View live site
@@ -133,6 +141,7 @@ export function ProjectCard({ number, project, large }: ProjectCardProps) {
               variant="secondary"
               href={githubUrl}
               external
+              onClick={trackCode("button")}
               className="w-full sm:w-auto"
             >
               View code
@@ -189,6 +198,7 @@ export function ProjectCard({ number, project, large }: ProjectCardProps) {
             href={liveUrl}
             target="_blank"
             rel="noopener noreferrer"
+            onClick={trackLive("link")}
             className="text-link"
           >
             View live site
@@ -199,6 +209,7 @@ export function ProjectCard({ number, project, large }: ProjectCardProps) {
             href={githubUrl}
             target="_blank"
             rel="noopener noreferrer"
+            onClick={trackCode("link")}
             className="text-link"
           >
             View code

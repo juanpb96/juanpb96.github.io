@@ -1,4 +1,5 @@
 import { tokens } from "../../tokens"
+import { track } from "../../utils/analytics"
 import { ContentContainer } from "../layout/ContentContainer"
 import { GithubIcon } from "../icons/GithubIcon"
 import { ICON_BUTTON_INSET, IconButton } from "../shared/IconButton"
@@ -45,6 +46,12 @@ export function Footer() {
               href="https://www.linkedin.com/in/juanpablobonilla"
               ariaLabel="View LinkedIn profile"
               tooltip="LinkedIn"
+              onClick={() =>
+                track("social_click", {
+                  network: "linkedin",
+                  location: "footer",
+                })
+              }
             >
               <LinkedinIcon />
             </IconButton>
@@ -52,6 +59,9 @@ export function Footer() {
               href="https://github.com/juanpb96"
               ariaLabel="View GitHub profile"
               tooltip="GitHub"
+              onClick={() =>
+                track("social_click", { network: "github", location: "footer" })
+              }
             >
               <GithubIcon />
             </IconButton>

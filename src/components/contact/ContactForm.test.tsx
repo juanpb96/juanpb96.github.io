@@ -2,7 +2,10 @@ import { act, render, screen, within } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest"
 
+import { track } from "../../utils/analytics"
 import { ContactForm } from "./ContactForm"
+
+vi.mock("../../utils/analytics", () => ({ track: vi.fn() }))
 
 type User = ReturnType<typeof userEvent.setup>
 
@@ -32,6 +35,7 @@ async function fillAndSubmit(user: User) {
 }
 
 beforeEach(() => {
+  vi.mocked(track).mockClear()
   fetchMock.mockReset()
   vi.stubGlobal("fetch", fetchMock)
 })
@@ -224,6 +228,44 @@ describe("ContactForm", () => {
     expect(
       screen.queryByRole("button", { name: "Send message" }),
     ).not.toBeInTheDocument()
+  })
+
+  it("tracks contact_sent only after a 2xx, without any field values", async () => {
+    const user = userEvent.setup()
+    const request = pendingResponse()
+
+    render(<ContactForm />)
+
+    await fillAndSubmit(user)
+
+    expect(track).not.toHaveBeenCalled()
+
+    await request.settle(new Response("ok"))
+
+    expect(track).toHaveBeenCalledTimes(1)
+    expect(track).toHaveBeenCalledWith("contact_sent")
+  })
+
+  it.each([
+    [
+      "a non-2xx response",
+      () => fetchMock.mockResolvedValueOnce(new Response("", { status: 500 })),
+    ],
+    [
+      "a network failure",
+      () => fetchMock.mockRejectedValueOnce(new TypeError("Failed to fetch")),
+    ],
+  ])("tracks contact_failed on %s", async (_, fail) => {
+    const user = userEvent.setup()
+    fail()
+
+    render(<ContactForm />)
+
+    await fillAndSubmit(user)
+
+    expect(await screen.findByRole("alert")).toBeInTheDocument()
+    expect(track).toHaveBeenCalledTimes(1)
+    expect(track).toHaveBeenCalledWith("contact_failed")
   })
 
   it("brings back an empty form, focused on Name, to send another message", async () => {
