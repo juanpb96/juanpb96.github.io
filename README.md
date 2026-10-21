@@ -40,16 +40,16 @@ pnpm install
 pnpm dev
 ```
 
-| Command | What it does |
-| --- | --- |
-| `pnpm dev` | Dev server on `localhost:8443` |
-| `pnpm run dev:lan` | Dev server exposed on your network, to test on a phone |
-| `pnpm build` / `pnpm preview` | Production build in `dist/` and a local preview of it |
-| `pnpm test` | Unit and component tests (Vitest + Testing Library) |
-| `pnpm run e2e` | Playwright accessibility and visual checks against a production build |
-| `pnpm run lint` / `pnpm run format` | oxlint and oxfmt |
-| `pnpm run fonts` | Regenerate the subset fonts in `public/fonts/` |
-| `pnpm run og` | Regenerate the Open Graph image |
+| Command                             | What it does                                                          |
+| ----------------------------------- | --------------------------------------------------------------------- |
+| `pnpm dev`                          | Dev server on `localhost:8443`                                        |
+| `pnpm run dev:lan`                  | Dev server exposed on your network, to test on a phone                |
+| `pnpm build` / `pnpm preview`       | Production build in `dist/` and a local preview of it                 |
+| `pnpm test`                         | Unit and component tests (Vitest + Testing Library)                   |
+| `pnpm run e2e`                      | Playwright accessibility and visual checks against a production build |
+| `pnpm run lint` / `pnpm run format` | oxlint and oxfmt                                                      |
+| `pnpm run fonts`                    | Regenerate the subset fonts in `public/fonts/`                        |
+| `pnpm run og`                       | Regenerate the Open Graph image                                       |
 
 `AGENTS.md` documents the project structure, conventions and CI in detail.
 
