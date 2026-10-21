@@ -10,7 +10,8 @@ publish = "dist"
 NODE_VERSION = "26"
 
 # Security headers for everything Netlify serves from dist/. They don't apply
-# to proxied paths (the redirects below) or to edge-function responses.
+# to proxied paths (the redirects below) or to edge-function responses; the
+# weather app edge function sets its own.
 # The CSP is enforced after a clean report-only period in production.
 # Everything is same-origin except Umami analytics: its script comes from
 # cloud.umami.is and it posts events to gateway.umami.is (connect-src keeps
@@ -38,12 +39,8 @@ for = "/assets/*"
 [headers.values]
 Cache-Control = "public, max-age=31536000, immutable"
 
-# /FEM_weather-app itself is served by netlify/edge-functions/weather-app.ts
-[[redirects]]
-from = "/FEM_weather-app/*"
-to = "https://juanbonilla-fem-weather-app.netlify.app/FEM_weather-app/:splat"
-status = 200
-
+# /FEM_weather-app and everything under it is proxied by
+# netlify/edge-functions/weather-app.ts, which runs before these redirects.
 [[redirects]]
 from = "/*"
 to = "https://juanpb96.github.io/:splat"
